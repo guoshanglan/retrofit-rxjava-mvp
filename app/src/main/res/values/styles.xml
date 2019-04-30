@@ -1,0 +1,54 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme.AppCompat.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="introduction_title_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/x95</item>
+        <item name="android:layout_marginBottom">@dimen/x22</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x30</item>
+        <item name="android:textColor">@color/hisens_blue</item>
+    </style>
+
+    <style name="introduction_subtitle_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">118px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">36px</item>
+        <item name="android:textColor">@color/introducton_subtitle_text_color</item>
+
+    </style>
+
+    <style name="introduction_image_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="introduction_button_style">
+        <item name="android:layout_width">400px</item>
+        <item name="android:layout_height">90px</item>
+        <item name="android:textSize">30px</item>
+        <item name="android:textColor">@color/hisens_blue</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@drawable/blue_oval_background</item>
+        <item name="android:layout_marginTop">40px</item>
+    </style>
+
+</resources>

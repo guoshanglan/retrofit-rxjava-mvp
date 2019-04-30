@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorPrimaryBlue">#ff2ab5d7</color>
+    <color name="colorPrimaryWhite">#ffffff</color>
+
+    <color name="colorToast">#ff807a</color>
+    <color name="colorBackground">#f6f6f6</color>
+    <color name="colorPrimaryBlack">#000000</color>
+    <!--picker view-->
+    <color name="pickerview_timebtn_nor">#666666</color>
+    <color name="pickerview_timebtn_pre">#c2daf5</color>
+    <color name="pickerview_bg_topbar">#f6f6f6</color>
+    <color name="pickerview_topbar_title">#666666</color>
+    <color name="pickerview_wheelview_textcolor_out">#c9c9c9</color>
+    <color name="pickerview_wheelview_textcolor_center">#666666</color>
+    <color name="pickerview_wheelview_textcolor_divider">#c9c9c9</color>
+    <!--覆盖颜色-->
+    <color name="bgColor_overlay">#60000000</color>
+
+    <color name="hisens_blue">#2ab5d7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="hisens_background">#f6f6f6</color>
+    <color name="separator_color">#cccccc</color>
+    <color name="conversion_name_color">@android:color/black</color>
+    <color name="message_time_color">#666666</color>
+
+    <!-- 其它背景色或分割线相关 -->
+    <color name="bg_content">#f3f3f3</color>
+    <color name="divider_line">#d9d9d9</color>
+
+    <!-- 字体色 -->
+    <color name="text_title">#1b1b1b</color>
+    <color name="text_content">#818181</color>
+    <color name="text_sub">#919191</color>
+    <color name="text_hint">#c7c7c7</color>
+    <color name="text_black">#404040</color>
+
+    <!-- report -->
+    <color name="item_title_color">#333333</color>
+    <color name="border_color">@color/hisens_blue</color>
+    <color name="sub_title_color">@color/hisens_blue</color>
+    <color name="sub_title_background">#f1fcff</color>
+    <color name="report_text_color">#666666</color>
+    <color name="rectangle_stroke_color">#bfebf0</color>
+
+    <!-- health record -->
+    <color name="hint_top_color">#ffa23e</color>
+    <color name="hint_input_text_color">#cccccc</color>
+    <color name="record_text_color">#000000</color>
+
+    <!-- iief-5 score result -->
+    <color name="result_normal_color">#2ab5d7</color>
+    <color name="result_slight_exception_color">#51cd30</color>
+    <color name="result_medium_exception_color">#ffcf5c</color>
+    <color name="result_serious_exception_color">#ff807a</color>
+
+
+    <!-- introduction -->
+    <color name="introducton_subtitle_text_color">#999999</color>
+
+    <color name="sync_fail_color">#ff7700</color>
+    <color name="sync_success_color">#2ab500</color>
+</resources>

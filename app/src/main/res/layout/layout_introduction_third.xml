@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/introduction_title_style"
+        android:text="@string/intro_title_third"/>
+    <TextView
+        style="@style/introduction_subtitle_style"
+        android:text="@string/intro_subtitle_third"/>
+    <ImageView
+        style="@style/introduction_image_style"
+        android:src="@drawable/loading_pic03"/>
+    
+    <Button
+        android:id="@+id/bt_experience"
+        style="@style/introduction_button_style"
+        android:text="@string/intro_button_text"/>
+</LinearLayout>
