@@ -24,7 +24,39 @@ public class RequestUtils {
 
 
     /**
-     * Post 请求demo
+     * Get 请求d
+     * @param context
+     * @param
+     */
+    public static void get(Context context, String url, Map<String,String>params, MyObserver<BaseResponse> observer){
+        RetrofitUtils.getApiUrl()
+                .getUser(url,params).compose(RxHelper.observableIO2Main(context))
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        observer.onSuccess(baseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        observer.onFailure(e,e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
+    /**
+     * Post 请求
      * @param context
      * @param
      */
@@ -54,7 +86,7 @@ public class RequestUtils {
                 });
     }
     /**
-     * Put 请求demo
+     * Put 请求
      * @param context
      * @param
      */
@@ -88,8 +120,11 @@ public class RequestUtils {
     }
     /**
      * Delete 请求demo
-     * @param context
-     * @param consumer
+     * @param context  上下文对象
+     * @param observer   观察者
+     * @param params  查询参数map集合
+     * @param headsMap  请求头参数
+     * @param observer   观察者
      */
     @SuppressLint("CheckResult")
     public static void delete(Context context, String url, Map<String,String>params, Map<String,String>headsMap, MyObserver<BaseResponse> observer){

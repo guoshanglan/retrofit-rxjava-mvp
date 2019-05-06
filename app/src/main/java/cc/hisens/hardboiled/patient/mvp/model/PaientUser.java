@@ -26,6 +26,8 @@ import io.realm.annotations.RealmClass;
  * @describe TODO
  * @org www.hisens.cc
  * @email wb.hisens.cc
+ *
+ * 患者用户的model类
  */
 @RealmClass
 public class PaientUser implements RealmModel {

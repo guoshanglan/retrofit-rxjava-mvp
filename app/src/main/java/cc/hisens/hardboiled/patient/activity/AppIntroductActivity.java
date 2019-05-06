@@ -20,6 +20,11 @@ import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.bean.UserConfig;
 
+
+/**
+ *
+ * App介绍页，第一次打开APP是进入
+ */
 public class AppIntroductActivity extends BaseActivity {
 
     @BindView(R.id.vp_introduction)

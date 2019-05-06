@@ -7,10 +7,10 @@ public class MessageModel {
 
     public long from;   //用户id
     public long to;   //给谁发送信息的对象id
-    public byte type;
+    public byte type;   //
     public byte event;
     public byte accessory;
-    public long time;
+    public long time;    //时间
     public Content content;
 
     JSONObject messageObject = new JSONObject();
@@ -111,11 +111,11 @@ public class MessageModel {
 
     public static class Content {
 
-        public String text;
-        public String title;
-        public String intro;
-        public String url;
-        public String thumbUrl;
+        public String text;     //文字
+        public String title;     //标题
+        public String intro;     //介绍
+        public String url;      //链接
+        public String thumbUrl;   //缩略图
 
         public JSONObject  content = new JSONObject();
 

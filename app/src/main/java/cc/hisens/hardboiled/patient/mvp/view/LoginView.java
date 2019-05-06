@@ -16,8 +16,8 @@ import cc.hisens.hardboiled.patient.mvp.model.PaientUser;
 public interface LoginView {
     String getNumber();  //电话号码
     String getVoliatCode();  //验证码
-    Context getContext();
-    LoginActivity getActivity();
+    Context getContext();   //需要的上下文对象
+
 
     /**
      * 用户登录成功跳转失败

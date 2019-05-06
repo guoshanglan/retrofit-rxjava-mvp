@@ -43,6 +43,7 @@
         tools:replace="android:appComponentFactory"
         tools:ignore="GoogleAppIndexingWarning">
 
+
         <activity
             android:name=".activity.SplashActivity"
             android:launchMode="singleTop"

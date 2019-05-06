@@ -24,13 +24,10 @@ public interface ApiUrl {
     /**
      * TODO Get请求
      */
-    //第一种方式：GET不带参数
+
 
     @GET
-    Observable<BaseResponse> getUser(@Url String url);
-
-    @GET
-    Observable<BaseResponse> getUser1(@Url String url,@QueryMap Map<String, String> info); //简洁方式   直接获取所需数据
+    Observable<BaseResponse> getUser(@Url String url,@QueryMap Map<String, String> info); //简洁方式   直接获取所需数据
 
 
     /**

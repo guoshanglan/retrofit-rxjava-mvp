@@ -60,7 +60,7 @@ public class ChatClient implements WebSocketClientListener {
     @Override
     public void onConnected() {
         MessageModel message = new MessageModel();
-        message.setFrom(10000);
+        message.setFrom(10000);   //由何处发起的连接对话
         message.setType((byte) 6);
         message.setTime(System.currentTimeMillis() / 1000);
 

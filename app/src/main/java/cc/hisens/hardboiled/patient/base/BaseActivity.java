@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import cc.hisens.hardboiled.patient.MyApplication;
 import cc.hisens.hardboiled.patient.R;
@@ -40,9 +42,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         if (mPresenter != null) {
             mPresenter.attach(this);
         }
-
-        //初始化控件
-       // initializeView(savedInstanceState);
+        //初始化EventBus
+        EventBus.getDefault().register(this);
 
     }
 
@@ -91,6 +92,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
             mPresenter=null;
         }
         ActivityCollector.removeActivity(this);
+        EventBus.getDefault().unregister(this);  //取消注册
     }
 
 

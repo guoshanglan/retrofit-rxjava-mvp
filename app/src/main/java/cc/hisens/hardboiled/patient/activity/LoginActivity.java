@@ -167,10 +167,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
         return this;
     }
 
-    @Override
-    public LoginActivity getActivity() {
-        return this;
-    }
 
 
     //登录成功
