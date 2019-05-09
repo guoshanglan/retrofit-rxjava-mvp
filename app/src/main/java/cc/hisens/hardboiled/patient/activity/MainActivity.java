@@ -1,8 +1,9 @@
-package cc.hisens.hardboiled.patient;
+package cc.hisens.hardboiled.patient.activity;
 
 
 import android.os.Bundle;
 
+import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 
@@ -20,6 +21,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
+
         return R.layout.activity_main;
     }
 

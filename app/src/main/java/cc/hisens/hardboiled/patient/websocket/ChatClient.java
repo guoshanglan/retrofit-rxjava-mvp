@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cc.hisens.hardboiled.patient.bean.UserConfig;
+
 public class ChatClient implements WebSocketClientListener {
 
     private static URI mURI;
@@ -50,25 +52,30 @@ public class ChatClient implements WebSocketClientListener {
         startConnectTask();
     }
 
+    //发送消息
+
     public void sendMessage(MessageModel message) {
         if (message == null) {
             throw new NullPointerException("Message is Empty");
         }
-        webSocketClientImpl.send(message.toString().getBytes());
+        if(isConnected&&webSocketClientImpl!=null) {
+
+            webSocketClientImpl.send(message.toString().getBytes());
+        }
     }
 
     @Override
     public void onConnected() {
         MessageModel message = new MessageModel();
-        message.setFrom(10000);   //由何处发起的连接对话
+        message.setFrom(Long.parseLong(UserConfig.UserInfo.getUid()));   //由登录用户发起长连接
         message.setType((byte) 6);
         message.setTime(System.currentTimeMillis() / 1000);
 
-        sendMessage(message);
+        sendMessage(message);   //向服务器发送一条消息
 
-        cancelConnectTimer();
+        cancelConnectTimer();  //取消连接定时器
 
-        startPingTask();
+        startPingTask();    //开始发送心跳包，保证长连接没有断开
     }
 
     @Override

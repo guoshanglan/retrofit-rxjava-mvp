@@ -1,6 +1,6 @@
 package cc.hisens.hardboiled.patient.retrofit;
 
-public class Constans {
+public class Url {
 
     //设置默认超时时间
     public static final int DEFAULT_TIME=10;

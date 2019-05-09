@@ -1,4 +1,4 @@
-package cc.hisens.hardboiled.patient.database;
+package cc.hisens.hardboiled.patient.db;
 
 import java.util.List;
 

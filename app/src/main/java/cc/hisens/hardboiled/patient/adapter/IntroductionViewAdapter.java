@@ -8,6 +8,8 @@ import java.util.List;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+//APP介绍页的适配器，左右滑动的Adapter
+
 public class IntroductionViewAdapter extends PagerAdapter {
 
     List<View> mViewList;

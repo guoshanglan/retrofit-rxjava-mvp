@@ -1,6 +1,7 @@
 package cc.hisens.hardboiled.patient.base;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
@@ -18,8 +19,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
 
     protected BasePresenter mPresenter;
     protected MyApplication appLication;
-    protected SharedUtils sharedUtils;
-    protected ProgressDialog mProgressDialog;
+    protected SharedUtils sharedUtils;     //共享参数sp的对象
+    protected ProgressDialog mProgressDialog;   //加载框
 
 
 
@@ -27,11 +28,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityCollector.addActivity(this);
-//        //屏幕适配一定要设置在setcontentView之前
+       //屏幕适配一定要设置在setcontentView之前
         ScreenUtil.resetDensity(this);
 
-        //设置布局内容
-        setContentView(getLayoutId());
          ButterKnife.bind(this);
 
         //绑定初始化application
@@ -42,8 +41,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         if (mPresenter != null) {
             mPresenter.attach(this);
         }
-        //初始化EventBus
-        EventBus.getDefault().register(this);
+
 
     }
 
@@ -67,6 +65,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
     }
 
 
+    //进度框消失
     protected void dismissProgressDialog() {
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
@@ -83,6 +82,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         ScreenUtil.resetDensity(this);
     }
 
+
+
     //页面销毁
     @Override
     protected void onDestroy() {
@@ -92,7 +93,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
             mPresenter=null;
         }
         ActivityCollector.removeActivity(this);
-        EventBus.getDefault().unregister(this);  //取消注册
+
     }
 
 

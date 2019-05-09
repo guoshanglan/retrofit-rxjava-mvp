@@ -10,7 +10,7 @@ import java.util.Map;
 
 import cc.hisens.hardboiled.patient.mvp.present.LoginPresenter;
 import cc.hisens.hardboiled.patient.retrofit.BaseResponse;
-import cc.hisens.hardboiled.patient.retrofit.Constans;
+import cc.hisens.hardboiled.patient.retrofit.Url;
 import cc.hisens.hardboiled.patient.retrofit.MyObserver;
 import cc.hisens.hardboiled.patient.retrofit.RequestUtils;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
@@ -120,7 +120,7 @@ public class PaientUser implements RealmModel {
         params.put("phone", number);
         params.put("code", VerificationCode);
 
-        RequestUtils.post(context, Constans.paientLogin, params, new HashMap<>(), new MyObserver<BaseResponse>(context) {
+        RequestUtils.post(context, Url.paientLogin, params, new HashMap<>(), new MyObserver<BaseResponse>(context) {
             @Override
             public void onSuccess(BaseResponse result) {
                 if (result != null) {
@@ -150,7 +150,7 @@ public class PaientUser implements RealmModel {
     public void getVerificationCode(final Context context, String number, final LoginPresenter listener) {
         Map<String, String> params = new HashMap<>();
         params.put("phone", number);
-        RequestUtils.post(context, Constans.getVerificationCode, params, new HashMap<>(), new MyObserver<BaseResponse>(context) {
+        RequestUtils.post(context, Url.getVerificationCode, params, new HashMap<>(), new MyObserver<BaseResponse>(context) {
             @Override
             public void onSuccess(BaseResponse result) {
                 if (result != null) {

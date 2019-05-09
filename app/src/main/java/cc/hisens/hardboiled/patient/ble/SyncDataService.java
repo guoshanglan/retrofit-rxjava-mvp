@@ -31,7 +31,7 @@ import cc.hisens.hardboiled.patient.ble.protocol.callbacks.OnBatteryCallback;
 import cc.hisens.hardboiled.patient.ble.protocol.callbacks.OnErectionCallback;
 import cc.hisens.hardboiled.patient.ble.protocol.callbacks.OnFoundationStateCallback;
 import cc.hisens.hardboiled.patient.ble.protocol.callbacks.OnSerialNoCallback;
-import cc.hisens.hardboiled.patient.database.impl.EdRepositoryImpl;
+import cc.hisens.hardboiled.patient.db.impl.EdRepositoryImpl;
 import cc.hisens.hardboiled.patient.utils.EdUtils;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;

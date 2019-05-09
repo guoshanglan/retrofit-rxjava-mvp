@@ -1,4 +1,4 @@
-package cc.hisens.hardboiled.patient.database;
+package cc.hisens.hardboiled.patient.db;
 
 
 import android.text.TextUtils;
@@ -11,10 +11,14 @@ import io.realm.RealmConfiguration;
 /**
  * @author Ou Weibin
  * @version 1.0
+ *
+ * 这里使用的数据库是realm,类似于sqlite，这个是辅助类
  */
 public class RealmHelper {
     private static final int CURRENT_VERSION = 0;
 
+
+    //这里用的是用户id作为数据库的名字
     public static Realm getRealm() {
         String name;
         if (!TextUtils.isEmpty(UserConfig.UserInfo.getUid())) {

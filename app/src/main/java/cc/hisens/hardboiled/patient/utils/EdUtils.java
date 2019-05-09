@@ -14,8 +14,8 @@ import cc.hisens.hardboiled.patient.bean.Ed;
 import cc.hisens.hardboiled.patient.bean.EdInfo;
 import cc.hisens.hardboiled.patient.ble.algorithm.EdAnalyze;
 import cc.hisens.hardboiled.patient.ble.algorithm.ErectionDataModel;
-import cc.hisens.hardboiled.patient.database.EdRepository;
-import cc.hisens.hardboiled.patient.database.impl.EdRepositoryImpl;
+import cc.hisens.hardboiled.patient.db.EdRepository;
+import cc.hisens.hardboiled.patient.db.impl.EdRepositoryImpl;
 import io.realm.RealmList;
 
 import static cc.hisens.hardboiled.patient.utils.BytesUtils.bytesToInt;

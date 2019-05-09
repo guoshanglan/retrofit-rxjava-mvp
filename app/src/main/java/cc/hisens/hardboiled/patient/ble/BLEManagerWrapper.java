@@ -33,6 +33,7 @@ import cc.hisens.hardboiled.patient.ble.callbacks.ISyncDataCallback;
 import cc.hisens.hardboiled.patient.ble.protocol.Protocol;
 import cc.hisens.hardboiled.patient.ble.protocol.callbacks.OnSetTimeCallback;
 import cc.hisens.hardboiled.patient.utils.BytesUtils;
+import cc.hisens.hardboiled.patient.utils.ToastUtils;
 
 
 /**
@@ -47,10 +48,10 @@ import cc.hisens.hardboiled.patient.utils.BytesUtils;
 
 public class BLEManagerWrapper {
 
-    private static BLEManagerWrapper sInstance;
+    private static BLEManagerWrapper sInstance;   //当前类的对象
     private Context mContext;
     private BleService mBleService;
-    private SyncDataService mSyncDataService;
+    private SyncDataService mSyncDataService;   //同步数据的服务
 
     private CallbackInfo mCallbackInfo;
     private List<ISyncDataCallback> mISyncDataCallbackList;
@@ -152,6 +153,8 @@ public class BLEManagerWrapper {
 
     }
 
+
+    //判断当前蓝牙是否已经连接
     public boolean isConnected() {
         return mBleService != null && mBleService.isConnected(mBleDevice);
     }
@@ -426,10 +429,18 @@ public class BLEManagerWrapper {
     }
 
 
-    //蓝牙连接，有多个设备时用这个方法进行连接
+    //蓝牙连接，有多个设备时用这个方法进行连接,传进来的position来确认是需要连接哪个设备
     private  void  Connect(int position){
 
+
+
         if(deviceList!=null&&deviceList.size()!=0) {
+            //判断当前是否已经连接上了蓝牙设备，所以需要先断开之前的连接在进行重连
+            if (isConnected()){
+
+                this.disconnect();
+            }
+
             mBleService.connectDevice(deviceList.get(position), new BleGattCallback() {
                 @Override
                 public void onStartConnect() {
@@ -477,6 +488,8 @@ public class BLEManagerWrapper {
                     }
                 }
             });
+        }else{
+            ToastUtils.show(mContext,"当前没有可以连接的蓝牙设备~");
         }
 
     }
@@ -518,6 +531,7 @@ public class BLEManagerWrapper {
 
     //扫描蓝牙设备并且进行连接
     private void scanNameAndConnect() {
+
 
         mBleService.scanNameAndConnect(new BleScanAndConnectCallback() {
             @Override

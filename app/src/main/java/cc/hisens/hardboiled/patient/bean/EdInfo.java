@@ -18,10 +18,10 @@ import io.realm.annotations.PrimaryKey;
 public class EdInfo extends RealmObject {
 
     @PrimaryKey
-    private long startTime;
-    private long endTime;
-    private long duration;
-    private int erectileStrength;
+    private long startTime;   //一次数据开始时间
+    private long endTime;   //一次数据的结束时间
+    private long duration;    //持续时间
+    private int erectileStrength;  //强度
 
     public long getStartTime() {
         return startTime;

@@ -55,6 +55,19 @@
             </intent-filter>
         </activity>
 
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="cc.hisens.hardboiled.doctor"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+
+
         <activity android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
             android:configChanges="orientation|screenLayout">
@@ -69,7 +82,7 @@
 
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:configChanges="orientation|screenLayout" />
 

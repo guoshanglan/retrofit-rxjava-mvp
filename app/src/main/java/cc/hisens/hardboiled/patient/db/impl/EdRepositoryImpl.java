@@ -1,4 +1,4 @@
-package cc.hisens.hardboiled.patient.database.impl;
+package cc.hisens.hardboiled.patient.db.impl;
 
 import android.text.TextUtils;
 
@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 
 import cc.hisens.hardboiled.patient.bean.Ed;
 import cc.hisens.hardboiled.patient.ble.algorithm.EdAnalyze;
-import cc.hisens.hardboiled.patient.database.EdRepository;
-import cc.hisens.hardboiled.patient.database.RealmHelper;
+import cc.hisens.hardboiled.patient.db.EdRepository;
+import cc.hisens.hardboiled.patient.db.RealmHelper;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;

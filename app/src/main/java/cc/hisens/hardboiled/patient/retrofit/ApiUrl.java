@@ -24,8 +24,6 @@ public interface ApiUrl {
     /**
      * TODO Get请求
      */
-
-
     @GET
     Observable<BaseResponse> getUser(@Url String url,@QueryMap Map<String, String> info); //简洁方式   直接获取所需数据
 
@@ -65,7 +63,7 @@ public interface ApiUrl {
 
     @Multipart
     @POST
-    Observable<BaseResponse> uploadImage1(@Url String url,@HeaderMap Map<String, String> headers, @Part List<MultipartBody.Part> files);
+    Observable<BaseResponse> uploadImages(@Url String url,@HeaderMap Map<String, String> headers, @Part List<MultipartBody.Part> files);
 
     /**
      * 来自https://blog.csdn.net/impure/article/details/79658098

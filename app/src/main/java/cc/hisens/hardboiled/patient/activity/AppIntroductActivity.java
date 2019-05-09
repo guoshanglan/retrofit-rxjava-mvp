@@ -13,7 +13,6 @@ import java.util.List;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import cc.hisens.hardboiled.patient.Appconfig;
-import cc.hisens.hardboiled.patient.MainActivity;
 import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.adapter.IntroductionViewAdapter;
 import cc.hisens.hardboiled.patient.base.BaseActivity;

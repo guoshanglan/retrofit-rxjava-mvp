@@ -43,7 +43,7 @@ public class Ed extends RealmObject {
     private String interferenceFactor;
 
     //一次测量状态下的所有勃起数据
-    private RealmList<EdInfo> edInfos;
+    private RealmList<EdInfo> edInfos;    //这样设置是为了在数据库中插入其他的数据对象
 
     //最大强度
     private int maxStrength;

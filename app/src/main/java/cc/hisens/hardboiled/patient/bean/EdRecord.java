@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+//蓝牙数据记录类
+
 public class EdRecord {
 
 //    @SerializedName("uid")
@@ -26,10 +28,10 @@ public class EdRecord {
     public boolean isIntervene;
 
     @SerializedName("maxStrength")
-    public int maxStrength;
+    public int maxStrength;   //最大强度
 
     @SerializedName("maxDuration")
-    public long maxDuration;
+    public long maxDuration;  //最大持续时间
 
     @SerializedName("rlist")
     public EdDetail[] rlist;

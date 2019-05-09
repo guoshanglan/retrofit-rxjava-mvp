@@ -24,7 +24,7 @@ public class RequestUtils {
 
 
     /**
-     * Get 请求d
+     * Get 请求
      * @param context
      * @param
      */
@@ -154,18 +154,18 @@ public class RequestUtils {
     }
 
     /**
-     * 上传图片
+     * 上传图片，文件
      * @param context
      * @param observer
      */
-    public static void upImagView(Context context, String  url, String pathName, MyObserver<BaseResponse>  observer){
+    public static void upImage(Context context, String  url, String pathName, MyObserver<BaseResponse>  observer){
         File file = new File(pathName);
 //        File file = new File(imgPath);
         Map<String,String> header = new HashMap<String, String>();
         header.put("Accept","application/json");
 
 //        File file =new File(filePath);
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 //        RequestBody requestFile =
 //                RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body =
@@ -195,21 +195,21 @@ public class RequestUtils {
     }
 
     /**
-     * 上传多张图片
+     * 上传多张图片，多份文件
      * @param files
      */
-    public static void upLoadImg(Context context, String url, List<File> files, MyObserver<BaseResponse>  observer){
+    public static void upLoadImgs(Context context, String url, List<File> files, MyObserver<BaseResponse>  observer){
         Map<String,String> header = new HashMap<String, String>();
         header.put("Accept","application/json");
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);//表单类型
         for (int i = 0; i < files.size(); i++) {
             File file = files.get(i);
-            RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/*"), file);
+            RequestBody photoRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             builder.addFormDataPart("file", file.getName(), photoRequestBody);
         }
         List<MultipartBody.Part> parts = builder.build().parts();
-        RetrofitUtils.getApiUrl().uploadImage1(url,header,parts).compose(RxHelper.observableIO2Main(context))
+        RetrofitUtils.getApiUrl().uploadImages(url,header,parts).compose(RxHelper.observableIO2Main(context))
                 .subscribe(new Observer<BaseResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {

@@ -49,15 +49,14 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected Disposable mDisposable;
 
     private PaientUser mUser;
-    private LoginPresenter loginPresenter;
-
+    private LoginPresenter loginPresenter;  //登录的presenter
 
 
     //页面创建生命周期
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         initview();
+        initview();
     }
 
 
@@ -71,38 +70,32 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
 
     //点击事件
-    @OnClick({R.id.btn_login,R.id.tv_get_verification_code})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.btn_login, R.id.tv_get_verification_code})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_login:    //登录
-                  if (TextUtils.isEmpty(mEtInputPhoneNum.getText().toString())){
-                      ToastUtils.show(this,R.string.login_error_hint);
-                  }else if(TextUtils.isEmpty(mEtInputVerificationCode.getText().toString())){
-                      ToastUtils.show(this,R.string.input_verification_code_hint);
-                  }else{
-                      initProgressDialog();
-                      loginPresenter.login();   //进行登录
-                  }
-
+                if (TextUtils.isEmpty(mEtInputPhoneNum.getText().toString())) {
+                    ToastUtils.show(this, R.string.login_error_hint);
+                } else if (TextUtils.isEmpty(mEtInputVerificationCode.getText().toString())) {
+                    ToastUtils.show(this, R.string.input_verification_code_hint);
+                } else {
+                    initProgressDialog();
+                    loginPresenter.login();   //进行登录
+                }
                 break;
-
             case R.id.tv_get_verification_code:    //获取验证码
-
-                if (TextUtils.isEmpty(mEtInputPhoneNum.getText().toString())){
-                    ToastUtils.show(this,R.string.login_error_hint);
-                }else{
+                if (TextUtils.isEmpty(mEtInputPhoneNum.getText().toString())) {
+                    ToastUtils.show(this, R.string.login_error_hint);
+                } else {
                     setTime();
                     loginPresenter.getVerificationCode();   //进行获取手机验证码
                 }
-
                 break;
 
         }
 
     }
-
-
-//重置获取验证码按钮的点击状态
+    //重置获取验证码按钮的点击状态
     protected void resetGetVerificationCodeEditText() {
         mTvGetVerificationCode.setText(getString(R.string.get_verification_code));
         mTvGetVerificationCode.setEnabled(true);
@@ -110,10 +103,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
             mDisposable.dispose();
         }
     }
-
-
     //获取验证码倒计时
-    public void setTime(){
+    public void setTime() {
         mTvGetVerificationCode.setEnabled(false);
         mDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
                 .compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY))
@@ -129,37 +120,32 @@ public class LoginActivity extends BaseActivity implements LoginView {
                         }
                     }
                 });
-
     }
-
-
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
     }
 
-
     //获得一个中间Presenter的中间桥梁
     @Override
     public BasePresenter getPresenter() {
-        if (loginPresenter==null){
-            loginPresenter=new LoginPresenter();
+        if (loginPresenter == null) {
+            loginPresenter = new LoginPresenter();
         }
         return loginPresenter;
     }
 
-
     //获取手机号
     @Override
     public String getNumber() {
-        return mEtInputPhoneNum.getText().toString().replace(" ","");
+        return mEtInputPhoneNum.getText().toString().replace(" ", "");
     }
 
     //获取验证码
     @Override
     public String getVoliatCode() {
-        return mEtInputVerificationCode.getText().toString().replace(" ","");
+        return mEtInputVerificationCode.getText().toString().replace(" ", "");
     }
 
     @Override
@@ -168,26 +154,22 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
 
-
     //登录成功
     @Override
     public void setLoginsuccessful(PaientUser loginBean) {
         resetGetVerificationCodeEditText(); //重置
         dismissProgressDialog();
-        Log.e("成功",loginBean.name);
-
+        Log.e("成功", loginBean.name);
 
     }
-
 
     //登录失败
     @Override
     public void setFailedError(String str) {
-        ToastUtils.show(this,str);
-        Log.e("错误",str);
+        ToastUtils.show(this, str);
+        Log.e("错误", str);
         dismissProgressDialog();
         resetGetVerificationCodeEditText(); //重置
     }
-
 
 }

@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cc.hisens.hardboiled.patient.Appconfig;
-import cc.hisens.hardboiled.patient.MainActivity;
 import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
@@ -32,13 +33,14 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler.sendEmptyMessageDelayed(11,SLEEP_TIME);
+        setContentView(R.layout.activity_splash);
+//        //初始化EventBus
+//        EventBus.getDefault().register(this);     //   这个要有对应的事件处理
     }
 
-    //返回布局id
     @Override
     protected int getLayoutId() {
-
-        return R.layout.activity_splash;
+        return 0;
     }
 
 
@@ -66,8 +68,11 @@ public class SplashActivity extends BaseActivity {
         return sharedUtils.readBoolean(Appconfig.PREF_INTRODUCTION_FINISHED, false);
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        EventBus.getDefault().unregister(this);  //取消注册
+    }
 
     //这里不需要Present
     @Override
