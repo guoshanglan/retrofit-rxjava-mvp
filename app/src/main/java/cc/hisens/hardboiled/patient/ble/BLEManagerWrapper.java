@@ -174,7 +174,6 @@ public class BLEManagerWrapper {
             mBleService.notify(device, serviceUUID, notifyUUID, callback);
         }
     }
-
     public void write(byte[] data, BleWriteCallback characterCallback) {
 //        BytesUtils.printHex("write", data);
         String threadName = Thread.currentThread().getName();
@@ -189,7 +188,6 @@ public class BLEManagerWrapper {
 
     /**
      * write
-     *
      * @param serviceUUID
      * @param writeUUID
      * @param data
@@ -205,16 +203,13 @@ public class BLEManagerWrapper {
 
         KLog.i("thread name:" + threadName +
                 " , thread id:" + threadId);
-
         if (mBleService != null) {
             mBleService.writeDevice(mBleDevice, serviceUUID, writeUUID, data, callback);
         }
-
     }
 
     /**
      * read
-     *
      * @param serviceUUID
      * @param readUUID
      * @param callback
@@ -297,7 +292,6 @@ public class BLEManagerWrapper {
             mBleService.closeBluetoothGatt();
     }
 
-
     /**
      * 使能特征
      *
@@ -338,7 +332,6 @@ public class BLEManagerWrapper {
         notify(device, UUIDConstants.SERVICE.toString(), UUIDConstants.CHAR_NOTIFY.toString(), mBleNotifyCallback);
 
     }
-
 
     //注册蓝牙广播
     private void registerReceiver() {
@@ -430,14 +423,11 @@ public class BLEManagerWrapper {
 
 
     //蓝牙连接，有多个设备时用这个方法进行连接,传进来的position来确认是需要连接哪个设备
-    private  void  Connect(int position){
-
-
+    private  void  Connects(int position){
 
         if(deviceList!=null&&deviceList.size()!=0) {
             //判断当前是否已经连接上了蓝牙设备，所以需要先断开之前的连接在进行重连
             if (isConnected()){
-
                 this.disconnect();
             }
 
@@ -494,10 +484,11 @@ public class BLEManagerWrapper {
 
     }
 
+    /**
+     *
+      扫描设备，没有进行连接,可能有多个设备需要展示
+     */
 
-
-
-    //扫描设备，没有进行连接,可能有多个设备需要展示
     private  void  ScanName(){
         mBleService.scanDevice(new BleScanCallback() {
             @Override
@@ -508,11 +499,11 @@ public class BLEManagerWrapper {
                     }
                 }else{
                     deviceList=scanResultList;
+                    mBleService.cancelScan();  //停止扫描
 
                 }
 
             }
-
             @Override
             public void onScanStarted(boolean success) {
 
@@ -521,7 +512,7 @@ public class BLEManagerWrapper {
             @Override
             public void onScanning(BleDevice bleDevice) {
                 KLog.i("onScanning");
-                mBleService.cancelScan();
+
             }
         });
     }
@@ -531,7 +522,6 @@ public class BLEManagerWrapper {
 
     //扫描蓝牙设备并且进行连接
     private void scanNameAndConnect() {
-
 
         mBleService.scanNameAndConnect(new BleScanAndConnectCallback() {
             @Override

@@ -47,6 +47,8 @@ public class AppIntroductActivity extends BaseActivity {
     }
 
 
+
+    //设置数据
     private void setData(){
         View first = LayoutInflater.from(this).inflate(R.layout.layout_introduction_first,null);
         View second = LayoutInflater.from(this).inflate(R.layout.layout_introduction_second,null);

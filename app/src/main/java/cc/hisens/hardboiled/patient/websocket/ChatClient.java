@@ -52,8 +52,8 @@ public class ChatClient implements WebSocketClientListener {
         startConnectTask();
     }
 
-    //发送消息
 
+    //发送消息,这个发送消息需要用户id，和你需要发送的人的id
     public void sendMessage(MessageModel message) {
         if (message == null) {
             throw new NullPointerException("Message is Empty");

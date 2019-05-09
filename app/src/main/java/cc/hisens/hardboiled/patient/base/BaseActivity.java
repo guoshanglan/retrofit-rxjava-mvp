@@ -30,7 +30,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         ActivityCollector.addActivity(this);
        //屏幕适配一定要设置在setcontentView之前
         ScreenUtil.resetDensity(this);
-
+         setContentView(getLayoutId());
          ButterKnife.bind(this);
 
         //绑定初始化application

@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler.sendEmptyMessageDelayed(11,SLEEP_TIME);
-        setContentView(R.layout.activity_splash);
+        //setContentView(R.layout.activity_splash);
 //        //初始化EventBus
 //        EventBus.getDefault().register(this);     //   这个要有对应的事件处理
     }
