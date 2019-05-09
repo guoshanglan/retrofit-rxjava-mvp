@@ -1,11 +1,7 @@
 package cc.hisens.hardboiled.patient.db.impl;
 
-import android.text.TextUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
+import android.text.TextUtils;
 
 import cc.hisens.hardboiled.patient.bean.Ed;
 import cc.hisens.hardboiled.patient.ble.algorithm.EdAnalyze;
@@ -18,6 +14,9 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author Waiban
@@ -27,14 +26,11 @@ import io.realm.Sort;
  * @describe TODO
  * @org www.hisens.cc
  * @email wb.hisens.cc
- *
- *
- *
- *
- * 蓝牙监测数据的存储数据库操作
  */
 
 public class EdRepositoryImpl implements EdRepository {
+
+    //记录一条ed数据
     @Override
     public Observable<Ed> saveEd(@NonNull Ed ed) {
         Realm realm = RealmHelper.getRealm();
@@ -46,6 +42,8 @@ public class EdRepositoryImpl implements EdRepository {
         return Observable.just(edNew);
     }
 
+
+    //记录多条ed数据
     @Override
     public Observable<List<Ed>> saveEdList(List<Ed> edList) {
         Realm realm = RealmHelper.getRealm();
@@ -56,13 +54,14 @@ public class EdRepositoryImpl implements EdRepository {
         return Observable.just(list);
     }
 
+    //获取勃起时候的多条Ed数据
     @Override
     public Observable<List<Ed>> getNptEds(long startTime, long endTime) {
         Realm realm = RealmHelper.getRealm();
         List<Ed> edList = realm.copyFromRealm(
                 realm.where(Ed.class)
-                .between(Ed.START_SLEEP, startTime, endTime)
-                        .findAll().sort(Ed.START_SLEEP, Sort.ASCENDING));
+                        .between(Ed.START_SLEEP, startTime, endTime)
+                        .findAll().sort(Ed.START_SLEEP, Sort.ASCENDING));   //对查询结果进行排序，根据开始睡觉的时间进行正序排序
         realm.close();
         List<Ed> list = new ArrayList<>();
         for (Ed ed : edList) {
@@ -74,12 +73,13 @@ public class EdRepositoryImpl implements EdRepository {
         return Observable.just(list);
     }
 
+    //获取勃起时候的一条Ed数据
     @Override
     public Observable<Ed> getNptEd(long startTime, long endTime) {
         Realm realm = RealmHelper.getRealm();
         List<Ed> edList = realm.copyFromRealm(realm.where(Ed.class)
                 .between(Ed.START_SLEEP, startTime, endTime)
-                .findAll().sort(Ed.START_SLEEP, Sort.DESCENDING));
+                .findAll().sort(Ed.START_SLEEP, Sort.DESCENDING));   //根据开始睡觉的时间对查询的结果进行逆序排列
         realm.close();
         Ed resEd = null;
         if (edList.size() > 0) {
@@ -94,6 +94,8 @@ public class EdRepositoryImpl implements EdRepository {
         return Observable.just(resEd == null ? new Ed() : resEd);
     }
 
+
+    //获取最后一条Ed数据
     @Override
     public Observable<Ed> getLatestEd() {
         Realm realm = RealmHelper.getRealm();
@@ -102,11 +104,13 @@ public class EdRepositoryImpl implements EdRepository {
         return Observable.just(results.size() > 0 ? results.get(0) : new Ed());
     }
 
+
+    //获取Ed数据
     @Override
     public Observable<Ed> getEd(long startSleep) {
         Realm realm = RealmHelper.getRealm();
         List<Ed> results = realm.copyFromRealm(realm.where(Ed.class)
-                .equalTo(Ed.START_SLEEP, startSleep).findAll().sort(Ed.START_SLEEP, Sort.DESCENDING));
+                .equalTo(Ed.START_SLEEP, startSleep).findAll().sort(Ed.START_SLEEP, Sort.DESCENDING));  //查询startTimestamp等于startsleep的数据，根据查询的结果进行逆序排列
         realm.close();
         if (results.size() == 0) {
             return Observable.create(new ObservableOnSubscribe<Ed>() {
@@ -120,6 +124,7 @@ public class EdRepositoryImpl implements EdRepository {
         }
     }
 
+    //获取干预状态下的一条Ed历史记录，
     @Override
     public Observable<Ed> getSpecificEd(long startSleep) {
         Realm realm = RealmHelper.getRealm();
@@ -139,6 +144,8 @@ public class EdRepositoryImpl implements EdRepository {
         }
     }
 
+
+    //获取干预状态下的多条Ed历史记录，
     @Override
     public Observable<List<Ed>> getSpecificEds() {
         Realm realm = RealmHelper.getRealm();
@@ -154,6 +161,9 @@ public class EdRepositoryImpl implements EdRepository {
         return Observable.just(list);
     }
 
+
+
+    //获取未更新的ed数据
     @Override
     public List<Ed> getNotSyncEd() {
 
@@ -167,6 +177,8 @@ public class EdRepositoryImpl implements EdRepository {
         return list;
     }
 
+
+    //更新ed的同步状态，未更新全部改为已更新
     @Override
     public void updateEdSyncState() {
 
@@ -184,6 +196,8 @@ public class EdRepositoryImpl implements EdRepository {
 
     }
 
+
+    //删除ed
     @Override
     public Observable<Boolean> deleteEd(long startTime) {
         Realm realm = RealmHelper.getRealm();

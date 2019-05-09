@@ -10,9 +10,9 @@ import java.util.Map;
 
 import cc.hisens.hardboiled.patient.mvp.present.LoginPresenter;
 import cc.hisens.hardboiled.patient.retrofit.BaseResponse;
-import cc.hisens.hardboiled.patient.retrofit.Url;
 import cc.hisens.hardboiled.patient.retrofit.MyObserver;
 import cc.hisens.hardboiled.patient.retrofit.RequestUtils;
+import cc.hisens.hardboiled.patient.retrofit.Url;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
 import io.realm.RealmModel;
 import io.realm.annotations.PrimaryKey;
@@ -30,7 +30,7 @@ import io.realm.annotations.RealmClass;
  * 患者用户的model类
  */
 @RealmClass
-public class PaientUser implements RealmModel {
+public class User implements RealmModel {
 
     @PrimaryKey
     @SerializedName("uid")
@@ -127,7 +127,7 @@ public class PaientUser implements RealmModel {
 
                     if (result.result == 0) {
                         Gson gson = new Gson();
-                        PaientUser paientUser = new Gson().fromJson(gson.toJson(result.getDatas()), PaientUser.class);
+                        User paientUser = new Gson().fromJson(gson.toJson(result.getDatas()), User.class);
                         listener.loginSuccess(paientUser);
                     } else {
 

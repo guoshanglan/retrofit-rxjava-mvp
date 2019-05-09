@@ -19,7 +19,7 @@ import butterknife.OnClick;
 import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
-import cc.hisens.hardboiled.patient.mvp.model.PaientUser;
+import cc.hisens.hardboiled.patient.mvp.model.User;
 import cc.hisens.hardboiled.patient.mvp.present.LoginPresenter;
 import cc.hisens.hardboiled.patient.mvp.view.LoginView;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
@@ -48,7 +48,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     protected Disposable mDisposable;
 
-    private PaientUser mUser;
+    private User mUser;
     private LoginPresenter loginPresenter;  //登录的presenter
 
 
@@ -156,7 +156,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     //登录成功
     @Override
-    public void setLoginsuccessful(PaientUser loginBean) {
+    public void setLoginsuccessful(User loginBean) {
         resetGetVerificationCodeEditText(); //重置
         dismissProgressDialog();
         Log.e("成功", loginBean.name);

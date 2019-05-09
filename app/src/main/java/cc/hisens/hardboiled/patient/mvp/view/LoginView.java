@@ -4,8 +4,9 @@ import android.content.Context;
 
 
 
-import cc.hisens.hardboiled.patient.activity.LoginActivity;
-import cc.hisens.hardboiled.patient.mvp.model.PaientUser;
+
+
+import cc.hisens.hardboiled.patient.mvp.model.User;
 
 
 /**
@@ -23,7 +24,7 @@ public interface LoginView {
      * 用户登录成功跳转失败
      * @param loginBean
      */
-    void setLoginsuccessful(PaientUser loginBean);
+    void setLoginsuccessful(User loginBean);
 
 
 

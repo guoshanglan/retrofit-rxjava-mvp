@@ -44,8 +44,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if (mPresenter != null) {
             mPresenter.attach(this);
         }
-        //初始化EventBus
-        EventBus.getDefault().register(this);
+//        //初始化EventBus
+//        EventBus.getDefault().register(this);
 
         mUnbinder = ButterKnife.bind(this, view);// 初始化黄牛刀
 
@@ -79,7 +79,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             mPresenter.detachView();
             mPresenter=null;
         }
-        EventBus.getDefault().unregister(this);  //取消注册
+//        EventBus.getDefault().unregister(this);  //取消注册
     }
 
 
