@@ -6,7 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/include_title_bar" />
+    <!--<include layout="@layout/include_title_bar" />-->
 
     <include layout="@layout/include_separator" />
 
@@ -32,6 +32,8 @@
             android:visibility="gone" />
     </FrameLayout>
 
+
+    <include layout="@layout/include_separator" />
 
     <LinearLayout
         android:id="@+id/radiogrop_bottom"
@@ -76,15 +78,13 @@
                 android:id="@+id/tv_doctor_message_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignRight="@id/rbtn_doctor"
-                android:layout_alignTop="@id/rbtn_doctor"
-                android:layout_marginRight="23dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x25"
                 android:background="@drawable/red_dot"
                 android:gravity="center"
                 android:textColor="@color/white"
                 tools:text="8"
-                tools:visibility="visible"
-                />
+                tools:visibility="visible" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
@@ -104,10 +104,9 @@
                 android:id="@+id/tv_helper_message_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignRight="@id/rbtn_helper"
-                android:layout_alignTop="@id/rbtn_helper"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x25"
                 android:background="@drawable/red_dot"
-                android:layout_marginRight="25dp"
                 android:gravity="center"
                 tools:text="4"
                 android:textColor="@color/white"

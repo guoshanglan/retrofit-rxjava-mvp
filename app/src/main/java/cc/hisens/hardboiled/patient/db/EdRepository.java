@@ -4,7 +4,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 
-import cc.hisens.hardboiled.patient.bean.Ed;
+import cc.hisens.hardboiled.patient.db.bean.Ed;
 import io.reactivex.Observable;
 
 /**
@@ -16,6 +16,7 @@ import io.reactivex.Observable;
  * @org www.hisens.cc
  * @email wb.hisens.cc
  */
+
 
 public interface EdRepository {
 

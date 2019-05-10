@@ -41,14 +41,14 @@
     </style>
 
     <style name="introduction_button_style">
-        <item name="android:layout_width">400px</item>
-        <item name="android:layout_height">90px</item>
-        <item name="android:textSize">30px</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">@dimen/x45</item>
+        <item name="android:textSize">@dimen/x18</item>
         <item name="android:textColor">@color/hisens_blue</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:background">@drawable/blue_oval_background</item>
-        <item name="android:layout_marginTop">40px</item>
+        <item name="android:layout_marginTop">@dimen/x20</item>
     </style>
 
 

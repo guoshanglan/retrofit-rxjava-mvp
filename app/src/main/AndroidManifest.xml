@@ -47,6 +47,7 @@
         <activity
             android:name=".activity.SplashActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,6 +71,7 @@
 
         <activity android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout">
 
         </activity>
@@ -78,12 +80,14 @@
         <activity
             android:name=".activity.AppIntroductActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout" />
 
 
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout" />
 
     </application>

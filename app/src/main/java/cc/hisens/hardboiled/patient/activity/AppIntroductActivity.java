@@ -17,7 +17,7 @@ import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.adapter.IntroductionViewAdapter;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
-import cc.hisens.hardboiled.patient.bean.UserConfig;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 
 
 /**

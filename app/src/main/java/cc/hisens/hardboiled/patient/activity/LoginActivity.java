@@ -1,6 +1,7 @@
 package cc.hisens.hardboiled.patient.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,9 +17,12 @@ import java.util.concurrent.TimeUnit;
 import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cc.hisens.hardboiled.patient.Appconfig;
 import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
+import cc.hisens.hardboiled.patient.db.impl.UserRepositoryImpl;
 import cc.hisens.hardboiled.patient.mvp.model.User;
 import cc.hisens.hardboiled.patient.mvp.present.LoginPresenter;
 import cc.hisens.hardboiled.patient.mvp.view.LoginView;
@@ -160,7 +164,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
         resetGetVerificationCodeEditText(); //重置
         dismissProgressDialog();
         Log.e("成功", loginBean.name);
+        sharedUtils.writeBoolean(UserConfig.UserInfo.EXTRA_IS_LOGIN,true);
+        UserConfig.UserInfo.setUid(loginBean.uid);
+         new UserRepositoryImpl().saveUser(loginBean);  //将登陆成功的用户信息进行存储
 
+        startActivity(new Intent(LoginActivity.this,MainActivity.class));  //跳转到主界面
     }
 
     //登录失败

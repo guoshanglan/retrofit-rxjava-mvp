@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import org.greenrobot.eventbus.EventBus;
-
 import cc.hisens.hardboiled.patient.Appconfig;
 import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
-import cc.hisens.hardboiled.patient.bean.UserConfig;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 
 public class SplashActivity extends BaseActivity {
 
@@ -40,7 +38,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_splash;
     }
 
 
@@ -59,7 +57,7 @@ public class SplashActivity extends BaseActivity {
         } else {
             startActivity(new Intent(this, LoginActivity.class));
         }
-        finish();
+        finish();  //销毁当前界面
     }
 
 

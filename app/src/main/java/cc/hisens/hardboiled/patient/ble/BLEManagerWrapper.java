@@ -498,6 +498,7 @@ public class BLEManagerWrapper {
                         callback.onNotFoundDevice();
                     }
                 }else{
+                    deviceList.clear();  //先清空一下
                     deviceList=scanResultList;
                     mBleService.cancelScan();  //停止扫描
 

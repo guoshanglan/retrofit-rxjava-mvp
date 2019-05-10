@@ -3,7 +3,7 @@ package cc.hisens.hardboiled.patient.db;
 
 import android.text.TextUtils;
 
-import cc.hisens.hardboiled.patient.bean.UserConfig;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;

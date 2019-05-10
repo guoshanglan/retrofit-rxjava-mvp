@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cc.hisens.hardboiled.patient.bean.UserConfig;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 
 public class ChatClient implements WebSocketClientListener {
 

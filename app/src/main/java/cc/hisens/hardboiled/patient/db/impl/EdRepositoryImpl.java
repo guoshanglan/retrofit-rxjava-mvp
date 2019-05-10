@@ -3,7 +3,7 @@ package cc.hisens.hardboiled.patient.db.impl;
 import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
-import cc.hisens.hardboiled.patient.bean.Ed;
+import cc.hisens.hardboiled.patient.db.bean.Ed;
 import cc.hisens.hardboiled.patient.ble.algorithm.EdAnalyze;
 import cc.hisens.hardboiled.patient.db.EdRepository;
 import cc.hisens.hardboiled.patient.db.RealmHelper;

@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 
 
-import cc.hisens.hardboiled.patient.bean.Ed;
-import cc.hisens.hardboiled.patient.bean.EdInfo;
+import cc.hisens.hardboiled.patient.db.bean.Ed;
+import cc.hisens.hardboiled.patient.db.bean.EdInfo;
 import cc.hisens.hardboiled.patient.ble.algorithm.EdAnalyze;
 import cc.hisens.hardboiled.patient.ble.algorithm.ErectionDataModel;
 import cc.hisens.hardboiled.patient.db.EdRepository;

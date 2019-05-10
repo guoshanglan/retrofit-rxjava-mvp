@@ -1,4 +1,4 @@
-package cc.hisens.hardboiled.patient.bean;
+package cc.hisens.hardboiled.patient.db.bean;
 
 import android.content.Context;
 

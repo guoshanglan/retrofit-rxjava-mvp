@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import androidx.multidex.MultiDex;
-import cc.hisens.hardboiled.patient.bean.UserConfig;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import cc.hisens.hardboiled.patient.utils.ScreenUtil;
 import io.realm.Realm;
 
