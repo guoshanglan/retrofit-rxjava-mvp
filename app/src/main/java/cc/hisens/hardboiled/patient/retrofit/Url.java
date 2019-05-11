@@ -14,5 +14,9 @@ public class Url {
     public static String getVerificationCode="/v1/user/phone_code";
 
 
+    //websocket连接地址
+    public static final String WEB_SOCKET_URL = "ws://10.0.0.27:8080/api/v1/ws";
+
+
 
 }

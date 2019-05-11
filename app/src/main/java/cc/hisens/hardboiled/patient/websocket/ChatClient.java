@@ -66,6 +66,9 @@ public class ChatClient implements WebSocketClientListener {
 
     @Override
     public void onConnected() {
+
+
+        Log.e("连接成功","sosososososo");
         MessageModel message = new MessageModel();
         message.setFrom(Long.parseLong(UserConfig.UserInfo.getUid()));   //由登录用户发起长连接
         message.setType((byte) 6);

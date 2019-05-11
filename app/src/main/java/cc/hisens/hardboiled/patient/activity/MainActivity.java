@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,7 +33,9 @@ import cc.hisens.hardboiled.patient.fragment.FristFragment;
 import cc.hisens.hardboiled.patient.fragment.MyFragment;
 import cc.hisens.hardboiled.patient.fragment.SecondFragment;
 import cc.hisens.hardboiled.patient.fragment.ThirdFragment;
+import cc.hisens.hardboiled.patient.retrofit.Url;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
+import cc.hisens.hardboiled.patient.websocket.ChatClient;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
@@ -54,7 +58,7 @@ public class MainActivity extends BaseActivity {
     private int  currentTabIndex;
     private static Boolean mIsExit = false;
 
-
+    private ChatClient mChatClient;  //webSocket客户端
 
 
     @Override
@@ -63,6 +67,7 @@ public class MainActivity extends BaseActivity {
         initView();
         grantPermissions();
 
+         ConnectedWebSocket();
     }
 
     //初始化控件和界面
@@ -175,6 +180,20 @@ public class MainActivity extends BaseActivity {
             ActivityCollector.finishAll();
             System.exit(0);
         }
+    }
+
+
+    //用websocket与服务器进行长连接，目前服务器还没开
+    public void ConnectedWebSocket(){
+        URI uri = null;
+        try {
+            uri = new URI(Url.WEB_SOCKET_URL);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        mChatClient = ChatClient.getInstance(uri);
+        mChatClient.connect();
     }
 
 

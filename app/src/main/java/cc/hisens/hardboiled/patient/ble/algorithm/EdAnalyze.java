@@ -24,7 +24,8 @@ import cc.hisens.hardboiled.patient.utils.TimeUtils;
  * @org www.hisens.cc
  * @email wb.hisens.cc
  *
- * 蓝牙数据的分析类bean
+ *
+ * 蓝牙数据的分析model
  */
 
 public class EdAnalyze {

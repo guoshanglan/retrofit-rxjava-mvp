@@ -21,7 +21,7 @@ public interface LoginView {
 
 
     /**
-     * 用户登录成功跳转失败
+     * 用户登录成功跳转
      * @param loginBean
      */
     void setLoginsuccessful(User loginBean);

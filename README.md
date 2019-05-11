@@ -7,119 +7,339 @@
  
    //  下面的是rxjava与retrofit的结合封装的apiservice
 
-    //get请求
-    @GET
-    Observable<String> obget(@Url String url, @QueryMap Map<String, String> params, @HeaderMap Map<String, String> headers);
-
-    //post请求，一般会带这两个注解  参数说明： url ：接口地址  map：参数集合 ，header：需要添加的请求头
-    @FormUrlEncoded
-    @POST()
-    Observable<String> obpost(@Url String url, @FieldMap Map<String, String> params, @HeaderMap Map<String, String> headers);
+     /**
+         * TODO Get请求
+         */
+        @GET
+        Observable<BaseResponse> getUser(@Url String url,@QueryMap Map<String, String> info); //简洁方式   直接获取所需数据
 
 
+        /**
+         * TODO POST请求
+         */
+        @POST
+        @FormUrlEncoded
+        //多个参数
+        Observable<BaseResponse> postUser(@Url String url,@FieldMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
 
-    //文件上传
-    @POST()
-    @Multipart
-    Observable<BaseModel> uploadFiles(@Url String url, @Part MultipartBody.Part[] parts, @HeaderMap() Map<String, String> header);
+        /**
+         * TODO DELETE
+         */
+        @DELETE
+        Observable<BaseResponse> delete(@Url String url,@QueryMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
+
+        /**
+         * TODO PUT
+         */
+        @PUT()
+        Observable<BaseResponse> put(@Url String url,@FieldMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
+
+        /**
+         * TODO 文件上传
+         */
+        //亲测可用
+        @Multipart
+        @POST
+        Observable<BaseResponse> uploadImage(@Url String url,@HeaderMap Map<String, String> headers, @Part MultipartBody.Part file);
+
+        /**
+         * 多文件上传
+         */
+
+
+        @Multipart
+        @POST
+        Observable<BaseResponse> uploadImages(@Url String url,@HeaderMap Map<String, String> headers, @Part List<MultipartBody.Part> files);
+
+        /**
+         * 来自https://blog.csdn.net/impure/article/details/79658098
+         * @Streaming 这个注解必须添加，否则文件全部写入内存，文件过大会造成内存溢出
+         */
+        @Streaming
+        @GET
+        Observable<BaseResponse> download(@Header("RANGE") String start, @Url String url);
     
     
     
-    2：interceptor:定义的基本的网络请求拦截方式
+    2：LogInterceptor:定义的基本的网络请求拦截方式
     
     
     
-    3：Httputil:对网络请求进行实例化： 在myAlication中的oncrea进行实例化然后才可以调用
-    
-          //初始化网络框架
-        new HttpUtil.SingletonBuilder(this, Url.localhost)
-                .build();
-     
-     4：httpbuild进行构建： 
-       
-                  //rxjava封装的请求（get）
-    public void get(Observer<String> observable) {
-        if (!allready()) {
-            return;
+    3：RetrofitUtils:对网络请求进行实例化
+
+     /**
+         * 初始化Retrofit
+         */
+        @NonNull
+        private Retrofit initRetrofit(OkHttpClient client) {
+            return new Retrofit.Builder()
+                        .client(client)
+                        .baseUrl(Url.BaseUrl)
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
         }
-        HttpUtil.getService().obget(checkUrl(this.url), checkParams(params), checkHeaders(headers))
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((Observer) observable);
+
+        /**
+         * 初始化okhttp
+         */
+        @NonNull
+        private OkHttpClient initOkHttp() {
+            return new OkHttpClient().newBuilder()
+                        .readTimeout(Url.DEFAULT_TIME, TimeUnit.SECONDS)//设置读取超时时间
+                        .connectTimeout(Url.DEFAULT_TIME, TimeUnit.SECONDS)//设置请求超时时间
+                        .writeTimeout(Url.DEFAULT_TIME,TimeUnit.SECONDS)//设置写入超时时间
+                        .addInterceptor(new LogInterceptor())//添加打印拦截器
+                        .retryOnConnectionFailure(true)//设置出现错误进行重新连接。
+                        .build();
+        }
+
+
+
+
+
+    /**
+     * Get 请求
+     * @param context
+     * @param
+     */
+    public static void get(Context context, String url, Map<String,String>params, MyObserver<BaseResponse> observer){
+        RetrofitUtils.getApiUrl()
+                .getUser(url,params).compose(RxHelper.observableIO2Main(context))
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        observer.onSuccess(baseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        observer.onFailure(e,e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
-    //rxjava封装的请求（post）
-    public void post2(Observer<String> observable) {
-        if (!allready()) {
-            return;
-        }
-        HttpUtil.getService().obpost(checkUrl(this.url), checkParams(params), checkHeaders(headers))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observable);
+
+    /**
+     * Post 请求
+     * @param context
+     * @param
+     */
+    public static void post(Context context, String url, Map<String,String>params, Map<String,String>headsMap, MyObserver<BaseResponse> observer){
+        RetrofitUtils.getApiUrl()
+                .postUser(url,params,headsMap).compose(RxHelper.observableIO2Main(context))
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                         observer.onSuccess(baseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        observer.onFailure(e,e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
-    
-    
-    
+    /**
+     * Put 请求
+     * @param context
+     * @param
+     */
+    @SuppressLint("CheckResult")
+    public static void put(Context context, String url, Map<String,String>params, Map<String,String>headsMap, MyObserver<BaseResponse> observer){
+        Map<String, String> headers = new HashMap<String, String>();
+        RetrofitUtils.getApiUrl()
+                .put(url,params,headsMap).compose(RxHelper.observableIO2Main(context))
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        observer.onSuccess(baseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        observer.onFailure(e,e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+    /**
+     * Delete 请求demo
+     * @param context  上下文对象
+     * @param observer   观察者
+     * @param params  查询参数map集合
+     * @param headsMap  请求头参数
+     * @param observer   观察者
+     */
+    @SuppressLint("CheckResult")
+    public static void delete(Context context, String url, Map<String,String>params, Map<String,String>headsMap, MyObserver<BaseResponse> observer){
+        RetrofitUtils.getApiUrl()
+                .delete(url,params,headsMap).compose(RxHelper.observableIO2Main(context))
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        observer.onSuccess(baseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        observer.onFailure(e,e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    /**
+     * 上传图片，文件
+     * @param context
+     * @param observer
+     */
+    public static void upImage(Context context, String  url, String pathName, MyObserver<BaseResponse>  observer){
+        File file = new File(pathName);
+//        File file = new File(imgPath);
+        Map<String,String> header = new HashMap<String, String>();
+        header.put("Accept","application/json");
+
+//        File file =new File(filePath);
+        RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//        RequestBody requestFile =
+//                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("file", file.getName(), reqFile);
+        RetrofitUtils.getApiUrl().uploadImage(url,header,body).compose(RxHelper.observableIO2Main(context))
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        observer.onSuccess(baseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        observer.onFailure(e,e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    /**
+     * 上传多张图片，多份文件
+     * @param files
+     */
+    public static void upLoadImgs(Context context, String url, List<File> files, MyObserver<BaseResponse>  observer){
+        Map<String,String> header = new HashMap<String, String>();
+        header.put("Accept","application/json");
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);//表单类型
+        for (int i = 0; i < files.size(); i++) {
+            File file = files.get(i);
+            RequestBody photoRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            builder.addFormDataPart("file", file.getName(), photoRequestBody);
+        }
+        List<MultipartBody.Part> parts = builder.build().parts();
+        RetrofitUtils.getApiUrl().uploadImages(url,header,parts).compose(RxHelper.observableIO2Main(context))
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        observer.onSuccess(baseResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        observer.onFailure(e,e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
 
-  //rxjava封装的文件上传
-     public  void UploadFile(Observer<BaseModel> observable){
-         if (this.files == null) {
-             return ;
+
+     //使用
+
+      //登录的网络请求
+         public void login(final Context context, String number, String VerificationCode, final LoginPresenter listener) {
+             Map<String, String> params = new HashMap<>();
+             params.put("phone", number);
+             params.put("code", VerificationCode);
+
+             RequestUtils.post(context, Url.paientLogin, params, new HashMap<>(), new MyObserver<BaseResponse>(context) {
+                 @Override
+                 public void onSuccess(BaseResponse result) {
+                     if (result != null) {
+
+                         if (result.result == 0) {
+                             Gson gson = new Gson();
+                             User paientUser = new Gson().fromJson(gson.toJson(result.getDatas()), User.class);
+                             listener.loginSuccess(paientUser);
+                         } else {
+
+                             listener.loginFailed(result.message);
+                         }
+
+                     }
+                 }
+
+                 @Override
+                 public void onFailure(Throwable e, String errorMsg) {
+                     listener.loginFailed(errorMsg);
+                 }
+             });
+
+
          }
-
-         MultipartBody.Part[] parts = new MultipartBody.Part[files.size()];
-         int cnt = 0;
-         for (String m : files) {
-             File file = new File(m);
-             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-             MultipartBody.Part filePart = MultipartBody.Part.createFormData("headimg[]", file.getName(), requestFile);
-             parts[cnt] = filePart;
-             cnt++;
-         }
-
-         HttpUtil.getService().uploadFiles(checkUrl(this.url), parts, checkHeaders(headers))
-                 .subscribeOn(Schedulers.io())
-                 .observeOn(AndroidSchedulers.mainThread())
-                 .subscribe(observable);
-
-     }
-     
-     
-     使用：
-   
-   public void loginNet(final Context context, String number, String password , final LoginPresenter listener){
-       new HttpBuilder(Url.LOGIN)
-               .params("username",number)
-               .params("password",password)
-               .tag(context)
-               .post2(new Observer<String>() {
-                   @Override
-                   public void onSubscribe(Disposable d) {
-
-                   }
-
-                   @Override
-                   public void onNext(String value) {
-                       if (value != null) {
-                           loginBean = new Gson().fromJson(value, LoginBean.class);
-                           listener.loginSuccess(loginBean);
-                       }
-                   }
-
-                   @Override
-                   public void onError(Throwable e) {
-                       listener.loginFailed(e.toString());
-                   }
-
-                   @Override
-                   public void onComplete() {
-
-                   }
-               });
-     
-     
-     
-       

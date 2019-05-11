@@ -12,11 +12,11 @@ public class ActivityCollector {
 
     public static void addActivity(Activity activity) {
         sList.add(activity);
-    }
+    }   //添加
 
     public static void removeActivity(Activity activity) {
         sList.remove(activity);
-    }
+    }  //移除
 
     public static void finishAll() {
         for (Activity activity : sList) {

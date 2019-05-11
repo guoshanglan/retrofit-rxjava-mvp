@@ -10,8 +10,8 @@ import java.util.UUID;
 public class UUIDConstants {
     private final static String MY_PREFIX = "F000";
     private final static String MY_SUFFIX = "-0451-4000-0000-00000000B000";
-    public final static UUID CHAR_WRITE = concat(MY_PREFIX, "FFF1", MY_SUFFIX);
-    public final static UUID CHAR_NOTIFY = concat(MY_PREFIX, "FFF4", MY_SUFFIX);
+    public final static UUID CHAR_WRITE = concat(MY_PREFIX, "FFF1", MY_SUFFIX);  //写入蓝牙设备的UUID
+    public final static UUID CHAR_NOTIFY = concat(MY_PREFIX, "FFF4", MY_SUFFIX);//通知的UUID
     private final static String COMMON_PREFIX = "0000";
     private final static String COMMON_SUFFIX = "-0000-1000-8000-00805F9B34FB";
     // 自定义服务和特征的UUID

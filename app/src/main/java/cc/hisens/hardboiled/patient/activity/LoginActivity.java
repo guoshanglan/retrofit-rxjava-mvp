@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import androidx.core.content.ContextCompat;
@@ -26,7 +29,9 @@ import cc.hisens.hardboiled.patient.db.impl.UserRepositoryImpl;
 import cc.hisens.hardboiled.patient.mvp.model.User;
 import cc.hisens.hardboiled.patient.mvp.present.LoginPresenter;
 import cc.hisens.hardboiled.patient.mvp.view.LoginView;
+import cc.hisens.hardboiled.patient.retrofit.Url;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
+import cc.hisens.hardboiled.patient.websocket.ChatClient;
 import cc.hisens.hardboiled.patient.wideview.TitleBar;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,6 +56,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected FrameLayout mFlMsgParent;
 
     protected Disposable mDisposable;
+
 
     private User mUser;
     private LoginPresenter loginPresenter;  //登录的presenter
@@ -169,6 +175,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
          new UserRepositoryImpl().saveUser(loginBean);  //将登陆成功的用户信息进行存储
 
         startActivity(new Intent(LoginActivity.this,MainActivity.class));  //跳转到主界面
+        finish();  //销毁当前界面
     }
 
     //登录失败
@@ -179,5 +186,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
         dismissProgressDialog();
         resetGetVerificationCodeEditText(); //重置
     }
+
+
+
+
+
 
 }

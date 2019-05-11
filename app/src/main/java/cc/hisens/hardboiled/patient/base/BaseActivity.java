@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import com.squareup.leakcanary.RefWatcher;
+
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
@@ -93,6 +95,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
             mPresenter=null;
         }
         ActivityCollector.removeActivity(this);
+
+        RefWatcher refWatcher = appLication.getRefWatcher(this);
+        refWatcher.watch(this);
+
 
     }
 

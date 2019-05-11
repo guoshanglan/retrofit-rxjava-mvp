@@ -1,5 +1,8 @@
 package cc.hisens.hardboiled.patient.utils;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,9 +11,12 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
 import java.io.File;
 
 import androidx.core.content.FileProvider;
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -42,7 +48,7 @@ public class AvatarIntentUtils {
     /**
      * 打开相机获取图片
      */
-    private  Intent getPicFromCamera(Context context) {
+    public   static Intent getPicFromCamera(Context context) {
         //用于保存调用相机拍照后所生成的文件
         tempFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
         //跳转到调用系统相机
@@ -58,6 +64,33 @@ public class AvatarIntentUtils {
 
 
         return  intent;
+    }
+
+
+
+    //检查相机权限
+
+    @SuppressLint("CheckResult")
+    public static Intent rxPermissionForCamera(Context context ) {
+        final Intent[] intent = {null};
+        RxPermissions rxPermissions = new RxPermissions((Activity) context);
+        rxPermissions.request(Manifest.permission.CAMERA).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean granted) throws Exception {
+                if (granted) {
+
+                    intent[0] =getPicFromCamera(context);
+
+                } else {
+                    // 权限被拒绝
+
+                    ToastUtils.show(context,"拒绝可能导致某些功能无法使用");
+                }
+            }
+        });
+
+
+        return intent[0];
     }
 
 

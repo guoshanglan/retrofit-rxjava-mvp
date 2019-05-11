@@ -44,6 +44,11 @@
         tools:ignore="GoogleAppIndexingWarning">
 
 
+        <!--Service-->
+        <service android:name=".ble.BleService"/>
+        <service android:name=".ble.SyncDataService"/>
+
+
         <activity
             android:name=".activity.SplashActivity"
             android:launchMode="singleTop"
