@@ -1,5 +1,7 @@
 package cc.hisens.hardboiled.patient.websocket;
 
+import android.text.TextUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -116,17 +118,27 @@ public class MessageModel {
         public String intro;     //介绍
         public String url;      //链接
         public String thumbUrl;   //缩略图
+        private String voicePath; //语音消息，语音消息url
+        private double voiceTime;   //语音时长
 
         public JSONObject  content = new JSONObject();
 
         public Content() {
             try {
-
+                if(!TextUtils.isEmpty(text))
                 content.put("text",text);
+                if(!TextUtils.isEmpty(title))
                 content.put("title",title);
+                if(!TextUtils.isEmpty(intro))
                 content.put("intro",intro);
+                if(!TextUtils.isEmpty(url))
                 content.put("url",url);
+                if(!TextUtils.isEmpty(thumbUrl))
                 content.put("thumb_url",thumbUrl);
+                if(!TextUtils.isEmpty(voicePath))
+                 content.put("voicePath",voicePath);
+                if(!TextUtils.isEmpty(voiceTime+""))
+                    content.put("voicePath",voicePath);
 
             } catch (JSONException e) {
                 e.printStackTrace();

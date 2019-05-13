@@ -136,7 +136,7 @@ public class ChatClient implements WebSocketClientListener {
         public void onMessage(ByteBuffer bytes) {
             super.onMessage(bytes);
             String json = new String(bytes.array());
-            Log.e("WebSocketClientImpl", "onMessage: " + json);
+            Log.e("收到的消息", "onMessage: " + json);
             Gson gson = new Gson();
             MessageModel message = gson.fromJson(json, MessageModel.class);
 
@@ -166,7 +166,7 @@ public class ChatClient implements WebSocketClientListener {
 
         @Override
         public void onClose(int code, String reason, boolean remote) {
-            Log.i("WebSocketClientImpl", "onClose");
+            Log.i("关闭", "onClose");
             ChatClient.this.setConnected(false);
             ChatClient.this.onDisconnected();
         }

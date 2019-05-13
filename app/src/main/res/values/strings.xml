@@ -496,4 +496,8 @@
     <string name="smoke">吸烟</string>
 
     <string name="m_no_new_message">暂时没有新消息</string>
+
+    <string name="str_recorder_normal">按住说话</string>
+    <string name="str_recorder_recording">松开结束</string>
+    <string name="str_recorder_want_cancel">松开手指，取消发送</string>
 </resources>

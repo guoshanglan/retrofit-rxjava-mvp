@@ -34,7 +34,7 @@ import io.reactivex.functions.Consumer;
 
 public class AvatarIntentUtils {
 
-    private static File tempFile;
+    private  File tempFile;
 
     public static Intent getCameraCaptureIntent(Uri dest) {
         // 启动手机相机拍摄照片作为头像
@@ -48,7 +48,7 @@ public class AvatarIntentUtils {
     /**
      * 打开相机获取图片
      */
-    public   static Intent getPicFromCamera(Context context) {
+    public   Intent getPicFromCamera(Context context) {
         //用于保存调用相机拍照后所生成的文件
         tempFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
         //跳转到调用系统相机
@@ -62,7 +62,6 @@ public class AvatarIntentUtils {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
         }
 
-
         return  intent;
     }
 
@@ -71,7 +70,7 @@ public class AvatarIntentUtils {
     //检查相机权限
 
     @SuppressLint("CheckResult")
-    public static Intent rxPermissionForCamera(Context context ) {
+    public  Intent rxPermissionForCamera(Context context ) {
         final Intent[] intent = {null};
         RxPermissions rxPermissions = new RxPermissions((Activity) context);
         rxPermissions.request(Manifest.permission.CAMERA).subscribe(new Consumer<Boolean>() {
