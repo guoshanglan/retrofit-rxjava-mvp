@@ -41,7 +41,7 @@ public class UserConfig {
         public static String EXTRA_IS_LOGIN = TAG + ".extra.IS_LOGIN";
         private static String EXTRA_AVATAR_URL = TAG + ".extra.AVATAR_URL";
         private static String EXTRA_EMUID = TAG + ".extra.EMUID";
-        private static String EXTRA_UID = TAG + ".extra.UID";
+        public static String EXTRA_UID = TAG + ".extra.UID";
         private static String EXTRA_NAME = TAG + ".extra.NICKNAME";
         private static String EXTRA_PHONE = TAG + ".extra.PHONE";
 

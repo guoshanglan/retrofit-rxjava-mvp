@@ -1,17 +1,17 @@
-package cc.hisens.hardboiled.patient.fragment;
+package cc.hisens.hardboiled.patient.ui.fragment.doctor;
 
 import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.BaseFragment;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 
-public class FristFragment  extends BaseFragment{
+public class DoctorFragment extends BaseFragment {
 
 
 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_splash;
+        return R.layout.layout_introduction_second;
     }
 
     @Override

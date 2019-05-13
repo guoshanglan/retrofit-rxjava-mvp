@@ -1,4 +1,4 @@
-package cc.hisens.hardboiled.patient.mvp.model;
+package cc.hisens.hardboiled.patient.ui.activity.login.model;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 import java.util.Map;
 
-import cc.hisens.hardboiled.patient.mvp.present.LoginPresenter;
+import cc.hisens.hardboiled.patient.ui.activity.login.present.LoginPresenter;
 import cc.hisens.hardboiled.patient.retrofit.BaseResponse;
 import cc.hisens.hardboiled.patient.retrofit.MyObserver;
 import cc.hisens.hardboiled.patient.retrofit.RequestUtils;

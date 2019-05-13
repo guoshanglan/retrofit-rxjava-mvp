@@ -1,7 +1,7 @@
 package cc.hisens.hardboiled.patient.db;
 
 
-import cc.hisens.hardboiled.patient.mvp.model.User;
+import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
 import io.reactivex.Observable;
 
 /**

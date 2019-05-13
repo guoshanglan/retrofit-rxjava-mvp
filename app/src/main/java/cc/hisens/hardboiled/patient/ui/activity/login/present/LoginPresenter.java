@@ -1,11 +1,11 @@
-package cc.hisens.hardboiled.patient.mvp.present;
+package cc.hisens.hardboiled.patient.ui.activity.login.present;
 
 import android.text.TextUtils;
 
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 
-import cc.hisens.hardboiled.patient.mvp.model.User;
-import cc.hisens.hardboiled.patient.mvp.view.LoginView;
+import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
+import cc.hisens.hardboiled.patient.ui.activity.login.view.LoginView;
 
 
 //登录的中间者，用来与view交互数据的

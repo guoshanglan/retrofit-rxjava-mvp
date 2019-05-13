@@ -15,7 +15,7 @@ public class Url {
 
 
     //websocket连接地址
-    public static final String WEB_SOCKET_URL = "ws://10.0.0.27:8080/api/v1/ws";
+    public static final String WEB_SOCKET_URL = "ws://echo.websocket.org";
 
 
 

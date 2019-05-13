@@ -44,6 +44,8 @@ import cc.hisens.hardboiled.patient.utils.ToastUtils;
  * @describe TODO
  * @org www.hisens.cc
  * @email wb.hisens.cc
+ *
+ * 蓝牙操作管理者，所有的蓝牙操作在这个类中
  */
 
 public class BLEManagerWrapper {

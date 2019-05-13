@@ -35,6 +35,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
          setContentView(getLayoutId());
          ButterKnife.bind(this);
 
+        init();
+
+    }
+
+
+    //初始化我们所需要的配置
+    protected  void init(){
         //绑定初始化application
         appLication=MyApplication.getInstance();
         sharedUtils=new SharedUtils(this);
@@ -44,8 +51,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
             mPresenter.attach(this);
         }
 
-
     }
+
+
 
 
     //初始化进度加载框

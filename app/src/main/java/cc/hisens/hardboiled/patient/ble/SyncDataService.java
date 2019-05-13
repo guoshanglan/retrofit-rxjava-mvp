@@ -36,6 +36,11 @@ import cc.hisens.hardboiled.patient.utils.EdUtils;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
+
+/**
+ *
+ * 蓝牙同步数据的服务
+ */
 public class SyncDataService extends Service {
 
     private static final String TAG = SyncDataService.class.getName();

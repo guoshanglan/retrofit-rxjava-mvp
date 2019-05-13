@@ -1,4 +1,4 @@
-package cc.hisens.hardboiled.patient.activity;
+package cc.hisens.hardboiled.patient.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import cc.hisens.hardboiled.patient.adapter.IntroductionViewAdapter;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
+import cc.hisens.hardboiled.patient.ui.activity.login.LoginActivity;
+import cc.hisens.hardboiled.patient.ui.activity.main.MainActivity;
 
 
 /**

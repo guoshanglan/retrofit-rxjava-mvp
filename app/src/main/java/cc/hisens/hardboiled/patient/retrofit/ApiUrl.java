@@ -30,6 +30,10 @@ public interface ApiUrl {
 
     /**
      * TODO POST请求
+     * parmas url  请求地址
+     * params map  请求所需要传递的参数map<key,value>
+     * params headsMap  请求所需要的特殊请求头map<key,value>集合
+     *
      */
     @POST
     @FormUrlEncoded

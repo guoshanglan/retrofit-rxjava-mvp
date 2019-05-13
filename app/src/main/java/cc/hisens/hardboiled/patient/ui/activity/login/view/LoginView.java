@@ -1,4 +1,4 @@
-package cc.hisens.hardboiled.patient.mvp.view;
+package cc.hisens.hardboiled.patient.ui.activity.login.view;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import android.content.Context;
 
 
 
-import cc.hisens.hardboiled.patient.mvp.model.User;
+import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
 
 
 /**

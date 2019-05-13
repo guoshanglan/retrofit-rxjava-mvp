@@ -5,7 +5,7 @@ import java.util.List;
 
 import cc.hisens.hardboiled.patient.db.RealmHelper;
 import cc.hisens.hardboiled.patient.db.UserRepository;
-import cc.hisens.hardboiled.patient.mvp.model.User;
+import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
 import io.reactivex.Observable;
 import io.realm.Realm;
 
@@ -42,4 +42,6 @@ public class UserRepositoryImpl implements UserRepository {
          List<User> results = realm.copyFromRealm(realm.where(User.class).findAll());
         return Observable.just(results.size() > 0 ? results.get(0) : new User());
     }
+
+
 }

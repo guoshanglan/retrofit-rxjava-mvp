@@ -1,11 +1,10 @@
-package cc.hisens.hardboiled.patient.activity;
+package cc.hisens.hardboiled.patient.ui.activity.main;
 
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,11 +27,11 @@ import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.ActivityCollector;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
-import cc.hisens.hardboiled.patient.fragment.FristFragment;
-import cc.hisens.hardboiled.patient.fragment.MyFragment;
-import cc.hisens.hardboiled.patient.fragment.SecondFragment;
-import cc.hisens.hardboiled.patient.fragment.ThirdFragment;
 import cc.hisens.hardboiled.patient.retrofit.Url;
+import cc.hisens.hardboiled.patient.ui.fragment.FristFragment;
+import cc.hisens.hardboiled.patient.ui.fragment.me.MeFragment;
+import cc.hisens.hardboiled.patient.ui.fragment.doctor.DoctorFragment;
+import cc.hisens.hardboiled.patient.ui.fragment.ThirdFragment;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
 import cc.hisens.hardboiled.patient.websocket.ChatClient;
 import io.reactivex.annotations.NonNull;
@@ -67,15 +65,16 @@ public class MainActivity extends BaseActivity {
         initView();
         grantPermissions();
 
-         ConnectedWebSocket();
+
+         ConnectedWebSocket();   //进行websocket的长连接
     }
 
     //初始化控件和界面
     private void initView() {
         firstFragment=new FristFragment();
-        secondFragment=new SecondFragment();
+        secondFragment=new DoctorFragment();
         thirdFragment=new ThirdFragment();
-        meFragment=new MyFragment();
+        meFragment=new MeFragment();
         fragments=new Fragment[]{firstFragment,secondFragment,thirdFragment,meFragment};
         fragmentmanager = getSupportFragmentManager();
         ft = fragmentmanager.beginTransaction();
@@ -187,8 +186,8 @@ public class MainActivity extends BaseActivity {
     public void ConnectedWebSocket(){
         URI uri = null;
         try {
-            uri = new URI(Url.WEB_SOCKET_URL);
-        } catch (URISyntaxException e) {
+             uri = URI.create(Url.WEB_SOCKET_URL);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

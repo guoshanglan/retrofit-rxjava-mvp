@@ -190,7 +190,6 @@ public class EdRepositoryImpl implements EdRepository {
         for (Ed ed:realmList) {
             ed.setSync(true);
         }
-
         realm.commitTransaction();
         realm.close();
 
