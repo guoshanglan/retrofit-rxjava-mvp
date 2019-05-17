@@ -4,6 +4,7 @@ package cc.hisens.hardboiled.patient.ui.activity.main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,9 @@ import cc.hisens.hardboiled.patient.base.ActivityCollector;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.ble.BLEManagerWrapper;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import cc.hisens.hardboiled.patient.retrofit.Url;
+import cc.hisens.hardboiled.patient.ui.activity.login.LoginActivity;
 import cc.hisens.hardboiled.patient.ui.activity.main.model.AppInfoResult;
 import cc.hisens.hardboiled.patient.ui.activity.main.present.AppInfoPresenter;
 import cc.hisens.hardboiled.patient.ui.activity.main.view.AppcheckInfoView;
@@ -46,11 +49,12 @@ import io.reactivex.functions.Consumer;
 
 
 //主要的Activity
-public class MainActivity extends BaseActivity implements AppcheckInfoView{
+public class MainActivity extends BaseActivity implements AppcheckInfoView {
     @BindView(R.id.fl_container)
     FrameLayout myFrameLayout;  //用来展示fragment的
-    @BindViews({ R.id.rbtn_monitor, R.id.rbtn_doctor,  R.id.rbtn_helper,R.id.rbtn_me})  //底部四个按钮,ButterKnife一次性注解多个
-    public List<RadioButton> buttonList ;
+    @BindViews({R.id.rbtn_monitor, R.id.rbtn_doctor, R.id.rbtn_helper, R.id.rbtn_me})
+    //底部四个按钮,ButterKnife一次性注解多个
+    public List<RadioButton> buttonList;
     @BindView(R.id.tv_doctor_message_count)
     TextView tvDoctormessageCount;  //医生消息
     @BindView(R.id.tv_helper_message_count)
@@ -59,7 +63,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView{
     private Fragment[] fragments;
     private FragmentManager fragmentmanager;
     private FragmentTransaction ft;
-    private int  currentTabIndex;  //当前切换的是第几个fragment
+    private int currentTabIndex;  //当前切换的是第几个fragment
     private static Boolean mIsExit = false;
     private AppInfoPresenter appInfoPresenter;   //检查APP版本更新的第三方桥梁present
     private ChatClient mChatClient;  //webSocket客户端
@@ -84,11 +88,11 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView{
 
     //初始化控件和界面
     private void initView() {
-        firstFragment=new FristFragment();
-        secondFragment=new DoctorFragment();
-        thirdFragment=new ThirdFragment();
-        meFragment=new MeFragment();
-        fragments=new Fragment[]{firstFragment,secondFragment,thirdFragment,meFragment};
+        firstFragment = new FristFragment();
+        secondFragment = new DoctorFragment();
+        thirdFragment = new ThirdFragment();
+        meFragment = new MeFragment();
+        fragments = new Fragment[]{firstFragment, secondFragment, thirdFragment, meFragment};
         fragmentmanager = getSupportFragmentManager();
         ft = fragmentmanager.beginTransaction();
         buttonList.get(0).setChecked(true);
@@ -129,12 +133,12 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView{
             }
             ft.hide(fragments[currentTabIndex]).show(fragments[index]).commit();
 
-            for (int i = 0; i<buttonList.size(); i++){
-                if (i==index){
+            for (int i = 0; i < buttonList.size(); i++) {
+                if (i == index) {
                     buttonList.get(index).setChecked(true);
                     buttonList.get(index).setTextColor(Color.parseColor("#2ab5d7"));
 
-                }else{
+                } else {
                     buttonList.get(i).setChecked(false);
                     buttonList.get(i).setTextColor(Color.parseColor("#999999"));
 
@@ -162,8 +166,8 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView{
                             }
                         }
                     });
-        }
-    }
+              }
+       }
 
 
     //监控系统返回键，按两次退出当前应用
@@ -192,14 +196,13 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView{
 
 
     //用websocket与服务器进行长连接，目前服务器还没开
-    public void ConnectedWebSocket(){
+    public void ConnectedWebSocket() {
         URI uri = null;
         try {
-             uri = URI.create(Url.WEB_SOCKET_URL);
+            uri = URI.create(Url.WEB_SOCKET_URL);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         mChatClient = ChatClient.getInstance(uri);
         mChatClient.connect();
     }
@@ -215,8 +218,8 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView{
     //返回一个检查APP版本的present操作对象
     @Override
     public BasePresenter getPresenter() {
-        if (appInfoPresenter==null){
-            appInfoPresenter=new AppInfoPresenter();
+        if (appInfoPresenter == null) {
+            appInfoPresenter = new AppInfoPresenter();
         }
         return appInfoPresenter;
     }
@@ -233,14 +236,16 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView{
     @Override
     public void setCheckUpdateInfo(AppInfoResult appInfoResult) {
 
-        AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.content,appInfoResult.link,this);
+        AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.content, appInfoResult.link, this);
     }
 
-    //App版本信息查询失败
+    //Session失效，需要重新登录
     @Override
     public void setFailedError(String str) {
-        Log.e("shibai",str);
-       ToastUtils.show(this,str);
+        Log.e("错误", str);
+        ToastUtils.show(this, str);
+        navigateToLogin();  //跳转到登录页面
+
     }
 
 
@@ -248,6 +253,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView{
     protected void onDestroy() {
         super.onDestroy();
         bleManagerWrapper.recycle();
+
 
     }
 }

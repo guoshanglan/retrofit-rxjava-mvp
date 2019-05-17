@@ -4,6 +4,7 @@ package cc.hisens.hardboiled.patient.base;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -14,6 +15,8 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.ButterKnife;
 import cc.hisens.hardboiled.patient.MyApplication;
 import cc.hisens.hardboiled.patient.R;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
+import cc.hisens.hardboiled.patient.ui.activity.login.LoginActivity;
 import cc.hisens.hardboiled.patient.utils.ScreenUtil;
 import cc.hisens.hardboiled.patient.utils.SharedUtils;
 
@@ -53,6 +56,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
 
     }
 
+
+    public void navigateToLogin(){
+        finish();
+        ActivityCollector.finishAll();
+        UserConfig.UserInfo.setLogin(false);
+        startActivity(new Intent(this, LoginActivity.class));
+    }
 
 
 
@@ -109,6 +119,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
 
 
     }
+
+
+
+
 
 
 

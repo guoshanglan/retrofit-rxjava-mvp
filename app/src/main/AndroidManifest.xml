@@ -90,6 +90,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout" />
+
+        <activity
+            android:name=".ui.activity.UserAgreementActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenLayout" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package cc.hisens.hardboiled.patient.retrofit;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class ReceivedCookiesInterceptor implements Interceptor {
         sharedPreferences = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public Response intercept(Chain chain) throws IOException {
         if (chain == null)

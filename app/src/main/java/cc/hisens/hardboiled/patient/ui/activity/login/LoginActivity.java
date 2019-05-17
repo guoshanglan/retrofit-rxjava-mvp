@@ -22,6 +22,7 @@ import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import cc.hisens.hardboiled.patient.db.impl.UserRepositoryImpl;
+import cc.hisens.hardboiled.patient.ui.activity.UserAgreementActivity;
 import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
 import cc.hisens.hardboiled.patient.ui.activity.login.present.LoginPresenter;
 import cc.hisens.hardboiled.patient.ui.activity.login.view.LoginView;
@@ -47,6 +48,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected EditText mEtInputVerificationCode;   //验证码输入框
     @BindView(R.id.tv_get_verification_code)
     protected TextView mTvGetVerificationCode;     //发送验证码
+    @BindView(R.id.tv_terms_and_agreement)
+    TextView tvUserAgreement;  //用户协议按钮
 
     protected Disposable mDisposable;
     private User mUser;
@@ -71,7 +74,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
 
     //点击事件
-    @OnClick({R.id.btn_login, R.id.tv_get_verification_code})
+    @OnClick({R.id.btn_login, R.id.tv_get_verification_code,R.id.tv_terms_and_agreement})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:    //登录
@@ -91,6 +94,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     setTime();
                     loginPresenter.getVerificationCode();   //进行获取手机验证码
                 }
+                break;
+
+            case R.id.tv_terms_and_agreement:   //跳转到用户协议
+
+                startActivity(new Intent(this, UserAgreementActivity.class));
                 break;
 
         }

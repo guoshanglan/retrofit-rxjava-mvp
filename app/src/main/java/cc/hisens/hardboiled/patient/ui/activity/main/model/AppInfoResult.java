@@ -14,6 +14,7 @@ import cc.hisens.hardboiled.patient.retrofit.RequestUtils;
 import cc.hisens.hardboiled.patient.retrofit.Url;
 import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
 import cc.hisens.hardboiled.patient.ui.activity.main.present.AppInfoPresenter;
+import cc.hisens.hardboiled.patient.utils.ToastUtils;
 
 public class AppInfoResult {
 
@@ -61,7 +62,7 @@ public class AppInfoResult {
 
                     } else {
 
-                        appInfoPresenter.setFailedError(result.message);  //没有返回数据
+                           appInfoPresenter.setFailedError(result.message);
                     }
 
                 }
@@ -70,7 +71,7 @@ public class AppInfoResult {
 
             @Override
             public void onFailure(Throwable e, String errorMsg) {
-                appInfoPresenter.setFailedError(errorMsg);   //意料之外的错误
+                appInfoPresenter.setFailedError(errorMsg);
             }
         });
 

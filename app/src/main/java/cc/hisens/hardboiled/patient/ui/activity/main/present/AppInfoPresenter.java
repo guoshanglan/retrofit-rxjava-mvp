@@ -28,6 +28,8 @@ public class AppInfoPresenter extends BasePresenter<AppcheckInfoView> {
          mView.setCheckUpdateInfo(appInfoResult);
     }
 
+
+
     //检查失败
     public void setFailedError(String error) {
         mView.setFailedError(error);

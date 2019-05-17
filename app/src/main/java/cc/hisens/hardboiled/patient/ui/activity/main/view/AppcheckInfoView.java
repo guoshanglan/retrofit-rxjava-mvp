@@ -18,8 +18,9 @@ public interface AppcheckInfoView {
 
 
 
+
     /**
-     *出现错误
+     *出现错误，可能需要重新登陆
      * @param str
      */
     void setFailedError(String str);
