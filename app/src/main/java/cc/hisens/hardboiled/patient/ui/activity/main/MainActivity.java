@@ -3,8 +3,10 @@ package cc.hisens.hardboiled.patient.ui.activity.main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
@@ -27,11 +29,16 @@ import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.ActivityCollector;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
+import cc.hisens.hardboiled.patient.ble.BLEManagerWrapper;
 import cc.hisens.hardboiled.patient.retrofit.Url;
+import cc.hisens.hardboiled.patient.ui.activity.main.model.AppInfoResult;
+import cc.hisens.hardboiled.patient.ui.activity.main.present.AppInfoPresenter;
+import cc.hisens.hardboiled.patient.ui.activity.main.view.AppcheckInfoView;
 import cc.hisens.hardboiled.patient.ui.fragment.FristFragment;
 import cc.hisens.hardboiled.patient.ui.fragment.me.MeFragment;
 import cc.hisens.hardboiled.patient.ui.fragment.doctor.DoctorFragment;
 import cc.hisens.hardboiled.patient.ui.fragment.ThirdFragment;
+import cc.hisens.hardboiled.patient.utils.AppUpdateUtils;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
 import cc.hisens.hardboiled.patient.websocket.ChatClient;
 import io.reactivex.annotations.NonNull;
@@ -39,7 +46,7 @@ import io.reactivex.functions.Consumer;
 
 
 //主要的Activity
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements AppcheckInfoView{
     @BindView(R.id.fl_container)
     FrameLayout myFrameLayout;  //用来展示fragment的
     @BindViews({ R.id.rbtn_monitor, R.id.rbtn_doctor,  R.id.rbtn_helper,R.id.rbtn_me})  //底部四个按钮,ButterKnife一次性注解多个
@@ -48,25 +55,31 @@ public class MainActivity extends BaseActivity {
     TextView tvDoctormessageCount;  //医生消息
     @BindView(R.id.tv_helper_message_count)
     TextView tvHelp_message_count;   //
-
     private Fragment firstFragment, secondFragment, thirdFragment, meFragment;
     private Fragment[] fragments;
     private FragmentManager fragmentmanager;
     private FragmentTransaction ft;
-    private int  currentTabIndex;
+    private int  currentTabIndex;  //当前切换的是第几个fragment
     private static Boolean mIsExit = false;
-
+    private AppInfoPresenter appInfoPresenter;   //检查APP版本更新的第三方桥梁present
     private ChatClient mChatClient;  //webSocket客户端
+
+    private BLEManagerWrapper bleManagerWrapper;  //蓝牙操作管理者
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        bleManagerWrapper = BLEManagerWrapper.getInstance();
+        bleManagerWrapper.initialize(this);
+
         super.onCreate(savedInstanceState);
         initView();
         grantPermissions();
 
+        ConnectedWebSocket();   //进行websocket的长连接
 
-         ConnectedWebSocket();   //进行websocket的长连接
+        appInfoPresenter.CheckAppUpdate(); //检查App版本更新
     }
 
     //初始化控件和界面
@@ -87,9 +100,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-
-
-
     //Butterknife 注解点击事件,进行底部Fragment的替换
     @OnClick({R.id.rbtn_monitor, R.id.rbtn_doctor, R.id.rbtn_helper, R.id.rbtn_me})
     public void onClick(View view) {
@@ -108,7 +118,6 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
-
 
 
     //切换底部tab页面
@@ -137,7 +146,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    //动态申请蓝牙权限，判断是否含有蓝牙权限
+    //动态申请蓝牙权限，判断是否含有蓝牙权限，这里显示的是位置信息
     @SuppressLint("CheckResult")
     private void grantPermissions() {
         RxPermissions rxPermissions = new RxPermissions(this);
@@ -202,8 +211,43 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
+
+    //返回一个检查APP版本的present操作对象
     @Override
     public BasePresenter getPresenter() {
-        return null;
+        if (appInfoPresenter==null){
+            appInfoPresenter=new AppInfoPresenter();
+        }
+        return appInfoPresenter;
+    }
+
+
+    //返回上下文对象
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+
+    //查询APP版本信息有更新
+    @Override
+    public void setCheckUpdateInfo(AppInfoResult appInfoResult) {
+
+        AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.content,appInfoResult.link,this);
+    }
+
+    //App版本信息查询失败
+    @Override
+    public void setFailedError(String str) {
+        Log.e("shibai",str);
+       ToastUtils.show(this,str);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bleManagerWrapper.recycle();
+
     }
 }

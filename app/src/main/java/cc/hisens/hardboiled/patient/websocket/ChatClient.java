@@ -31,7 +31,6 @@ public class ChatClient implements WebSocketClientListener {
     private TimerTask connectTimerTask;
     private Timer pingTimer;
     private TimerTask pingTimerTask;
-
     private boolean isConnected;
     private boolean isConnectTimerScheduled;
     private boolean isPingTimerScheduled;
@@ -69,12 +68,12 @@ public class ChatClient implements WebSocketClientListener {
 
 
         Log.e("连接成功","sosososososo");
-        MessageModel message = new MessageModel();
-        message.setFrom(832654859);   //由登录用户发起长连接
-        message.setType((byte) 6);
-        message.setTime(System.currentTimeMillis() / 1000);
-
-        sendMessage(message);   //向服务器发送一条消息
+//        MessageModel message = new MessageModel();
+//        message.setFrom(832654859);   //由登录用户发起长连接
+//        message.setType((byte) 6);
+//        message.setTime(System.currentTimeMillis() / 1000);
+//
+//        sendMessage(message);   //向服务器发送一条消息
 
         cancelConnectTimer();  //取消重复连接定时器
 

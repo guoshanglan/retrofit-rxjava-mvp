@@ -47,12 +47,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected EditText mEtInputVerificationCode;   //验证码输入框
     @BindView(R.id.tv_get_verification_code)
     protected TextView mTvGetVerificationCode;     //发送验证码
-    @BindView(R.id.fl_msg_parent)
-    protected FrameLayout mFlMsgParent;
 
     protected Disposable mDisposable;
-
-
     private User mUser;
     private LoginPresenter loginPresenter;  //登录的presenter
 
@@ -89,7 +85,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 }
                 break;
             case R.id.tv_get_verification_code:    //获取验证码
-                if (TextUtils.isEmpty(mEtInputPhoneNum.getText().toString())) {
+                if (TextUtils.isEmpty(mEtInputPhoneNum.getText().toString())&&mEtInputPhoneNum.getText().length()!=11) {
                     ToastUtils.show(this, R.string.login_error_hint);
                 } else {
                     setTime();
@@ -159,7 +155,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
 
-    //登录成功
+    //登录成功返回的数据
     @Override
     public void setLoginsuccessful(User user) {
         resetGetVerificationCodeEditText(); //重置

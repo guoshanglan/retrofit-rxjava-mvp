@@ -3,6 +3,8 @@ package cc.hisens.hardboiled.patient.retrofit;
 
 import java.util.concurrent.TimeUnit;
 
+import cc.hisens.hardboiled.patient.MyApplication;
+import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import io.reactivex.annotations.NonNull;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -59,6 +61,8 @@ public class RetrofitUtils {
                     .connectTimeout(Url.DEFAULT_TIME, TimeUnit.SECONDS)//设置请求超时时间
                     .writeTimeout(Url.DEFAULT_TIME,TimeUnit.SECONDS)//设置写入超时时间
                     .addInterceptor(new LogInterceptor())//添加打印拦截
+                    .addInterceptor(new ReceivedCookiesInterceptor(MyApplication.getInstance()))
+                    .addInterceptor(new AddCookiesInterceptor(MyApplication.getInstance(),"en"))
                     .retryOnConnectionFailure(true)//设置出现错误进行重新连接。
                     .build();
     }

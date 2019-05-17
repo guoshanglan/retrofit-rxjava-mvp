@@ -7,6 +7,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import androidx.multidex.MultiDex;
+import cc.hisens.hardboiled.patient.ble.BLEManagerWrapper;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import cc.hisens.hardboiled.patient.utils.ScreenUtil;
 import io.realm.Realm;
@@ -14,8 +15,10 @@ import io.realm.Realm;
 public class MyApplication extends Application {
     private static MyApplication instance;
     private static Context mContext;
-
     private RefWatcher refWatcher;
+    public static BLEManagerWrapper getBLEManagerWrapper() {
+        return BLEManagerWrapper.getInstance();
+    }
 
 
 
@@ -64,6 +67,13 @@ public class MyApplication extends Application {
     }
 
 
+
+    //应用被销毁
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        getBLEManagerWrapper().recycle();
+    }
 
     @Override
     protected void attachBaseContext(Context base) {

@@ -29,6 +29,7 @@ public class RequestUtils {
      * @param
      */
     public static void get(Context context, String url, Map<String,String>params, MyObserver<BaseResponse> observer){
+
         RetrofitUtils.getApiUrl()
                 .getUser(url,params).compose(RxHelper.observableIO2Main(context))
                 .subscribe(new Observer<BaseResponse>() {

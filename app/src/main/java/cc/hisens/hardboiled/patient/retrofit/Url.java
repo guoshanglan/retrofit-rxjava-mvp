@@ -14,8 +14,14 @@ public class Url {
     public static String getVerificationCode="/v1/user/phone_code";
 
 
-    //websocket连接地址
+    //检查APP版本是否有更新
+    public static String getAppInfo="/v1/config/version";
+
+
+    //websocket连接测试地址
     public static final String WEB_SOCKET_URL = "ws://echo.websocket.org";
+
+
 
 
 

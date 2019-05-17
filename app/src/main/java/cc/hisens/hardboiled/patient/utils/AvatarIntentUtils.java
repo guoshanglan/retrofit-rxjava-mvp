@@ -80,10 +80,11 @@ public class AvatarIntentUtils {
 
                     intent[0] =getPicFromCamera(context);
 
+
                 } else {
                     // 权限被拒绝
 
-                    ToastUtils.show(context,"拒绝可能导致某些功能无法使用");
+                    ToastUtils.show(context,"拒绝可能导致拍照扫描功能无法使用");
                 }
             }
         });
