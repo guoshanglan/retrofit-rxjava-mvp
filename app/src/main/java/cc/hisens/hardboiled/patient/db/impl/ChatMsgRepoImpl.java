@@ -39,12 +39,12 @@ public class ChatMsgRepoImpl implements ChatMsgRepo {
     }
 
 
-    //获取多条聊天信息
+    //获取多条聊天信息,根据指定的id来进行获取
     @Override
-    public List<ChatMessage> getChatMessageList(String senderId, String receiverId) {
+    public List<ChatMessage> getChatMessageList(String receiverId) {
         Realm realm = RealmHelper.getRealm();
         realm.beginTransaction();
-        List<ChatMessage> list = realm.copyFromRealm(realm.where(ChatMessage.class)
+        List<ChatMessage> list = realm.copyFromRealm(realm.where(ChatMessage.class).equalTo("receiverId",receiverId)
                 .findAll());
         realm.commitTransaction();
         realm.close();

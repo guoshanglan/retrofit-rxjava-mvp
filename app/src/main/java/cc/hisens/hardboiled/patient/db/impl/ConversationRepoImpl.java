@@ -6,9 +6,11 @@ import java.util.List;
 import cc.hisens.hardboiled.patient.Appconfig;
 import cc.hisens.hardboiled.patient.db.ConversationRepo;
 import cc.hisens.hardboiled.patient.db.RealmHelper;
+import cc.hisens.hardboiled.patient.db.bean.ChatMessage;
 import cc.hisens.hardboiled.patient.db.bean.Conversation;
 import io.reactivex.Observable;
 import io.realm.Realm;
+import io.realm.RealmList;
 
 
 //有消息过来的时候会用到的
@@ -28,7 +30,7 @@ public class ConversationRepoImpl implements ConversationRepo {
         realm.close();
     }
 
-    //存储会话消息，有就更新，没有就新建
+    //存储会话消息，有就更新，没有就新建，会根据主键来进行相应的操作
     @Override
     public void saveConversation(final Conversation conversation) {
         Realm realm = RealmHelper.getRealm();
@@ -66,7 +68,22 @@ public class ConversationRepoImpl implements ConversationRepo {
 
 
 
-    //设置会话消息状态
+    //更新会话的聊天记录
+    @Override
+    public void setConversationChatmessage(String uid,final RealmList<ChatMessage> messages) {
+        Realm realm = RealmHelper.getRealm();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Conversation conversation = realm.where(Conversation.class).equalTo("friendId", uid).findFirst();
+                conversation.setMessages(messages);
+            }
+        });
+        realm.close();
+    }
+
+
+    //更新聊天消息
     @Override
     public void setConversationState(final String uid, final boolean isRead) {
         Realm realm = RealmHelper.getRealm();

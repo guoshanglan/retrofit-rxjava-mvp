@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/include_pickerview_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp" />
+
+    <LinearLayout
+        android:id="@+id/timepicker"
+        android:layout_width="fill_parent"
+        android:layout_height="169dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
+
+        <cc.hisens.hardboiled.patient.wideview.pickerview.lib.WheelView
+            android:id="@+id/year"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            app:dividerColor="#eeeeee"
+            app:labelTextSize="14sp"
+            app:textColorCenter="#666666"
+            app:textSize="23sp" />
+
+        <cc.hisens.hardboiled.patient.wideview.pickerview.lib.WheelView
+            android:id="@+id/month"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            app:dividerColor="#eeeeee"
+            app:labelTextSize="14sp"
+            app:textColorCenter="#666666"
+            app:textSize="23sp" />
+
+        <cc.hisens.hardboiled.patient.wideview.pickerview.lib.WheelView
+            android:id="@+id/day"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            app:dividerColor="#eeeeee"
+            app:labelTextSize="14sp"
+            app:textColorCenter="#666666"
+            app:textSize="23sp" />
+
+        <cc.hisens.hardboiled.patient.wideview.pickerview.lib.WheelView
+            android:id="@+id/hour"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:visibility="gone"
+            app:dividerColor="#eeeeee"
+            app:textColorCenter="#666666"
+            app:textSize="23sp" />
+
+        <cc.hisens.hardboiled.patient.wideview.pickerview.lib.WheelView
+            android:id="@+id/min"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:visibility="gone"
+            app:dividerColor="#eeeeee"
+            app:textColorCenter="#666666"
+            app:textSize="23sp" />
+    </LinearLayout>
+
+</RelativeLayout>

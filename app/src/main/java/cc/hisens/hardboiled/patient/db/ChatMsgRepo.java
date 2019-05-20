@@ -14,7 +14,7 @@ public interface ChatMsgRepo {
 
     void saveChatMsgList(List<ChatMessage> messageList);
 
-    List<ChatMessage> getChatMessageList(String senderId, String receiverId);
+    List<ChatMessage> getChatMessageList( String receiverId);
 
     List<ChatMessage> getChatMessageList();
 

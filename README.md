@@ -1,6 +1,19 @@
 # retrofit-rxjava-mvp
 这个项目是mvp开发模式和retrofit+rxjava的开发框架
 
+
+  需要引入的jar包：
+         implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+         implementation 'com.squareup.okhttp3:okhttp:3.5.0'
+         implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+         implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
+         implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+         implementation 'com.android.support:support-v4:28.0.0'
+         implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+         implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+
+
+
 在retrofit这个文件夹中封装retrofit的网络请求框架
 
  apiservice：定义请求方式
@@ -93,8 +106,6 @@
                         .retryOnConnectionFailure(true)//设置出现错误进行重新连接。
                         .build();
         }
-
-
 
 
 

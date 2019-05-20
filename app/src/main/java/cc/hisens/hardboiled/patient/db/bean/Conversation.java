@@ -35,7 +35,7 @@ public class Conversation extends RealmObject {
     private boolean isRead;
 
     //当前会话的所有消息
-    private RealmList<ChatMessage> messages = new RealmList<>();
+    public RealmList<ChatMessage> messages = new RealmList<>();
 
     public Conversation() {
 

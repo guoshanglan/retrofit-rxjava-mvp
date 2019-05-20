@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.net.URI;
 import java.util.List;
@@ -84,6 +85,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
         ConnectedWebSocket();   //进行websocket的长连接
 
         appInfoPresenter.CheckAppUpdate(); //检查App版本更新
+
     }
 
     //初始化控件和界面

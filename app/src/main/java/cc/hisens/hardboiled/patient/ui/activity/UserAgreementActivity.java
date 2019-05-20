@@ -22,6 +22,8 @@ public class UserAgreementActivity extends BaseActivity {
 
     @BindView(R.id.tv_back)
     TextView tvBack;  //返回键
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     @BindView(R.id.pdf_view)
     PDFView pdfView;
 
@@ -49,6 +51,7 @@ public class UserAgreementActivity extends BaseActivity {
 
     //加载pdf文件,文件放在asset文件夹下
     private void loadTermsFromPdf() {
+        tvTitle.setText("用户协议");
         pdfView.fromAsset("userprotocol.pdf")
                 .defaultPage(0)
                 .enableSwipe(true)

@@ -120,7 +120,7 @@ public class RequestUtils {
 
     }
     /**
-     * Delete 请求demo
+     * Delete 请求
      * @param context  上下文对象
      * @param observer   观察者
      * @param params  查询参数map集合

@@ -45,6 +45,8 @@ public class AppInfoResult {
     }
 
 
+
+    //检查版本更新
     public void checkUpdate(Context context, AppInfoPresenter appInfoPresenter){
         Map params=new HashMap();
         params.put("appid",1);

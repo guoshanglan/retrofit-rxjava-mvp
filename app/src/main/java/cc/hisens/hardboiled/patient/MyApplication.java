@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import androidx.multidex.MultiDex;
 import cc.hisens.hardboiled.patient.ble.BLEManagerWrapper;
@@ -46,6 +47,8 @@ public class MyApplication extends Application {
         UserConfig.init(this);
         instance = this;
         mContext = getApplicationContext();
+
+        CrashReport.initCrashReport(getApplicationContext(), "a4af3eeb50", true);
 
 
     }

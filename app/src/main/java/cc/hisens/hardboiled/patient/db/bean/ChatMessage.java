@@ -7,7 +7,7 @@ import cc.hisens.hardboiled.patient.Appconfig;
 import io.realm.RealmObject;
 
 
-//聊天消息的bean类,双方进行会话时需要用到的
+//聊天消息的bean类,双方进行会话时需要用到的，不需要主键，因为所有的会话都需要存储
 public class ChatMessage extends RealmObject {
 
     //from 消息发送方

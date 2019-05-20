@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/pickerview_bg_topbar">
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:text="@string/dialog_cancel"
+        android:textColor="@drawable/sl_pickerview_btn"
+        android:textSize="28px" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/btnSubmit"
+        android:layout_toRightOf="@+id/btnCancel"
+        android:gravity="center"
+        android:textColor="@color/pickerview_topbar_title"
+        android:textSize="28px" />
+
+    <Button
+        android:id="@id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|right"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:text="@string/l_confirm"
+        android:textColor="@drawable/sl_pickerview_btn"
+        android:textSize="28px" />
+</RelativeLayout>

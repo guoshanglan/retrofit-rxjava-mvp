@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
+    <color name="transparent">#00000000</color>
     <color name="colorPrimaryBlue">#ff2ab5d7</color>
     <color name="colorPrimaryWhite">#ffffff</color>
 
@@ -20,7 +20,7 @@
     <color name="pickerview_wheelview_textcolor_divider">#c9c9c9</color>
     <!--覆盖颜色-->
     <color name="bgColor_overlay">#60000000</color>
-
+    <color name="translucent_white">#61FFFFFF</color>
     <color name="hisens_blue">#2ab5d7</color>
     <color name="white">#FFFFFF</color>
     <color name="hisens_background">#f6f6f6</color>
