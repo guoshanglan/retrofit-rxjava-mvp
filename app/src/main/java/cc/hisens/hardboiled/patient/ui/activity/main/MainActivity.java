@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
 
         ConnectedWebSocket();   //进行websocket的长连接
 
-      //  appInfoPresenter.CheckAppUpdate(); //检查App版本更新
+        appInfoPresenter.CheckAppUpdate(); //检查App版本更新
 
     }
 
@@ -246,7 +246,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     public void setFailedError(String str) {
         Log.e("错误", str);
         ToastUtils.show(this, str);
-        navigateToLogin();  //跳转到登录页面
+       // navigateToLogin();  //跳转到登录页面
 
     }
 

@@ -22,7 +22,6 @@ public class Url {
     //检查APP版本是否有更新
     public static String getAppInfo="/api/v1/device/version";
 
-
     //websocket连接地址
     public static final String WEB_SOCKET_URL = "http://10.0.0.200:8080/api/v1/ws";
 

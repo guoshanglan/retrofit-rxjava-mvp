@@ -99,7 +99,6 @@ public class ConversationRepoImpl implements ConversationRepo {
                      conversation.messages.get(i).setRead(true);
                  }
 
-                conversation.setMessages(conversation.messages);
             }
         });
         realm.close();

@@ -428,6 +428,7 @@ public class BLEManagerWrapper {
     private  void  Connects(int position){
 
         if(deviceList!=null&&deviceList.size()!=0) {
+
             //判断当前是否已经连接上了蓝牙设备，所以需要先断开之前的连接在进行重连
             if (isConnected()){
                 this.disconnect();

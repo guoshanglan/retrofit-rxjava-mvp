@@ -80,6 +80,8 @@ public class AppUpdateUtils {
 
         if (isMarketInstalled(context, url)) {
             goToMarket(context, "cc.hisens.hardboiled.patient");
+        }else{
+            ToastUtils.show(context,"请先安装应用商店");
         }
 //        } else {
 //            goToBrowser(url, context);
