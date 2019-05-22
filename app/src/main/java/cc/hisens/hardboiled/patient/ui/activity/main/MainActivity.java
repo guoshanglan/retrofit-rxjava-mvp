@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
 
         ConnectedWebSocket();   //进行websocket的长连接
 
-        appInfoPresenter.CheckAppUpdate(); //检查App版本更新
+      //  appInfoPresenter.CheckAppUpdate(); //检查App版本更新
 
     }
 
@@ -238,7 +238,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     @Override
     public void setCheckUpdateInfo(AppInfoResult appInfoResult) {
 
-        AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.content, appInfoResult.link, this);
+        AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.getContent(), appInfoResult.getShop_url(), this);
     }
 
     //Session失效，需要重新登录

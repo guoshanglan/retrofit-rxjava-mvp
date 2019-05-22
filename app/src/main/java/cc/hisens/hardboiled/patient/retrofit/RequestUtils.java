@@ -2,20 +2,26 @@ package cc.hisens.hardboiled.patient.retrofit;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
 
 /**
  * 提交参数方式
@@ -61,9 +67,12 @@ public class RequestUtils {
      * @param context
      * @param
      */
-    public static void post(Context context, String url, Map<String,String>params, Map<String,String>headsMap, MyObserver<BaseResponse> observer){
+    public static void post(Context context, String url, HashMap<String,String>params, Map<String,String>headsMap, MyObserver<BaseResponse> observer){
+
+
+
         RetrofitUtils.getApiUrl()
-                .postUser(url,params,headsMap).compose(RxHelper.observableIO2Main(context))
+                .postUser(url,convertMapToBody( params),headsMap).compose(RxHelper.observableIO2Main(context))
                 .subscribe(new Observer<BaseResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -95,7 +104,7 @@ public class RequestUtils {
     public static void put(Context context, String url, Map<String,String>params, Map<String,String>headsMap, MyObserver<BaseResponse> observer){
         Map<String, String> headers = new HashMap<String, String>();
         RetrofitUtils.getApiUrl()
-                .put(url,params,headsMap).compose(RxHelper.observableIO2Main(context))
+                .put(url,convertMapToBody(params),headsMap).compose(RxHelper.observableIO2Main(context))
                 .subscribe(new Observer<BaseResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -130,7 +139,7 @@ public class RequestUtils {
     @SuppressLint("CheckResult")
     public static void delete(Context context, String url, Map<String,String>params, Map<String,String>headsMap, MyObserver<BaseResponse> observer){
         RetrofitUtils.getApiUrl()
-                .delete(url,params,headsMap).compose(RxHelper.observableIO2Main(context))
+                .delete(url,convertMapToBody(params),headsMap).compose(RxHelper.observableIO2Main(context))
                 .subscribe(new Observer<BaseResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -232,6 +241,26 @@ public class RequestUtils {
 
                     }
                 });
+    }
+
+
+
+    /**
+     * 将map数据转换为 普通的 json RequestBody上传参数给服务器
+     * @param map 以前的请求参数
+     * @return
+     */
+    public static RequestBody convertMapToBody(Map<?,?> map) {
+        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new JSONObject(map).toString());
+    }
+
+    /**
+     * 将map数据转换为图片，文件类型的  RequestBody上传参数给服务器
+     * @param map 以前的请求参数
+     * @return 待测试
+     */
+    public static RequestBody convertMapToMediaBody(Map<?,?> map) {
+        return RequestBody.create(MediaType.parse("multipart/form-data; charset=utf-8"), new JSONObject(map).toString());
     }
 }
 

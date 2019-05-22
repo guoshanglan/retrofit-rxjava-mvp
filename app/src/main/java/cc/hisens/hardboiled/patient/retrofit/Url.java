@@ -11,18 +11,20 @@ public class Url {
     public static String BaseUrl2="http://10.0.0.200:8080";  //测试地址
 
     //患者用户登录接口
-    public static String paientLogin="/v1/user/login";
+    public static String paientLogin="/api/v1/user/login";
 
     //患者User获取手机验证码
-    public static String getVerificationCode="/v1/user/phone_code";
+    public static String getVerificationCode="/api/v1/user/phone_code";
 
+   //上传APP新版本信息
+    public static String uploadVersion="/api/v1/device/version";
 
     //检查APP版本是否有更新
-    public static String getAppInfo="/v1/config/version";
+    public static String getAppInfo="/api/v1/device/version";
 
 
-    //websocket连接测试地址
-    public static final String WEB_SOCKET_URL = "ws://echo.websocket.org";
+    //websocket连接地址
+    public static final String WEB_SOCKET_URL = "http://10.0.0.200:8080/api/v1/ws";
 
 
 

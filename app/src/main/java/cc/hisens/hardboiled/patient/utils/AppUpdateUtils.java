@@ -41,7 +41,7 @@ public class AppUpdateUtils {
 
 
     //淡出对话框
-    public void popUpdateDialog(String message, final String url, Context context) {
+    public void popUpdateDialog(List<String> message, final  List<String> url, Context context) {
 
         TextView textView = new TextView(context);
         textView.setText("发现新版本");
@@ -49,7 +49,12 @@ public class AppUpdateUtils {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("发现新版本");
-        builder.setMessage(message);
+        StringBuffer buffer=new StringBuffer();
+        for (String content:message){
+
+          buffer.append(content+"\r\n");
+        }
+        builder.setMessage(buffer);
         builder.setPositiveButton("立即升级", new DialogInterface.OnClickListener() {
 
             @Override
@@ -65,19 +70,20 @@ public class AppUpdateUtils {
 
     }
 
-    private void downloadNewest(String url, Context context) {
+    private void downloadNewest(List<String> url, Context context) {
 
-        List<String> name = new ArrayList<>();
-        name.add("com.huawei.appmarket");
-        name.add("com.xiaomi.market");
-        name.add("com.qihoo.appstore");
-        name.add("com.oppo.market");
+//        List<String> name = new ArrayList<>();
+//        name.add("com.huawei.appmarket");
+//        name.add("com.xiaomi.market");
+//        name.add("com.qihoo.appstore");
+//        name.add("com.oppo.market");
 
-        if (isMarketInstalled(context, name)) {
+        if (isMarketInstalled(context, url)) {
             goToMarket(context, "cc.hisens.hardboiled.patient");
-        } else {
-            goToBrowser(url, context);
         }
+//        } else {
+//            goToBrowser(url, context);
+//        }
 
     }
 

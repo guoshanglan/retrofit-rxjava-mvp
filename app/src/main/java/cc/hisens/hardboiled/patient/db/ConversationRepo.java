@@ -20,8 +20,11 @@ public interface ConversationRepo {
 
     Observable<List<Conversation>> getUnreadConversation();
 
-    //更新会话消息状态
+    //更新会话消息的聊天记录，将聊天记录全部存储进去
     void setConversationChatmessage(String uid, RealmList<ChatMessage> messages);
+
+    //更新会话的聊天记录的是否未读的状态
+    void setConversationChatmessageState(String uid);
 
     void setConversationState(String uid, boolean isRead);
 

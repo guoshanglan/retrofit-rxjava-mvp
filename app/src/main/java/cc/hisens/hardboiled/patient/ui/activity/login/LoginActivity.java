@@ -168,10 +168,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void setLoginsuccessful(User user) {
         resetGetVerificationCodeEditText(); //重置
         dismissProgressDialog();
-        Log.e("成功", user.name);
+        Log.e("成功", user.getUser_name());
         sharedUtils.writeBoolean(UserConfig.UserInfo.EXTRA_IS_LOGIN,true);   //存储已经登录
-        sharedUtils.writeString(UserConfig.UserInfo.EXTRA_UID,user.uid);    //存储用户userId
-        UserConfig.UserInfo.setUid(user.uid);
+        sharedUtils.writeString(UserConfig.UserInfo.EXTRA_UID,user.getId()+"");    //存储用户userId
+        UserConfig.UserInfo.setUid(user.getId()+"");
          new UserRepositoryImpl().saveUser(user);  //将登陆成功的用户信息进行存储
 
         startActivity(new Intent(LoginActivity.this,MainActivity.class));  //跳转到主界面

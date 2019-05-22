@@ -1,10 +1,15 @@
 package cc.hisens.hardboiled.patient.retrofit;
 
+import android.util.Log;
+
 import java.util.List;
 import java.util.Map;
 
+import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -31,25 +36,25 @@ public interface ApiUrl {
     /**
      * TODO POST请求
      * @parmas url  请求地址
-     * @params map  请求所需要传递的参数map<key,value>
+     * @params Body  利用body进行参数封装
      * @params headsMap  请求所需要的特殊请求头map<key,value>集合
      */
     @POST
-    @FormUrlEncoded
     //多个参数
-    Observable<BaseResponse> postUser(@Url String url,@FieldMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
+    Observable<BaseResponse> postUser(@Url String url, @Body RequestBody body, @HeaderMap Map<String,String>headsMap);
+
 
     /**
      * TODO DELETE
      */
     @DELETE
-    Observable<BaseResponse> delete(@Url String url,@QueryMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
+    Observable<BaseResponse> delete(@Url String url, @Body RequestBody body,@HeaderMap Map<String,String>headsMap);
 
     /**
      * TODO PUT
      */
     @PUT()
-    Observable<BaseResponse> put(@Url String url,@FieldMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
+    Observable<BaseResponse> put(@Url String url, @Body RequestBody body,@HeaderMap Map<String,String>headsMap);
 
     /**
      * TODO 文件上传

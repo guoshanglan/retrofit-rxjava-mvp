@@ -68,7 +68,7 @@ public class ConversationRepoImpl implements ConversationRepo {
 
 
 
-    //更新会话的聊天记录
+    //更新会话的聊天记录,将聊天记录全部存储进去
     @Override
     public void setConversationChatmessage(String uid,final RealmList<ChatMessage> messages) {
         Realm realm = RealmHelper.getRealm();
@@ -76,14 +76,38 @@ public class ConversationRepoImpl implements ConversationRepo {
             @Override
             public void execute(Realm realm) {
                 Conversation conversation = realm.where(Conversation.class).equalTo("friendId", uid).findFirst();
-                conversation.setMessages(messages);
+
+                conversation.messages.addAll(messages);
+                conversation.setMessages(conversation.messages);
             }
         });
         realm.close();
     }
 
 
-    //更新聊天消息
+
+    //更新会话的聊天记录消息状态，将未读改为已读
+    @Override
+    public void setConversationChatmessageState(String uid) {
+        Realm realm = RealmHelper.getRealm();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Conversation conversation = realm.where(Conversation.class).equalTo("friendId", uid).findFirst();
+
+                 for (int i=0;i<conversation.messages.size();i++){
+                     conversation.messages.get(i).setRead(true);
+                 }
+
+                conversation.setMessages(conversation.messages);
+            }
+        });
+        realm.close();
+    }
+
+
+
+    //更新会话消息的聊天状态
     @Override
     public void setConversationState(final String uid, final boolean isRead) {
         Realm realm = RealmHelper.getRealm();
@@ -97,6 +121,8 @@ public class ConversationRepoImpl implements ConversationRepo {
         realm.close();
     }
 
+
+    //获取会话消息的个数
     @Override
     public Observable<Long> getConversationCount() {
         Realm realm = RealmHelper.getRealm();
