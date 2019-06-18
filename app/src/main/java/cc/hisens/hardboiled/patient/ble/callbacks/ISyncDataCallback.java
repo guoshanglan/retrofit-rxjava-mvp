@@ -4,6 +4,8 @@ import android.bluetooth.BluetoothGatt;
 
 import com.clj.fastble.data.BleDevice;
 
+import java.util.List;
+
 /**
  * @author Waiban
  * @package cc.hisens.hardboiled.data.ble.callbacks
@@ -44,6 +46,7 @@ public interface ISyncDataCallback {
     void onSetTimeFailed();
 
     void onSyncData();
+    void DeviceCount(List<BleDevice> deviceList);  //回调扫描到的设备数，可以用来展示在列表上
 
     class SimpleSyncDataCallback implements ISyncDataCallback {
         @Override
@@ -113,6 +116,11 @@ public interface ISyncDataCallback {
 
         @Override
         public void onSyncData() {
+
+        }
+
+        @Override
+        public void DeviceCount(List<BleDevice> deviceList) {
 
         }
     }

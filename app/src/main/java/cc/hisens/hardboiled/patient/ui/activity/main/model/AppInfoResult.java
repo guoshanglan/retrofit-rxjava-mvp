@@ -15,6 +15,7 @@ import cc.hisens.hardboiled.patient.retrofit.RequestUtils;
 import cc.hisens.hardboiled.patient.retrofit.Url;
 import cc.hisens.hardboiled.patient.ui.activity.main.present.AppInfoPresenter;
 import cc.hisens.hardboiled.patient.utils.AppVersionUtil;
+import cc.hisens.hardboiled.patient.utils.ToastUtils;
 
 public class AppInfoResult {
 
@@ -37,7 +38,7 @@ public class AppInfoResult {
     @SerializedName("version")
     private String version;
 
-    //0.不需要更新或者硬件版本不支持,1.提示性升级,2.强制升级
+    // 0.不需要更新或者硬件版本不支持,1.提示性升级,2.强制升级
     @SerializedName("status")
     private int status;
 
@@ -135,7 +136,7 @@ public class AppInfoResult {
         Map params=new HashMap();
         params.put("client_type",1);
         params.put("hard_version","1.0.0");
-        params.put("app_version", AppVersionUtil.getLocalVersion(context));
+        params.put("app_version", AppVersionUtil.getLocalVersion(context));  //app版本号
         RequestUtils.get(context, Url.getAppInfo, params, new MyObserver<BaseResponse>(context){
             @Override
             public void onSuccess(BaseResponse result) {
@@ -147,7 +148,7 @@ public class AppInfoResult {
                         appInfoPresenter.setCheckUpdateInfo(appInfoResult);   //返回成功数据
 
                     } else {
-
+                        if (result.result==1002)
                         appInfoPresenter.setFailedError(result.message);
                     }
 
@@ -157,7 +158,8 @@ public class AppInfoResult {
 
             @Override
             public void onFailure(Throwable e, String errorMsg) {
-                appInfoPresenter.setFailedError(errorMsg);
+//                appInfoPresenter.setFailedError(errorMsg);
+                ToastUtils.show(context,"网络异常");
             }
         });
 

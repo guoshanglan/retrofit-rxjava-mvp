@@ -341,6 +341,11 @@ public class CmdDecoder {
         }
     }
 
+    /**
+     * 获取设备使用时长
+     *
+     * @param payload
+     */
     public void getDeviceUtilityTime(byte[] payload) {
         int offset = 0;
         long firstUseTimestamp = TimeUtils.toMillis(BytesUtils.bytesToInt(Arrays.copyOfRange(payload, offset, offset + 4)));

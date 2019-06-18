@@ -4,7 +4,6 @@ package cc.hisens.hardboiled.patient.retrofit;
 import java.util.concurrent.TimeUnit;
 
 import cc.hisens.hardboiled.patient.MyApplication;
-import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import io.reactivex.annotations.NonNull;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -16,25 +15,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitUtils {
     private static final String TAG = "RetrofitUtils";
-    private static ApiUrl mApiUrl;
+    private static ApiService mApiSerivce;
     /**
      * 单例模式
      */
-    public static ApiUrl getApiUrl() {
-        if (mApiUrl == null) {
+    public static ApiService getApiUrl() {
+        if (mApiSerivce == null) {
             synchronized (RetrofitUtils.class) {
-                if (mApiUrl == null) {
-                    mApiUrl = new RetrofitUtils().getRetrofit();
+                if (mApiSerivce == null) {
+                    mApiSerivce = new RetrofitUtils().getRetrofit();
                 }
             }
         }
-        return mApiUrl;
+        return mApiSerivce;
     }
     private RetrofitUtils(){}
 
-    public ApiUrl getRetrofit() {
+    public ApiService getRetrofit() {
         // 初始化Retrofit
-        ApiUrl apiUrl = initRetrofit(initOkHttp()) .create(ApiUrl.class);
+        ApiService apiUrl = initRetrofit(initOkHttp()) .create(ApiService.class);
         return apiUrl;
     }
 
@@ -61,8 +60,8 @@ public class RetrofitUtils {
                     .connectTimeout(Url.DEFAULT_TIME, TimeUnit.SECONDS)//设置请求超时时间
                     .writeTimeout(Url.DEFAULT_TIME,TimeUnit.SECONDS)//设置写入超时时间
                     .addInterceptor(new LogInterceptor())//添加打印拦截
-                    .addInterceptor(new ReceivedCookiesInterceptor(MyApplication.getInstance()))
-                    .addInterceptor(new AddCookiesInterceptor(MyApplication.getInstance(),"en"))
+                    .addInterceptor(new AddCookiesInterceptor())
+                    .addInterceptor(new ReceivedCookiesInterceptor())
                     .retryOnConnectionFailure(true)//设置出现错误进行重新连接。
                     .build();
     }

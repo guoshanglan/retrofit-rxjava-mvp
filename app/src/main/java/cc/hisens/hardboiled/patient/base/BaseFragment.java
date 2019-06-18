@@ -16,11 +16,11 @@ import cc.hisens.hardboiled.patient.MyApplication;
 import cc.hisens.hardboiled.patient.utils.SharedUtils;
 
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements PresenterCallback {
-    protected View mRootView;
+    protected View mRootView;  //返回的布局
     private Unbinder mUnbinder;
     protected BasePresenter mPresenter;
     protected MyApplication appLication;
-    protected SharedUtils sharedUtils;
+    protected SharedUtils sharedUtils;  //共享参数sp
 
 
 
@@ -57,7 +57,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         init(view);
 

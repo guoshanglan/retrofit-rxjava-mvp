@@ -97,6 +97,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout" />
+
+
     </application>
 
 </manifest>

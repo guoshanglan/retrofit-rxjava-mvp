@@ -12,30 +12,34 @@ public class ChatMessage extends RealmObject {
 
     //from 消息发送方
     private String senderId;
-
     //to    消息接收方
     private String receiverId;
-
-    //消息类型 0 文本，1图片，2语言
-    private int messageType;
 
     //文本消息内容
     private String textMessage;
 
-    //图片消息，图片url
-    private String imagePath;
+    //缩略图文件的本地路径
+    private String thumbPath;
+    //缩略图远程地址
+    private String thumbUrl;
+    //是否压缩(false:原图，true：压缩过)
+    private boolean compress;
+    //高度
+    private int imageheight;
+    //宽度
+    private int iamgewidth;
 
-    //缩略图url
-    private String thumbImagePath;
+    //视频消息长度
+    private long duration;
 
-    //图片宽度
-    private int imageWidth = 120;
 
-    //图片高度
-    private int imageHeight = 160;
+    //语音本地文件保存路径
+    private String voicefilePath;
 
-    //语音消息，语音消息url
-    private String voicePath;
+    //视频高度
+    private int videoheight;
+    //视频宽度
+    private int videowidth;
 
     //语音时长
     private double voiceTime;
@@ -43,8 +47,6 @@ public class ChatMessage extends RealmObject {
     //发送消息时间
     private long timestamp;
 
-    //文件保存地址
-    private String filePath;
 
     //消息是来自好友还是自己发出
     private int messageFrom;
@@ -52,34 +54,13 @@ public class ChatMessage extends RealmObject {
     //消息是否阅读
     private boolean isRead = false;
 
+
+
+
     public ChatMessage() {
 
     }
 
-    public ChatMessage(JSONObject jsonObject) {
-        try {
-            senderId = jsonObject.getString("from");
-            receiverId = jsonObject.getString("to");
-            messageType = jsonObject.getInt("type");
-            messageFrom = Appconfig.CHAT_RECEIVER;
-            switch (messageType) {
-                case 0:
-                    textMessage = jsonObject.getString("text");
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    voiceTime = jsonObject.getDouble("time");
-                    voicePath = jsonObject.getString( "audio");
-                    break;
-                default:
-            }
-            timestamp = jsonObject.getLong("time");
-        } catch (JSONException e) {
-
-        }
-
-    }
 
     public String getSenderId() {
         return senderId;
@@ -97,14 +78,6 @@ public class ChatMessage extends RealmObject {
         this.receiverId = receiverId;
     }
 
-    public int getMessageType() {
-        return messageType;
-    }
-
-    public void setMessageType(int messageType) {
-        this.messageType = messageType;
-    }
-
     public String getTextMessage() {
         return textMessage;
     }
@@ -113,52 +86,76 @@ public class ChatMessage extends RealmObject {
         this.textMessage = textMessage;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getThumbPath() {
+        return thumbPath;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setThumbPath(String thumbPath) {
+        this.thumbPath = thumbPath;
     }
 
-    public String getVoicePath() {
-        return voicePath;
+    public String getThumbUrl() {
+        return thumbUrl;
     }
 
-    public void setVoicePath(String voicePath) {
-        this.voicePath = voicePath;
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public boolean isCompress() {
+        return compress;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setCompress(boolean compress) {
+        this.compress = compress;
     }
 
-    public String getThumbImagePath() {
-        return thumbImagePath;
+    public int getImageheight() {
+        return imageheight;
     }
 
-    public void setThumbImagePath(String thumbImagePath) {
-        this.thumbImagePath = thumbImagePath;
+    public void setImageheight(int imageheight) {
+        this.imageheight = imageheight;
     }
 
-    public int getImageWidth() {
-        return imageWidth;
+    public int getIamgewidth() {
+        return iamgewidth;
     }
 
-    public void setImageWidth(int imageWidth) {
-        this.imageWidth = imageWidth;
+    public void setIamgewidth(int iamgewidth) {
+        this.iamgewidth = iamgewidth;
     }
 
-    public int getImageHeight() {
-        return imageHeight;
+    public long getDuration() {
+        return duration;
     }
 
-    public void setImageHeight(int imageHeight) {
-        this.imageHeight = imageHeight;
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public int getVideoheight() {
+        return videoheight;
+    }
+
+    public void setVideoheight(int videoheight) {
+        this.videoheight = videoheight;
+    }
+
+    public int getVideowidth() {
+        return videowidth;
+    }
+
+    public void setVideowidth(int videowidth) {
+        this.videowidth = videowidth;
+    }
+
+    public String getVoicefilePath() {
+        return voicefilePath;
+    }
+
+    public void setVoicefilePath(String localfilePath) {
+        this.voicefilePath = localfilePath;
     }
 
     public double getVoiceTime() {
@@ -169,12 +166,12 @@ public class ChatMessage extends RealmObject {
         this.voiceTime = voiceTime;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public int getMessageFrom() {
@@ -194,7 +191,45 @@ public class ChatMessage extends RealmObject {
     }
 
     public enum MessageType {
-        TEXT, PICTURE, VOICE
+        TEXT ,//文本消息
+        AUDIO ,//语音消息
+        VIDEO ,//视频消息
+        IMAGE ,//图片消息
+        FILE ,//文件消息
+        LOCATION //位置消息
     }
 
+
+    //消息发送状态
+    public enum MsgSendStatus {
+        DEFAULT,
+        //发送中
+        SENDING,
+        //发送失败
+        FAILED,
+        //已发送
+        SENT
+    }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" +
+                "senderId='" + senderId + '\'' +
+                ", receiverId='" + receiverId + '\'' +
+                ", textMessage='" + textMessage + '\'' +
+                ", thumbPath='" + thumbPath + '\'' +
+                ", thumbUrl='" + thumbUrl + '\'' +
+                ", compress=" + compress +
+                ", imageheight=" + imageheight +
+                ", iamgewidth=" + iamgewidth +
+                ", duration=" + duration +
+                ", videoheight=" + videoheight +
+                ", videowidth=" + videowidth +
+                ", voicefilePath='" + voicefilePath + '\'' +
+                ", voiceTime=" + voiceTime +
+                ", timestamp=" + timestamp +
+                ", messageFrom=" + messageFrom +
+                ", isRead=" + isRead +
+                '}';
+    }
 }

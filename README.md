@@ -20,59 +20,60 @@
  
    //  下面的是rxjava与retrofit的结合封装的apiservice
 
-     /**
-         * TODO Get请求
-         */
-        @GET
-        Observable<BaseResponse> getUser(@Url String url,@QueryMap Map<String, String> info); //简洁方式   直接获取所需数据
+   /**
+       * TODO Get请求
+       */
+      @GET
+      Observable<BaseResponse> getUser(@Url String url,@QueryMap Map<String, String> info); //简洁方式   直接获取所需数据
+
+      /**
+       * TODO POST请求
+       * @parmas url  请求地址
+       * @params Body  利用body进行参数封装
+       * @params headsMap  请求所需要的特殊请求头map<key,value>集合，如果有特殊的header，没有的话请传控map就可以
+       */
+      @POST
+      //多个参数
+      Observable<BaseResponse> postUser(@Url String url, @Body RequestBody body, @HeaderMap Map<String,String>headsMap);
 
 
-        /**
-         * TODO POST请求
-         */
-        @POST
-        @FormUrlEncoded
-        //多个参数
-        Observable<BaseResponse> postUser(@Url String url,@FieldMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
+      /**
+       * TODO DELETE
+       */
+      @DELETE
+      Observable<BaseResponse> delete(@Url String url, @Body RequestBody body,@HeaderMap Map<String,String>headsMap);
 
-        /**
-         * TODO DELETE
-         */
-        @DELETE
-        Observable<BaseResponse> delete(@Url String url,@QueryMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
+      /**
+       * TODO PUT
+       */
+      @PUT()
+      @FormUrlEncoded
+      Observable<BaseResponse> put(@Url String url, @Body RequestBody body,@HeaderMap Map<String,String>headsMap);
 
-        /**
-         * TODO PUT
-         */
-        @PUT()
-        Observable<BaseResponse> put(@Url String url,@FieldMap Map<String, String> map,@HeaderMap Map<String,String>headsMap);
-
-        /**
-         * TODO 文件上传
-         */
-        //亲测可用
-        @Multipart
-        @POST
-        Observable<BaseResponse> uploadImage(@Url String url,@HeaderMap Map<String, String> headers, @Part MultipartBody.Part file);
-
-        /**
-         * 多文件上传
-         */
+      /**
+       * TODO 文件上传
+       */
+      //亲测可用
+      @Multipart
+      @POST
+      Observable<BaseResponse> uploadImage(@Url String url,@HeaderMap Map<String, String> headers, @Part MultipartBody.Part file);
 
 
-        @Multipart
-        @POST
-        Observable<BaseResponse> uploadImages(@Url String url,@HeaderMap Map<String, String> headers, @Part List<MultipartBody.Part> files);
+      /**
+       * 多文件上传
+       */
 
-        /**
-         * 来自https://blog.csdn.net/impure/article/details/79658098
-         * @Streaming 这个注解必须添加，否则文件全部写入内存，文件过大会造成内存溢出
-         */
-        @Streaming
-        @GET
-        Observable<BaseResponse> download(@Header("RANGE") String start, @Url String url);
-    
-    
+      @Multipart
+      @POST
+      Observable<BaseResponse> uploadImages(@Url String url,@HeaderMap Map<String, String> headers, @Part List<MultipartBody.Part> files);
+
+      /**
+       * 来自https://blog.csdn.net/impure/article/details/79658098
+       * @Streaming 这个注解必须添加，否则文件全部写入内存，文件过大会造成内存溢出
+       */
+      @Streaming
+      @GET
+      Observable<BaseResponse> download(@Header("RANGE") String start, @Url String url);
     
     2：LogInterceptor:定义的基本的网络请求拦截方式
     

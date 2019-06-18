@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * @author Ou Weibin
+ * @author Ou Shanglan
  * @version 1.0
  */
 public class UUIDConstants {

@@ -41,7 +41,7 @@ public class AppUpdateUtils {
 
 
     //淡出对话框
-    public void popUpdateDialog(List<String> message, final  List<String> url, Context context) {
+    public void popUpdateDialog(List<String> message, final  List<String> url,int status, Context context) {
 
         TextView textView = new TextView(context);
         textView.setText("发现新版本");
@@ -64,8 +64,13 @@ public class AppUpdateUtils {
             }
 
         });
-
         AlertDialog dialog = builder.create();
+        if (status==2){
+            dialog.setCancelable(false);
+        }else{
+            dialog.setCancelable(true);
+        }
+
         dialog.show();
 
     }

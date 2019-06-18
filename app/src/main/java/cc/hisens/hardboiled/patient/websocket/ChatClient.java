@@ -24,14 +24,14 @@ import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 
 public class ChatClient implements WebSocketClientListener {
 
-    private static URI mURI;
-    private static ChatClient mChatClient;
-    private WebSocketClientImpl webSocketClientImpl;
-    private Timer connectTimer;
+    private static URI mURI;   //websocket需要的url地址
+    private static ChatClient mChatClient;   //客户端类
+    public WebSocketClientImpl webSocketClientImpl;
+    private Timer connectTimer;   //连接定时器
     private TimerTask connectTimerTask;
-    private Timer pingTimer;
+    private Timer pingTimer;  //心跳定时器
     private TimerTask pingTimerTask;
-    private boolean isConnected;
+    private boolean isConnected;  //判断是否连接
     private boolean isConnectTimerScheduled;
     private boolean isPingTimerScheduled;
     private List<WebSocketClientListener> mClientListenerList = new ArrayList<>();
@@ -66,14 +66,13 @@ public class ChatClient implements WebSocketClientListener {
     @Override
     public void onConnected() {
 
-
         Log.e("连接成功","sosososososo");
-//        MessageModel message = new MessageModel();
-//        message.setFrom(832654859);   //由登录用户发起长连接
-//        message.setType((byte) 6);
-//        message.setTime(System.currentTimeMillis() / 1000);
-//
-//        sendMessage(message);   //向服务器发送一条消息
+        MessageModel message = new MessageModel();
+        message.setFrom(832654859);   //由登录用户发起长连接
+        message.setType((byte) 6);
+        message.setTime(System.currentTimeMillis() / 1000);
+
+        sendMessage(message);   //向服务器发送一条消息
 
         cancelConnectTimer();  //取消重复连接定时器
 
@@ -214,7 +213,7 @@ public class ChatClient implements WebSocketClientListener {
         isConnectTimerScheduled = true;
     }
 
-    private void cancelConnectTimer() {
+    public void cancelConnectTimer() {
         if (connectTimer != null) {
             connectTimer.cancel();
             connectTimer.purge();
@@ -240,7 +239,7 @@ public class ChatClient implements WebSocketClientListener {
         pingTimer.schedule(pingTimerTask, 10 * 1000, 10 * 1000);
     }
 
-    private void cancelPingTimer() {
+    public void cancelPingTimer() {
         if (pingTimer != null) {
             pingTimer.cancel();
             pingTimer.purge();

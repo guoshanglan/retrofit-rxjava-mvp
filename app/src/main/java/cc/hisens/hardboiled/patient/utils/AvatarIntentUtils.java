@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 
+import com.github.barteksc.pdfviewer.util.FileUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -35,13 +36,20 @@ import io.reactivex.functions.Consumer;
 public class AvatarIntentUtils {
 
     private  File tempFile;
+    public static final String EXTERNAL_ROOT_PATH = getSdCardPath() + File.separator + "Hardboiled";
+    public static final String IMAGE_ROOT_PATH = EXTERNAL_ROOT_PATH + File.separator + "image";
+    // 通过拍照保存暂时文件路径
+    public static final String AVATAR_FILE_TMP = IMAGE_ROOT_PATH + File.separator + "avatar_tmp.jpg";
+    // 拍照得到图片暂存的URI
+    private static Uri mAvatarTmpUri = Uri.fromFile(new File(AVATAR_FILE_TMP));
 
-    public static Intent getCameraCaptureIntent(Uri dest) {
+
+    //普通的头像文件存储方式
+    public static Intent getCameraCaptureIntent() {
         // 启动手机相机拍摄照片作为头像
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
         // 判断存储卡是否可用，存储照片文件
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, dest);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mAvatarTmpUri);
         return intent;
     }
 
@@ -68,7 +76,6 @@ public class AvatarIntentUtils {
 
 
     //检查相机权限
-
     @SuppressLint("CheckResult")
     public  Intent rxPermissionForCamera(Context context ) {
         final Intent[] intent = {null};
@@ -80,7 +87,6 @@ public class AvatarIntentUtils {
 
                     intent[0] =getPicFromCamera(context);
 
-
                 } else {
                     // 权限被拒绝
 
@@ -89,7 +95,6 @@ public class AvatarIntentUtils {
             }
         });
 
-
         return intent[0];
     }
 
@@ -97,7 +102,6 @@ public class AvatarIntentUtils {
     /**
      * 打开相机获取图片
      */
-
     public static Intent getGalleryIntent() {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
@@ -131,5 +135,17 @@ public class AvatarIntentUtils {
         return intent;
     }
 
+    /**
+     * SD卡目录
+     */
+    private static String getSdCardPath() {
+        File sdDir = null;
+        boolean sdCardExist = Environment.getExternalStorageState()
+                .equals(Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
+        if (sdCardExist) {
+            sdDir = Environment.getExternalStorageDirectory(); // 获取根目录
+        }
+        return sdDir != null ? sdDir.toString() : "";
+    }
 
 }

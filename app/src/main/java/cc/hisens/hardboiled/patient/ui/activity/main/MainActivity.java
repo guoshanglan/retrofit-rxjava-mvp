@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -53,8 +55,8 @@ import io.reactivex.functions.Consumer;
 public class MainActivity extends BaseActivity implements AppcheckInfoView {
     @BindView(R.id.fl_container)
     FrameLayout myFrameLayout;  //用来展示fragment的
-    @BindViews({R.id.rbtn_monitor, R.id.rbtn_doctor, R.id.rbtn_helper, R.id.rbtn_me})
     //底部四个按钮,ButterKnife一次性注解多个
+    @BindViews({R.id.rbtn_monitor, R.id.rbtn_doctor, R.id.rbtn_helper, R.id.rbtn_me})
     public List<RadioButton> buttonList;
     @BindView(R.id.tv_doctor_message_count)
     TextView tvDoctormessageCount;  //医生消息
@@ -74,10 +76,6 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        bleManagerWrapper = BLEManagerWrapper.getInstance();
-        bleManagerWrapper.initialize(this);
-
         super.onCreate(savedInstanceState);
         initView();
         grantPermissions();
@@ -88,8 +86,14 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
 
     }
 
+
+
+
     //初始化控件和界面
     private void initView() {
+        bleManagerWrapper = BLEManagerWrapper.getInstance();
+        bleManagerWrapper.initialize(this);
+
         firstFragment = new FristFragment();
         secondFragment = new DoctorFragment();
         thirdFragment = new ThirdFragment();
@@ -237,8 +241,8 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     //查询APP版本信息有更新
     @Override
     public void setCheckUpdateInfo(AppInfoResult appInfoResult) {
-
-        AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.getContent(), appInfoResult.getShop_url(), this);
+        if (appInfoResult!=null&&appInfoResult.getStatus()!=0)
+        AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.getContent(), appInfoResult.getShop_url(),appInfoResult.getStatus(), this);
     }
 
     //Session失效，需要重新登录
@@ -246,16 +250,20 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     public void setFailedError(String str) {
         Log.e("错误", str);
         ToastUtils.show(this, str);
-       // navigateToLogin();  //跳转到登录页面
+        navigateToLogin();  //跳转到登录页面
 
     }
 
 
+
+    //内存回收，否则可能会造成内存溢出oom
     @Override
     protected void onDestroy() {
         super.onDestroy();
         bleManagerWrapper.recycle();
-
+        mChatClient.cancelConnectTimer();
+        mChatClient.cancelPingTimer();
+        mChatClient=null; //释放对象
 
     }
 }

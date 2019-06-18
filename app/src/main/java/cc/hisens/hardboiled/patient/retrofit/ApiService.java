@@ -1,17 +1,15 @@
 package cc.hisens.hardboiled.patient.retrofit;
 
-import android.util.Log;
+
 
 import java.util.List;
 import java.util.Map;
-
-import cc.hisens.hardboiled.patient.ui.activity.login.model.User;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -24,7 +22,7 @@ import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
-public interface ApiUrl {
+public interface ApiService {
 
     /**
      * TODO Get请求
@@ -32,12 +30,11 @@ public interface ApiUrl {
     @GET
     Observable<BaseResponse> getUser(@Url String url,@QueryMap Map<String, String> info); //简洁方式   直接获取所需数据
 
-
     /**
      * TODO POST请求
      * @parmas url  请求地址
      * @params Body  利用body进行参数封装
-     * @params headsMap  请求所需要的特殊请求头map<key,value>集合
+     * @params headsMap  请求所需要的特殊请求头map<key,value>集合，如果有特殊的header，没有的话请传控map就可以
      */
     @POST
     //多个参数
@@ -54,6 +51,7 @@ public interface ApiUrl {
      * TODO PUT
      */
     @PUT()
+    @FormUrlEncoded
     Observable<BaseResponse> put(@Url String url, @Body RequestBody body,@HeaderMap Map<String,String>headsMap);
 
     /**
@@ -64,10 +62,10 @@ public interface ApiUrl {
     @POST
     Observable<BaseResponse> uploadImage(@Url String url,@HeaderMap Map<String, String> headers, @Part MultipartBody.Part file);
 
+
     /**
      * 多文件上传
      */
-
 
     @Multipart
     @POST
@@ -79,5 +77,7 @@ public interface ApiUrl {
      */
     @Streaming
     @GET
-    Observable<BaseResponse> download(@Header("RANGE") String start, @Url String url);
+    Observable<ResponseBody> download(@Url String url);
+
+
 }

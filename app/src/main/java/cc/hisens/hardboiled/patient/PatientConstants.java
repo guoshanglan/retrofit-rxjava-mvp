@@ -5,7 +5,7 @@ package cc.hisens.hardboiled.patient;
 public class PatientConstants  {
 
 //        public static final String DEVICE_NAME = "HIENSOR807310006";
-    public static final String DEVICE_NAME = "HIENSOR";
+    public static final String DEVICE_NAME = "HIENSOR";   //蓝牙名称
     public static final int CONNECTION_TIMEOUT = 30000;
     public static final String KEY_SEARCHED_DOCTOR = "KEY_SEARCHED_DOCTOR";
     public static final String KEY_SEARCHED_DOCTOR_LIST = "KEY_SEARCHED_DOCTOR_LIST";
@@ -30,7 +30,7 @@ public class PatientConstants  {
     public static final String ROLE_PATIENT = "patient";
     //chat
     public static final String CHAT_SERVER_URL = "https://www.hisens.cc";
-    //    public static final String CHAT_SERVER_URL = "http://10.0.1.222:201 00";
+    //public static final String CHAT_SERVER_URL = "http://10.0.1.222:201 00";
     public static final int CHAT_SENDER = 1002;
     public static final int CHAT_RECEIVER = 1003;
     public static final String EXTRA_USER_ID = "userId";

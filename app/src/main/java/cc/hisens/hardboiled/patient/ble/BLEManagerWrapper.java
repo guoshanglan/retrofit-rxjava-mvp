@@ -54,7 +54,6 @@ public class BLEManagerWrapper {
     private Context mContext;
     private BleService mBleService;
     private SyncDataService mSyncDataService;   //同步数据的服务
-
     private CallbackInfo mCallbackInfo;
     private List<ISyncDataCallback> mISyncDataCallbackList;
     private BleNotifyCallback mBleNotifyCallback;
@@ -424,8 +423,9 @@ public class BLEManagerWrapper {
     }
 
 
-    //蓝牙连接，有多个设备时用这个方法进行连接,传进来的position来确认是需要连接哪个设备
-    private  void  Connects(int position){
+    //蓝牙连接，有多个设备时用这个方法进行连接,传进来的position来确认是需要连接哪个设备，在列表界面进行交互的
+
+    private  void  ConnectDevices(int position){
 
         if(deviceList!=null&&deviceList.size()!=0) {
 
@@ -491,8 +491,7 @@ public class BLEManagerWrapper {
      *
       扫描设备，没有进行连接,可能有多个设备需要展示
      */
-
-    private  void  ScanName(){
+    private  void  ScanDevice(){
         mBleService.scanDevice(new BleScanCallback() {
             @Override
             public void onScanFinished(List<BleDevice> scanResultList) {
@@ -502,8 +501,13 @@ public class BLEManagerWrapper {
                     }
                 }else{
                     deviceList.clear();  //先清空一下
-                    deviceList=scanResultList;
+                    deviceList.addAll(scanResultList);
                     mBleService.cancelScan();  //停止扫描
+
+                    //回调我们扫描到的设备数，可以用于展示列表
+                    for (ISyncDataCallback callback : mISyncDataCallbackList) {
+                        callback.DeviceCount(deviceList);
+                    }
 
                 }
 

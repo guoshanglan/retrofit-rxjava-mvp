@@ -16,4 +16,6 @@ public class onDeviceMessage {
     public String toString() {
         return onBattery;
     }
+
+
 }

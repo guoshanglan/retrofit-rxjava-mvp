@@ -76,9 +76,10 @@ public class ConversationRepoImpl implements ConversationRepo {
             @Override
             public void execute(Realm realm) {
                 Conversation conversation = realm.where(Conversation.class).equalTo("friendId", uid).findFirst();
-
-                conversation.messages.addAll(messages);
-                conversation.setMessages(conversation.messages);
+                if(conversation!=null) {
+                    conversation.messages.addAll(messages);
+                    conversation.setMessages(conversation.messages);
+                }
             }
         });
         realm.close();
@@ -95,9 +96,11 @@ public class ConversationRepoImpl implements ConversationRepo {
             public void execute(Realm realm) {
                 Conversation conversation = realm.where(Conversation.class).equalTo("friendId", uid).findFirst();
 
-                 for (int i=0;i<conversation.messages.size();i++){
-                     conversation.messages.get(i).setRead(true);
-                 }
+                if(conversation!=null) {
+                    for (int i = 0; i < conversation.messages.size(); i++) {
+                        conversation.messages.get(i).setRead(true);
+                    }
+                }
 
             }
         });
@@ -114,6 +117,7 @@ public class ConversationRepoImpl implements ConversationRepo {
             @Override
             public void execute(Realm realm) {
                 Conversation conversation = realm.where(Conversation.class).equalTo("friendId", uid).findFirst();
+                if(conversation!=null)
                 conversation.setRead(isRead);
             }
         });

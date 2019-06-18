@@ -8,6 +8,7 @@ import android.os.Message;
 
 import cc.hisens.hardboiled.patient.Appconfig;
 import cc.hisens.hardboiled.patient.R;
+import cc.hisens.hardboiled.patient.base.ActivityCollector;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
@@ -60,6 +61,8 @@ public class SplashActivity extends BaseActivity {
             startActivity(new Intent(this, LoginActivity.class));
         }
         finish();  //销毁当前界面
+
+
     }
 
 
@@ -71,7 +74,16 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);  //取消注册
+
+    }
+
+
+    //退出APP
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ActivityCollector.finishAll();
+        System.exit(0);
     }
 
     //这里不需要Present

@@ -94,7 +94,6 @@ public class User implements RealmModel {
 
 
 
-
     public int getId() {
         return id;
     }
@@ -240,6 +239,7 @@ public class User implements RealmModel {
         });
 
 
+
     }
 
     //发送验证码的网络请求
@@ -264,7 +264,8 @@ public class User implements RealmModel {
 
             @Override
             public void onFailure(Throwable e, String errorMsg) {
-                listener.loginFailed(errorMsg);
+                String msg="网络异常";
+                listener.loginFailed(msg);
             }
         });
 

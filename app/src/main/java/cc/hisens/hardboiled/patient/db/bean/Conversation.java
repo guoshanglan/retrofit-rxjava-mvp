@@ -41,17 +41,7 @@ public class Conversation extends RealmObject {
 
     }
 
-    public Conversation(JSONObject jsonObject) {
-        try {
-            friendId = jsonObject.getString("from");
-            lastMessage = new ChatMessage(jsonObject);
-            lastMessageTime = lastMessage.getTimestamp();
-            messages.add(lastMessage);
-            isRead = false;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public String getFriendId() {
         return friendId;

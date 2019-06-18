@@ -8,8 +8,10 @@ import android.util.Log;
 import com.socks.library.KLog;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 import androidx.annotation.NonNull;
+import cc.hisens.hardboiled.patient.MyApplication;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -26,44 +28,24 @@ import okhttp3.Response;
  * @email wb.hisens.cc
  */
 
+
 public class ReceivedCookiesInterceptor implements Interceptor {
-    SharedPreferences sharedPreferences;
-    private Context context;
-
-    public ReceivedCookiesInterceptor(Context context) {
-        super();
-        this.context = context;
-        sharedPreferences = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
-    }
-
-    @SuppressLint("CheckResult")
     @Override
     public Response intercept(Chain chain) throws IOException {
-        if (chain == null)
-            KLog.d("http", "Receivedchain == null");
         Response originalResponse = chain.proceed(chain.request());
-        Log.d("http", "originalResponse" + originalResponse.toString());
-        if (!originalResponse.headers("set-cookie").isEmpty()) {
-            final StringBuffer cookieBuffer = new StringBuffer();
-            Observable.fromIterable(originalResponse.headers("set-cookie"))
-                    .map(new Function<String, String>() {
-                        @Override
-                        public String apply(@NonNull String s) {
-                            String[] cookieArray = s.split(";");
-                            return cookieArray[0];
-                        }
-                    })
-                    .subscribe(new Consumer<String>() {
-                        @Override
-                        public void accept(@NonNull String cookie) {
-                            cookieBuffer.append(cookie).append(";");
-                        }
-                    });
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("cookie", cookieBuffer.toString());
-            KLog.d("http", "ReceivedCookiesInterceptor" + cookieBuffer.toString());
-            editor.commit();
+        if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+            HashSet<String> cookies = new HashSet<>();
+            for (String header : originalResponse.headers("Set-Cookie")) {
+                cookies.add(header);
+            }
+
+            //存储登录的cookie信息
+            SharedPreferences.Editor config = MyApplication.getInstance().getSharedPreferences("cookie", MyApplication.getInstance().MODE_PRIVATE).edit();
+            config.putStringSet("cookie", cookies);
+            config.commit();
         }
         return originalResponse;
     }
 }
+
+

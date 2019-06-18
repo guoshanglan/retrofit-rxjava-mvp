@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 import androidx.annotation.NonNull;
+import cc.hisens.hardboiled.patient.MyApplication;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import okhttp3.Interceptor;
@@ -24,39 +26,23 @@ import okhttp3.Response;
  * @email wb.hisens.cc
  */
 
+
+//添加cookies，实现登录了免登录，如webview（不过这边需要同步cookie给webview）
+
 public class AddCookiesInterceptor implements Interceptor {
-    private Context context;
-    private String lang;
-
-    public AddCookiesInterceptor(Context context, String lang) {
-        super();
-        this.context = context;
-        this.lang = lang;
-
-    }
-
-    @SuppressLint("CheckResult")
     @Override
     public Response intercept(Chain chain) throws IOException {
-        if (chain == null)
-            Log.d("http", "Addchain == null");
-        final Request.Builder builder = chain.request().newBuilder();
-        SharedPreferences sharedPreferences = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
-        Observable.just(sharedPreferences.getString("cookie", ""))
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(@NonNull String cookie) {
-                        if (cookie.contains("lang=ch")) {
-                            cookie = cookie.replace("lang=ch", "lang=" + lang);
-                        }
-                        if (cookie.contains("lang=en")) {
-                            cookie = cookie.replace("lang=en", "lang=" + lang);
-                        }
-                        //添加cookie
-                        //                        Log.d("http", "AddCookiesInterceptor"+cookie);
-                        builder.addHeader("cookie", cookie);
-                    }
-                });
+        Request.Builder builder = chain.request().newBuilder();
+        HashSet<String> preferences = (HashSet) MyApplication.getInstance().getSharedPreferences("cookie", MyApplication.getInstance().MODE_PRIVATE).getStringSet("cookie", null);
+        if (preferences != null) {
+            for (String cookie : preferences) {
+                builder.addHeader("Cookie", cookie);
+                Log.v("OkHttp", "Adding Header: " + cookie);
+                // This is done so I know which headers are being added; this interceptor is used after the normal logging of OkHttp
+            }
+        }
         return chain.proceed(builder.build());
     }
 }
+
+

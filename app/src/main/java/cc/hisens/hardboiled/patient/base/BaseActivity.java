@@ -22,7 +22,7 @@ import cc.hisens.hardboiled.patient.utils.SharedUtils;
 
 public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatActivity implements PresenterCallback{
 
-    protected BasePresenter mPresenter;
+    protected BasePresenter mPresenter;   //基本交互类presenter
     protected MyApplication appLication;
     protected SharedUtils sharedUtils;     //共享参数sp的对象
     protected ProgressDialog mProgressDialog;   //加载框
@@ -34,7 +34,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         super.onCreate(savedInstanceState);
         ActivityCollector.addActivity(this);
        //屏幕适配一定要设置在setcontentView之前
-        ScreenUtil.resetDensity(this);
+        ScreenUtil.resetDensity(this);  //Android屏幕适配
          setContentView(getLayoutId());
          ButterKnife.bind(this);
 

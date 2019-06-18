@@ -12,8 +12,6 @@ import cc.hisens.hardboiled.patient.ui.activity.login.view.LoginView;
 public class LoginPresenter extends BasePresenter<LoginView> {
 
     private User user; //用来处理网络请求等耗时操作的
-
-
     public LoginPresenter(){
         this.user=new User();
     }

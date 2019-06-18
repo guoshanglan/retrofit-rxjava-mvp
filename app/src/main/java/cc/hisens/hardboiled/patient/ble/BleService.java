@@ -103,7 +103,6 @@ public class  BleService  extends Service {
 
     /**
      * connect a searched device
-     *
      * @param device   searched device
      * @param callback
      */

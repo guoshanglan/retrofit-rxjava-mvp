@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/loading_logo"
         android:scaleType="center"
-        android:layout_gravity="center"></ImageView>
+        android:layout_gravity="center"
+        android:contentDescription="TODO"></ImageView>
 
 </FrameLayout>

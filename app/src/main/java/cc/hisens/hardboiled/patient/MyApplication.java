@@ -1,7 +1,10 @@
 package cc.hisens.hardboiled.patient;
 
+import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
+import android.os.StrictMode;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -32,8 +35,8 @@ public class MyApplication extends Application {
 
 
     //初始化各种数据
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void init() {
-
 
         //检查内存泄漏
         if (LeakCanary.isInAnalyzerProcess(this)) {
@@ -47,6 +50,11 @@ public class MyApplication extends Application {
         UserConfig.init(this);
         instance = this;
         mContext = getApplicationContext();
+
+        //解决7.0手机拍照的uri问题
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
 
         CrashReport.initCrashReport(getApplicationContext(), "a4af3eeb50", true);
 
@@ -64,7 +72,7 @@ public class MyApplication extends Application {
     }
 
 
-
+// 内存泄漏的监控
     public static RefWatcher getRefWatcher(Context context) {
         return  getInstance().refWatcher;
     }
