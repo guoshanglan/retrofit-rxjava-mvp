@@ -1,20 +1,16 @@
-package cc.hisens.hardboiled.patient.ui.fragment;
-
-import android.os.Bundle;
+package cc.hisens.hardboiled.patient.ui.fragment.circle;
 
 import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.BaseFragment;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 
-public class FristFragment  extends BaseFragment{
-
-
-
+public class CircleFragment extends BaseFragment {
 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.get_verify_code_activity;
+
+        return R.layout.layout_introduction_third;
     }
 
     @Override

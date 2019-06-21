@@ -2,6 +2,7 @@ package cc.hisens.hardboiled.patient.wideview;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -32,6 +33,7 @@ public class PhoneCode extends RelativeLayout {
     private EditText et_code;
     private List<String> codes = new ArrayList<>();
     private InputMethodManager imm;
+    private View line1,line2,line3,line4;  //4条光标线
 
     public PhoneCode(Context context) {
         super(context);
@@ -63,6 +65,11 @@ public class PhoneCode extends RelativeLayout {
         v2 = view.findViewById(R.id.v2);
         v3 = view.findViewById(R.id.v3);
         v4 = view.findViewById(R.id.v4);
+        line1=view.findViewById(R.id.tv_line1);
+        line2=view.findViewById(R.id.tv_line2);
+        line3=view.findViewById(R.id.tv_line3);
+        line4=view.findViewById(R.id.tv_line4);
+
     }
 
 
@@ -76,6 +83,7 @@ public class PhoneCode extends RelativeLayout {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
@@ -85,6 +93,7 @@ public class PhoneCode extends RelativeLayout {
                     if (codes.size() < 4) {
                         codes.add(editable.toString());
                         showCode();
+
                     }
                 }
             }
@@ -124,6 +133,7 @@ public class PhoneCode extends RelativeLayout {
         if (codes.size() >= 4) {
             code4 = codes.get(3);
         }
+
         tv_code1.setText(code1);
         tv_code2.setText(code2);
         tv_code3.setText(code3);
@@ -141,18 +151,25 @@ public class PhoneCode extends RelativeLayout {
         v2.setBackgroundColor(color_default);
         v3.setBackgroundColor(color_default);
         v4.setBackgroundColor(color_default);
+        line1.setVisibility(GONE);
+        line2.setVisibility(GONE);
+        line3.setVisibility(GONE);
+        line4.setVisibility(GONE);
         if (codes.size() == 0) {
-            v1.setBackgroundColor(color_focus);
+           line1.setVisibility(VISIBLE);
         }
         if (codes.size() == 1) {
-            v2.setBackgroundColor(color_focus);
+            line2.setVisibility(VISIBLE);
         }
         if (codes.size() == 2) {
-            v3.setBackgroundColor(color_focus);
+            line3.setVisibility(VISIBLE);
         }
-        if (codes.size() >= 3) {
-            v4.setBackgroundColor(color_focus);
+        if (codes.size() == 3) {
+            line4.setVisibility(VISIBLE);
         }
+
+       callBack();
+
     }
 
 

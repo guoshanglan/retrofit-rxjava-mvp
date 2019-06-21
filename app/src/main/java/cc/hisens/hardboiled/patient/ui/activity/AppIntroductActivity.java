@@ -18,6 +18,7 @@ import cc.hisens.hardboiled.patient.adapter.IntroductionViewAdapter;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
+import cc.hisens.hardboiled.patient.ui.activity.login.GetVoliatCodeActivity;
 import cc.hisens.hardboiled.patient.ui.activity.login.LoginActivity;
 import cc.hisens.hardboiled.patient.ui.activity.main.MainActivity;
 
@@ -64,7 +65,7 @@ public class AppIntroductActivity extends BaseActivity {
                 if (UserConfig.UserInfo.isLogin()) {
                    startActivity(new Intent(AppIntroductActivity.this, MainActivity.class));
                 } else {
-                    startActivity(new Intent(AppIntroductActivity.this, LoginActivity.class));
+                    startActivity(new Intent(AppIntroductActivity.this, GetVoliatCodeActivity.class));
                 }
                 finish();
             }

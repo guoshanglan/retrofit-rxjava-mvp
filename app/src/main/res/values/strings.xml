@@ -2,6 +2,10 @@
     <string name="hisens_app_name">硬汉邦</string>
     <string name="app_version">V0.0.1</string>
 
+
+
+    <string name="login_appname">登录到硬汉邦</string>
+
     <!-- 测量-->
     <string name="current_measurement">我的监测</string>
     <string name="intervene_state">干预状态</string>
@@ -448,7 +452,7 @@
     <string name="skip">跳过</string>
     <string name="login_error_hint">您输入的手机有误，请重新输入！</string>
     <string name="input_phone_num_hint">请输入11位手机号</string>
-    <string name="input_verification_code_hint">请输入验证码</string>
+    <string name="input_verification_code_hint">输入验证码</string>
     <string name="get_verification_code">获取验证码</string>
     <string name="agree_protocol_hint">点击登录即表示您同意</string>
     <string name="terms_and_agreement_doctor">《硬汉邦 D版服务条款及协议》</string>

@@ -80,7 +80,7 @@ public class RequestUtils {
      * @param context
      * @param
      */
-    public static void post(Context context, String url, HashMap<String, String> params, Map<String, String> headsMap, MyObserver<BaseResponse> observer) {
+    public static void post(Context context, String url, HashMap<String, ?> params, Map<String, String> headsMap, MyObserver<BaseResponse> observer) {
 
         RetrofitUtils.getApiUrl()
                 .postUser(url, convertMapToBody(params), headsMap).compose(RxHelper.observableIO2Main(context))
@@ -261,9 +261,9 @@ public class RequestUtils {
 
 
     //下载文件,url  接口地址   path:文件存储路径   observer：回调
-    public static void DownLoad(String url, final String path,MyObserver<File>observer) {
+    public static void DownLoad(String url, final String filename,MyObserver<File>observer) {
         RetrofitUtils.getApiUrl().download(url).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBody>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -272,7 +272,8 @@ public class RequestUtils {
 
                     @Override
                     public void onNext(ResponseBody baseResponse) {
-                      observer.onSuccess(save(path,baseResponse));
+                        Log.e("下载文件",baseResponse.contentLength()+"");
+                      observer.onSuccess(saveFile(filename,baseResponse));
                     }
 
                     @Override
@@ -298,6 +299,7 @@ public class RequestUtils {
         return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new JSONObject(map).toString());
     }
 
+
     /**
      * 将map数据转换为图片，文件类型的  RequestBody上传参数给服务器
      *
@@ -310,27 +312,27 @@ public class RequestUtils {
 
 
 
-    //保存
-    public static File save(String filePath, ResponseBody body){
-
-        final File[] file = {null};
-        //判断SDcard是否存在并且可读写
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-
-            new Thread() {
-                @Override
-                public void run() {
-                    file[0] = saveFile(filePath, body);
-                }
-            }.start();
-
-            return file[0];
-        }else{
-            Log.e("内存卡","没有或者不可读写");
-        }
-
-       return null;
-    }
+//    //保存
+//    public static File save(String filePath, ResponseBody body){
+//
+//        final File[] file = {null};
+//        //判断SDcard是否存在并且可读写
+//        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//
+//            new Thread() {
+//                @Override
+//                public void run() {
+//                    file[0] = saveFile(filePath, body);
+//                }
+//            }.start();
+//
+//            return file[0];
+//        }else{
+//            Log.e("内存卡","没有或者不可读写");
+//        }
+//
+//       return null;
+//    }
 
 
     //保存文件
@@ -343,7 +345,6 @@ public class RequestUtils {
             if (fileName == null) {
                 return null;
             }
-
             file = new File(Environment.getExternalStorageDirectory().getPath(),  fileName);
             if (file == null || !file.exists()) {
                 file.createNewFile();

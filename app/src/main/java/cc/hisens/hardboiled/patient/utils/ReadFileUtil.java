@@ -11,7 +11,6 @@ import java.io.FileReader;
 //读取js文件内容
 public class ReadFileUtil {
 
-    public static String SDPATH = Environment.getExternalStorageDirectory() + "/";
 
     public static String fileRead(String fileName) throws Exception {
 

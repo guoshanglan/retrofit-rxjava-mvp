@@ -1,111 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:background="@color/white">
+
+        <include layout="@layout/title_head_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/input_verification_code_hint"
+            android:textColor="@color/login_title"
+            android:textSize="@dimen/x28"
+            android:layout_marginTop="@dimen/x30"
+            android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:layout_marginTop="@dimen/x15"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/x18"
+        android:id="@+id/tv_number"
+        android:text="验证码已通过短信发送至 181 2563 5489"/>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
+        android:paddingLeft="@dimen/x3"
+        android:orientation="horizontal">
 
-        <include layout="@layout/include_title_bar" />
-
-        <include layout="@layout/include_separator" />
-
-        <FrameLayout
-            android:id="@+id/fl_msg_parent"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x25" />
-
-        <EditText
-            android:id="@+id/et_input_phone_num"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x48"
-            android:background="@color/colorPrimaryWhite"
-            android:drawableLeft="@drawable/login_ic_phone"
-            android:gravity="center_vertical"
-            android:hint="@string/input_phone_num_hint"
-            android:inputType="number"
-            android:textColor="#000000"
-            android:textColorHint="#cccccc"
-            android:textSize="@dimen/x14" />
-
-        <include layout="@layout/include_separator" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <cc.hisens.hardboiled.patient.wideview.PhoneCode
+            android:id="@+id/phonecode_view"
+            android:layout_width="@dimen/x200"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginTop="@dimen/x40" />
 
-            <EditText
-                android:id="@+id/et_input_verification_code"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/x48"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryWhite"
-                android:drawableLeft="@drawable/login_ic_psw"
-                android:gravity="center_vertical"
-                android:hint="@string/input_verification_code_hint"
-                android:inputType="number"
-                android:textColor="#000000"
-                android:textColorHint="#cccccc"
-                android:textSize="@dimen/x14" />
-
-            <TextView
-                android:id="@+id/tv_get_verification_code"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimaryWhite"
-                android:enabled="true"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/get_verification_code"
-                android:textColor="@drawable/sl_get_verificaiton_code_text_color"
-                android:textColorHint="#cccccc"
-                android:textSize="@dimen/x14" />
-        </LinearLayout>
-
-        <include layout="@layout/include_separator" />
 
         <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x43"
-            android:layout_marginLeft="@dimen/x10"
-            android:layout_marginRight="@dimen/x10"
-            android:layout_marginTop="@dimen/x35"
-            android:background="@color/colorPrimaryBlue"
-            android:gravity="center"
-            android:text="@string/login"
-            android:textColor="#ffffff" />
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x30"
+            android:textSize="@dimen/x14"
+            android:textColor="@color/white"
+            android:text="@string/get_verification_code"
+            android:id="@+id/btn_getCode"
+            android:background="@drawable/btn_getverification_code_input_shape"
+            android:layout_marginTop="@dimen/x40" />
+
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/x35"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/agree_protocol_hint"
-            android:textColor="#666666"
-            android:textSize="@dimen/x12" />
+    <Button
+        android:layout_width="@dimen/x300"
+        android:layout_height="@dimen/x50"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:clickable="false"
+        android:inputType="number"
+        android:id="@+id/btn_login"
+        android:background="@drawable/btn_getverification_code_uninput_shape"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/x40"/>
 
-        <TextView
-            android:id="@+id/tv_terms_and_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/x12"
-            android:text="@string/terms_and_agreement"
-            android:textColor="@color/colorPrimaryBlue"
-            android:textSize="@dimen/x12" />
-    </LinearLayout>
-</RelativeLayout>
+
+
+
+</LinearLayout>

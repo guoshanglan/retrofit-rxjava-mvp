@@ -28,6 +28,10 @@ public abstract class MyObserver<T> extends BaseObserver<T> {
         this(context,true);
     }
 
+    public MyObserver() {
+
+    }
+
     @Override
     public void onSubscribe(Disposable d) {
         this.d = d;

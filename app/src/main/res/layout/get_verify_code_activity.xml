@@ -5,14 +5,7 @@
     android:orientation="vertical">
 
 
-    <cc.hisens.hardboiled.patient.wideview.PhoneCode
-        android:id="@+id/pc_1"
-        android:layout_width="@dimen/x200"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp" />
+
 
 
 

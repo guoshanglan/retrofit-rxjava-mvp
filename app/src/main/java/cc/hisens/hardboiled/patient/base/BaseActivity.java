@@ -1,7 +1,6 @@
 package cc.hisens.hardboiled.patient.base;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,11 +9,8 @@ import android.os.Bundle;
 
 import com.squareup.leakcanary.RefWatcher;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.ButterKnife;
 import cc.hisens.hardboiled.patient.MyApplication;
-import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import cc.hisens.hardboiled.patient.ui.activity.login.LoginActivity;
 import cc.hisens.hardboiled.patient.utils.ScreenUtil;
@@ -67,7 +63,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
 
 
     //初始化进度加载框
-    protected void initProgressDialog() {
+    protected void initProgressDialog( String info) {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setCanceledOnTouchOutside(false);
@@ -78,7 +74,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
 
                 }
             });
-            mProgressDialog.setMessage(getString(R.string.is_landing));
+            mProgressDialog.setMessage(info);
         }
 
         mProgressDialog.show();

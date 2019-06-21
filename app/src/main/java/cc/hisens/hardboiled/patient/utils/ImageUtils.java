@@ -58,7 +58,7 @@ public class ImageUtils {
     }
     /**
      * @Description 质量压缩方法
-     * @author XiongJie
+     * @author Guoshanglan
      * @param image
      * @return
      */

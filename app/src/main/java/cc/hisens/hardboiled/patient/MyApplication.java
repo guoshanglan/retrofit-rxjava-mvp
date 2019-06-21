@@ -11,12 +11,13 @@ import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 import cc.hisens.hardboiled.patient.ble.BLEManagerWrapper;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import cc.hisens.hardboiled.patient.utils.ScreenUtil;
 import io.realm.Realm;
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     private static MyApplication instance;
     private static Context mContext;
     private RefWatcher refWatcher;
@@ -86,11 +87,7 @@ public class MyApplication extends Application {
         getBLEManagerWrapper().recycle();
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
+
 
 
 }

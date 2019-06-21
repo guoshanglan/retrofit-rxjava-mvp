@@ -3,21 +3,20 @@ package cc.hisens.hardboiled.patient.ui.activity.main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.tencent.bugly.crashreport.CrashReport;
 
+import java.io.File;
 import java.net.URI;
 import java.util.List;
 import java.util.Timer;
@@ -34,17 +33,18 @@ import cc.hisens.hardboiled.patient.base.ActivityCollector;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.ble.BLEManagerWrapper;
-import cc.hisens.hardboiled.patient.db.bean.UserConfig;
+import cc.hisens.hardboiled.patient.retrofit.MyObserver;
+import cc.hisens.hardboiled.patient.retrofit.RequestUtils;
 import cc.hisens.hardboiled.patient.retrofit.Url;
-import cc.hisens.hardboiled.patient.ui.activity.login.LoginActivity;
 import cc.hisens.hardboiled.patient.ui.activity.main.model.AppInfoResult;
 import cc.hisens.hardboiled.patient.ui.activity.main.present.AppInfoPresenter;
 import cc.hisens.hardboiled.patient.ui.activity.main.view.AppcheckInfoView;
-import cc.hisens.hardboiled.patient.ui.fragment.FristFragment;
+import cc.hisens.hardboiled.patient.ui.fragment.monitor.MonitorFragment;
 import cc.hisens.hardboiled.patient.ui.fragment.me.MeFragment;
 import cc.hisens.hardboiled.patient.ui.fragment.doctor.DoctorFragment;
-import cc.hisens.hardboiled.patient.ui.fragment.ThirdFragment;
+import cc.hisens.hardboiled.patient.ui.fragment.circle.CircleFragment;
 import cc.hisens.hardboiled.patient.utils.AppUpdateUtils;
+import cc.hisens.hardboiled.patient.utils.ReadFileUtil;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
 import cc.hisens.hardboiled.patient.websocket.ChatClient;
 import io.reactivex.annotations.NonNull;
@@ -84,9 +84,9 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
 
         appInfoPresenter.CheckAppUpdate(); //检查App版本更新
 
+        rxPermissionForWrite();
+
     }
-
-
 
 
     //初始化控件和界面
@@ -94,9 +94,9 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
         bleManagerWrapper = BLEManagerWrapper.getInstance();
         bleManagerWrapper.initialize(this);
 
-        firstFragment = new FristFragment();
+        firstFragment = new MonitorFragment();
         secondFragment = new DoctorFragment();
-        thirdFragment = new ThirdFragment();
+        thirdFragment = new CircleFragment();
         meFragment = new MeFragment();
         fragments = new Fragment[]{firstFragment, secondFragment, thirdFragment, meFragment};
         fragmentmanager = getSupportFragmentManager();
@@ -172,8 +172,8 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
                             }
                         }
                     });
-              }
-       }
+        }
+    }
 
 
     //监控系统返回键，按两次退出当前应用
@@ -241,9 +241,58 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     //查询APP版本信息有更新
     @Override
     public void setCheckUpdateInfo(AppInfoResult appInfoResult) {
-        if (appInfoResult!=null&&appInfoResult.getStatus()!=0)
-        AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.getContent(), appInfoResult.getShop_url(),appInfoResult.getStatus(), this);
+        if (appInfoResult != null && appInfoResult.getStatus() != 0)
+            AppUpdateUtils.getGetInstence().popUpdateDialog(appInfoResult.getContent(), appInfoResult.getShop_url(), appInfoResult.getStatus(), this);
     }
+
+
+    //下载文件
+    public void DownLoadFile() {
+        RequestUtils.DownLoad(Url.getEdFile, "ed_file.js", new MyObserver<File>() {
+            @Override
+            public void onSuccess(File result) {
+                if (result != null) {
+                    Log.e("下载", "下载成功" + result.length());
+                    try {
+                        Log.e("读取", ReadFileUtil.fileRead("ed_file.js"));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e, String errorMsg) {
+                Log.e("下载失败", errorMsg);
+            }
+        });
+    }
+
+
+    //检查相机权限
+    @SuppressLint("CheckResult")
+    public void rxPermissionForWrite() {
+        final Intent[] intent = {null};
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean granted) throws Exception {
+                if (granted) {
+
+                    DownLoadFile();  //下载文件
+
+                } else {
+                    // 权限被拒绝
+
+                    ToastUtils.show(MainActivity.this, "拒绝可能导致拍照扫描功能无法使用");
+                }
+            }
+        });
+
+
+    }
+
 
     //Session失效，需要重新登录
     @Override
@@ -255,7 +304,6 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     }
 
 
-
     //内存回收，否则可能会造成内存溢出oom
     @Override
     protected void onDestroy() {
@@ -263,7 +311,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
         bleManagerWrapper.recycle();
         mChatClient.cancelConnectTimer();
         mChatClient.cancelPingTimer();
-        mChatClient=null; //释放对象
+        mChatClient = null; //释放对象
 
     }
 }

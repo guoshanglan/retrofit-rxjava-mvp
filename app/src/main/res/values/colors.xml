@@ -24,7 +24,7 @@
     <color name="hisens_blue">#2ab5d7</color>
     <color name="white">#FFFFFF</color>
     <color name="hisens_background">#f6f6f6</color>
-    <color name="separator_color">#cccccc</color>
+    <color name="separator_color">#888888</color>
     <color name="conversion_name_color">@android:color/black</color>
     <color name="message_time_color">#666666</color>
 
@@ -64,4 +64,8 @@
 
     <color name="sync_fail_color">#ff7700</color>
     <color name="sync_success_color">#2ab500</color>
+
+    <!-- login color -->
+    <color name="login_title">#181818</color>
+
 </resources>

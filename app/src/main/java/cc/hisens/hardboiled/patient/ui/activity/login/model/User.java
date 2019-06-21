@@ -5,12 +5,15 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cc.hisens.hardboiled.patient.retrofit.BaseResponse;
 import cc.hisens.hardboiled.patient.retrofit.MyObserver;
 import cc.hisens.hardboiled.patient.retrofit.RequestUtils;
 import cc.hisens.hardboiled.patient.retrofit.Url;
+import cc.hisens.hardboiled.patient.ui.activity.login.present.GetVoliatCodePresenter;
 import cc.hisens.hardboiled.patient.ui.activity.login.present.LoginPresenter;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
 import io.realm.RealmModel;
@@ -214,6 +217,11 @@ public class User implements RealmModel {
 
         params.put("phone", number);
         params.put("code", VerificationCode);
+//        List<HashMap<String,String>>listParams=new ArrayList<>();
+//        listParams.add(params);
+//        HashMap<String, List<HashMap<String,String>>> map=new HashMap<>();
+//          map.put("datas",listParams);
+
 
         RequestUtils.post(context, Url.paientLogin, params, new HashMap<>(), new MyObserver<BaseResponse>(context) {
             @Override
@@ -243,7 +251,7 @@ public class User implements RealmModel {
     }
 
     //发送验证码的网络请求
-    public void getVerificationCode(final Context context, String number, final LoginPresenter listener) {
+    public void getVerificationCode(final Context context, String number, final GetVoliatCodePresenter listener) {
         HashMap<String, String> params = new HashMap<>();
 
         params.put("phone", number);
@@ -255,6 +263,39 @@ public class User implements RealmModel {
                     if (result.result == 0) {
 
                         ToastUtils.show(context, "发送成功");
+                        listener.getSuccess("发送成功");
+                    } else {
+
+                        listener.getFailed(result.message);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e, String errorMsg) {
+                String msg="网络异常";
+                listener.getFailed(msg);
+            }
+        });
+
+    }
+
+
+
+    //发送验证码的网络请求
+    public void getVerificationCode2(final Context context, String number, final LoginPresenter listener) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("phone", number);
+        RequestUtils.post(context, Url.getVerificationCode,params , new HashMap<>(), new MyObserver<BaseResponse>(context) {
+            @Override
+            public void onSuccess(BaseResponse result) {
+                if (result != null) {
+
+                    if (result.result == 0) {
+
+                        ToastUtils.show(context, "发送成功");
+
                     } else {
 
                         listener.loginFailed(result.message);

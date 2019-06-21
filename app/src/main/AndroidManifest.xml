@@ -81,11 +81,16 @@
             android:configChanges="orientation|screenLayout" />
 
         <activity
-            android:name=".ui.activity.login.LoginActivity"
+            android:name=".ui.activity.login.GetVoliatCodeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout" />
 
+        <activity
+            android:name=".ui.activity.login.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenLayout" />
         <activity
             android:name=".ui.activity.main.MainActivity"
             android:launchMode="singleTask"

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <TextView
+        android:id="@+id/tv_appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/x50"
+        android:text="@string/login_appname"
+        android:textColor="#181818"
+        android:textSize="@dimen/x28"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:id="@+id/ly_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_appname"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <EditText
+            android:id="@+id/et_input_phone_num"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x48"
+            android:background="@color/colorPrimaryWhite"
+            android:drawableLeft="@drawable/login_ic_phone"
+            android:gravity="center_vertical"
+            android:hint="@string/input_phone_num_hint"
+            android:inputType="number"
+            android:textColor="#000000"
+            android:textColorHint="#cccccc"
+            android:textSize="@dimen/x14" />
+
+        <include layout="@layout/include_separator" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_getverification_code"
+        android:layout_width="@dimen/x300"
+        android:layout_height="@dimen/x50"
+        android:layout_below="@id/ly_phone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/x40"
+        android:background="@drawable/btn_getverification_code_uninput_shape"
+        android:clickable="false"
+        android:inputType="number"
+        android:text="@string/get_verification_code"
+        android:textColor="@color/white" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/x35"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agree_protocol_hint"
+            android:textColor="#666666"
+            android:textSize="@dimen/x12" />
+
+        <TextView
+            android:id="@+id/tv_terms_and_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x12"
+            android:text="@string/terms_and_agreement"
+            android:textColor="@color/colorPrimaryBlue"
+            android:textSize="@dimen/x12" />
+    </LinearLayout>
+
+</RelativeLayout>

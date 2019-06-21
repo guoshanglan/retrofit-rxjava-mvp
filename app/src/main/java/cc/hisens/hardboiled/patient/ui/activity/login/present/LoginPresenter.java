@@ -25,7 +25,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     //获取验证码
     public void getVerificationCode(){
-        user.getVerificationCode(mView.getContext(),mView.getNumber(),this);
+        user.getVerificationCode2(mView.getContext(),mView.getNumber(),this);
     }
 
 
