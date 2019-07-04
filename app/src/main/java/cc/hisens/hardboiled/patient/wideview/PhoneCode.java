@@ -146,7 +146,7 @@ public class PhoneCode extends RelativeLayout {
     /*** 设置高亮颜色 */
     private void setColor() {
         int color_default = Color.parseColor("#999999");
-        int color_focus = Color.parseColor("#3F8EED");
+        int color_focus = Color.parseColor("#35d5db");
         v1.setBackgroundColor(color_default);
         v2.setBackgroundColor(color_default);
         v3.setBackgroundColor(color_default);
@@ -157,15 +157,25 @@ public class PhoneCode extends RelativeLayout {
         line4.setVisibility(GONE);
         if (codes.size() == 0) {
            line1.setVisibility(VISIBLE);
+           v1.setBackgroundColor(color_focus);
         }
         if (codes.size() == 1) {
             line2.setVisibility(VISIBLE);
+            v1.setBackgroundColor(color_focus);
+            v2.setBackgroundColor(color_focus);
         }
         if (codes.size() == 2) {
             line3.setVisibility(VISIBLE);
+            v1.setBackgroundColor(color_focus);
+            v2.setBackgroundColor(color_focus);
+            v3.setBackgroundColor(color_focus);
         }
         if (codes.size() == 3) {
             line4.setVisibility(VISIBLE);
+            v1.setBackgroundColor(color_focus);
+            v2.setBackgroundColor(color_focus);
+            v3.setBackgroundColor(color_focus);
+            v4.setBackgroundColor(color_focus);
         }
 
        callBack();

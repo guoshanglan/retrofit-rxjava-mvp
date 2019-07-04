@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>关于我们</title>
+    <script src="./dist/js/rem.js"></script>
+    <style>
+        /* p {
+            color: #2ab4d8;
+        } */
+        
+        .box {
+            height: 88vh;
+            font-size: 0.33rem;
+            color: #272727;
+        }
+        
+        .box>div {
+            height: 28vh;
+            padding-top: 12vh;
+            text-align: center;
+        }
+        
+        .box>div>p:nth-child(1)>img {
+            width: 70px;
+        }
+        
+        .box>div>p:nth-child(2) {
+            font-size: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 0.3vh;
+            margin-bottom: 1.5vh;
+            color: #2ab4d8;
+        }
+        
+        .box>div>p:nth-child(3) {
+            color: #898989;
+        }
+        
+        .footer {
+            height: 10vh;
+            text-align: center;
+            color: #2ab4d8;
+        }
+        
+        .footer p {
+            line-height: 5vh;
+            font-size: 0.33rem;
+        }
+        
+        .footer>p:nth-child(2) {
+            color: #c8c8c8;
+        }
+        
+        .text {
+            padding: 0 25px;
+            letter-spacing: 1px;
+            font-size: 0.38rem;
+        }
+        
+        .phone {
+            font-size: 0.38rem;
+            margin-top: 5vh;
+        }
+        
+        .phone>span:nth-child(1) {
+            padding-left: 25px;
+            color: #c8c8c8;
+        }
+        
+        .phone>span:nth-child(2) {
+            display: block;
+            text-align: center;
+            position: relative;
+            top: -0.52rem;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div>
+            <p>
+                <img src="./dist/images/axurerp-128.png" alt="" srcset="">
+            </p>
+            <p>硬汉邦</p>
+            <p id="v">V0.01</p>
+        </div>
+        <p class="text"> 硬汉邦(患者版) - 是一款专注男性阴茎勃起功能检测(简称ED)的专业移动医疗软件。该软件由顶级医学专家团队倾力打造，集疾病快速检测分析、名医全程跟踪治疗诊断于一体，快速进行医患数据化沟通，让治疗更精准高效，让患者早日康复！ </p>
+        <p class="phone">
+            <span> 客服热线 </span>
+            <span> 0755-33158961 </span>
+        </p>
+    </div>
+    <div class="footer">
+        <p onclick="protocol()"> Yhanbon硬汉邦服务条款及协议 </p>
+        <p>Copyright @2017</p>
+    </div>
+</body>
+<script>
+    // 获取get参数 ?v=0.02
+    function getPar(par) {
+        var local_url = document.location.href;
+        var get = local_url.indexOf(par + "=");
+        if (get == -1) {
+            return false;
+        }
+        var get_par = local_url.slice(par.length + get + 1);
+        var nextPar = get_par.indexOf("&");
+        if (nextPar != -1) {
+            get_par = get_par.slice(0, nextPar);
+        }
+        return get_par;
+    }
+    if (getPar('v')) {
+        document.getElementById('v').innerText = `V${getPar('v')}`;
+    }
+    // 跳转用户协议
+    function protocol() {
+        window.location.href = './protocol.html';
+    }
+</script>
+
+</html>

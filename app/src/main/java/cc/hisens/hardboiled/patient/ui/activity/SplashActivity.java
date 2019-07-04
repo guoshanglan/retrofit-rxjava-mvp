@@ -13,6 +13,7 @@ import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import cc.hisens.hardboiled.patient.ui.activity.login.GetVoliatCodeActivity;
+import cc.hisens.hardboiled.patient.ui.activity.login.LoginActivity;
 import cc.hisens.hardboiled.patient.ui.activity.main.MainActivity;
 
 public class SplashActivity extends BaseActivity {
@@ -58,7 +59,7 @@ public class SplashActivity extends BaseActivity {
         if (sharedUtils.readBoolean(UserConfig.UserInfo.EXTRA_IS_LOGIN, false)) {
            startActivity(new Intent(this, MainActivity.class));
         } else {
-            startActivity(new Intent(this, GetVoliatCodeActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
         finish();  //销毁当前界面
 

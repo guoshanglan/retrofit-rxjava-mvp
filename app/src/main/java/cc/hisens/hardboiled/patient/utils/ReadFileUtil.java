@@ -36,4 +36,11 @@ public class ReadFileUtil {
     }
 
 
+    public boolean isSDcard() {
+
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+
+    }
+
+
 }

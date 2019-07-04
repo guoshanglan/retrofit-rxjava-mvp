@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/title_head_back"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d9d9d9" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_weight="1">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:id="@+id/list_chat"></ListView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d9d9d9" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#f3f3f3"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+
+        >
+
+        <ImageView
+            android:id="@+id/ivAudio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/x5"
+            android:src="@mipmap/ic_launcher" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="8dp"
+            android:paddingTop="6dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="6dp">
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/message_shap_chat_bg"
+                android:maxLines="3"
+                android:minHeight="36dp"
+                android:paddingLeft="13dp"
+                android:textSize="11dp" />
+
+            <cc.hisens.hardboiled.patient.wideview.RecordButton
+                android:id="@+id/btnAudio"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_session_btn_voice"
+                android:text="按住说话"
+                android:textSize="13dp"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+
+
+        <ImageView
+            android:id="@+id/ivAdd"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="14px"
+            android:src="@mipmap/ic_launcher" />
+
+        <cc.hisens.hardboiled.patient.wideview.StateButton
+            android:id="@+id/btn_send"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:padding="1dp"
+            android:layout_marginRight="10dp"
+            android:text="发送"
+            android:textSize="13dp"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:normalBackgroundColor="#127CD6"
+            app:pressedBackgroundColor="#0f519b"
+            app:radius="5dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d9d9d9" />
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/x150"
+      android:visibility="gone">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1">
+
+          <LinearLayout
+              android:id="@+id/rlCamera"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_marginLeft="15dp"
+              android:layout_marginRight="30dp">
+
+              <ImageView
+                  android:id="@+id/ivPhoto"
+                  android:layout_width="50dp"
+                  android:layout_height="50dp"
+                  android:layout_marginTop="20dp"
+                  android:layout_gravity="center"
+                  android:background="@mipmap/ic_launcher" />
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@id/ivPhoto"
+                  android:layout_centerHorizontal="true"
+                  android:layout_marginTop="15px"
+                  android:text="相机"
+                  android:textColor="#333333"
+                  android:layout_gravity="center_horizontal"
+                  android:textSize="12sp"/>
+          </LinearLayout>
+
+          <LinearLayout
+              android:id="@+id/rlPicture"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              >
+
+              <ImageView
+                  android:id="@+id/iv_Picture"
+                  android:layout_width="50dp"
+                  android:layout_height="50dp"
+                  android:layout_marginTop="20dp"
+                  android:layout_gravity="center"
+                  android:background="@mipmap/ic_launcher"
+                  />
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_horizontal"
+                  android:layout_marginTop="15px"
+                  android:text="相册"
+                  android:textColor="#333333"
+                  android:textSize="12sp"/>
+          </LinearLayout>
+
+      </LinearLayout>
+  </LinearLayout>
+
+
+
+
+</LinearLayout>

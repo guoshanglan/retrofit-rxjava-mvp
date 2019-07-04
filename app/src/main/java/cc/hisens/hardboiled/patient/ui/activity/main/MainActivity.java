@@ -33,8 +33,6 @@ import cc.hisens.hardboiled.patient.base.ActivityCollector;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 import cc.hisens.hardboiled.patient.ble.BLEManagerWrapper;
-import cc.hisens.hardboiled.patient.retrofit.MyObserver;
-import cc.hisens.hardboiled.patient.retrofit.RequestUtils;
 import cc.hisens.hardboiled.patient.retrofit.Url;
 import cc.hisens.hardboiled.patient.ui.activity.main.model.AppInfoResult;
 import cc.hisens.hardboiled.patient.ui.activity.main.present.AppInfoPresenter;
@@ -42,8 +40,8 @@ import cc.hisens.hardboiled.patient.ui.activity.main.view.AppcheckInfoView;
 import cc.hisens.hardboiled.patient.ui.fragment.monitor.MonitorFragment;
 import cc.hisens.hardboiled.patient.ui.fragment.me.MeFragment;
 import cc.hisens.hardboiled.patient.ui.fragment.doctor.DoctorFragment;
-import cc.hisens.hardboiled.patient.ui.fragment.circle.CircleFragment;
 import cc.hisens.hardboiled.patient.utils.AppUpdateUtils;
+import cc.hisens.hardboiled.patient.utils.DownLoadEdBean;
 import cc.hisens.hardboiled.patient.utils.ReadFileUtil;
 import cc.hisens.hardboiled.patient.utils.ToastUtils;
 import cc.hisens.hardboiled.patient.websocket.ChatClient;
@@ -56,13 +54,12 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     @BindView(R.id.fl_container)
     FrameLayout myFrameLayout;  //用来展示fragment的
     //底部四个按钮,ButterKnife一次性注解多个
-    @BindViews({R.id.rbtn_monitor, R.id.rbtn_doctor, R.id.rbtn_helper, R.id.rbtn_me})
+    @BindViews({R.id.rbtn_monitor, R.id.rbtn_doctor, R.id.rbtn_me})
     public List<RadioButton> buttonList;
     @BindView(R.id.tv_doctor_message_count)
     TextView tvDoctormessageCount;  //医生消息
-    @BindView(R.id.tv_helper_message_count)
-    TextView tvHelp_message_count;   //
-    private Fragment firstFragment, secondFragment, thirdFragment, meFragment;
+
+    private Fragment firstFragment, secondFragment, meFragment;
     private Fragment[] fragments;
     private FragmentManager fragmentmanager;
     private FragmentTransaction ft;
@@ -71,7 +68,9 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     private AppInfoPresenter appInfoPresenter;   //检查APP版本更新的第三方桥梁present
     private ChatClient mChatClient;  //webSocket客户端
 
-    private BLEManagerWrapper bleManagerWrapper;  //蓝牙操作管理者
+
+
+
 
 
     @Override
@@ -82,36 +81,58 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
 
         ConnectedWebSocket();   //进行websocket的长连接
 
-        appInfoPresenter.CheckAppUpdate(); //检查App版本更新
+       //appInfoPresenter.CheckAppUpdate(); //检查App版本更新
 
-        rxPermissionForWrite();
+//        DownLoadEdBean bean = new DownLoadEdBean(new DownLoadEdBean.CallBack() {
+//            @Override
+//            public void Success(File file) {
+//                Log.e("下载", "下载成功" + file.toString());
+//                try {
+//                    String js = ReadFileUtil.fileRead("ed_file.js");
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void Fail(String err) {
+//                if (err.equals("无更新")) {
+//                    try {
+//                        String js = ReadFileUtil.fileRead("ed_file.js");
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//
+//            }
+//        });
+//
+//        bean.checkEdUpdate(this, sharedUtils);
 
     }
 
 
     //初始化控件和界面
     private void initView() {
-        bleManagerWrapper = BLEManagerWrapper.getInstance();
-        bleManagerWrapper.initialize(this);
 
         firstFragment = new MonitorFragment();
         secondFragment = new DoctorFragment();
-        thirdFragment = new CircleFragment();
         meFragment = new MeFragment();
-        fragments = new Fragment[]{firstFragment, secondFragment, thirdFragment, meFragment};
+        fragments = new Fragment[]{firstFragment, secondFragment, meFragment};
         fragmentmanager = getSupportFragmentManager();
         ft = fragmentmanager.beginTransaction();
         buttonList.get(0).setChecked(true);
         ft.add(R.id.fl_container, firstFragment);
         ft.show(firstFragment).commit();
         tvDoctormessageCount.setText("12");
-        tvHelp_message_count.setText("2");
 
 
     }
 
     //Butterknife 注解点击事件,进行底部Fragment的替换
-    @OnClick({R.id.rbtn_monitor, R.id.rbtn_doctor, R.id.rbtn_helper, R.id.rbtn_me})
+    @OnClick({R.id.rbtn_monitor, R.id.rbtn_doctor, R.id.rbtn_me})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rbtn_monitor:
@@ -120,9 +141,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
             case R.id.rbtn_doctor:
                 SwitchSkip(1);
                 break;
-            case R.id.rbtn_helper:
-                SwitchSkip(2);
-                break;
+
             case R.id.rbtn_me:
                 SwitchSkip(3);
                 break;
@@ -246,54 +265,6 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     }
 
 
-    //下载文件
-    public void DownLoadFile() {
-        RequestUtils.DownLoad(Url.getEdFile, "ed_file.js", new MyObserver<File>() {
-            @Override
-            public void onSuccess(File result) {
-                if (result != null) {
-                    Log.e("下载", "下载成功" + result.length());
-                    try {
-                        Log.e("读取", ReadFileUtil.fileRead("ed_file.js"));
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable e, String errorMsg) {
-                Log.e("下载失败", errorMsg);
-            }
-        });
-    }
-
-
-    //检查相机权限
-    @SuppressLint("CheckResult")
-    public void rxPermissionForWrite() {
-        final Intent[] intent = {null};
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean granted) throws Exception {
-                if (granted) {
-
-                    DownLoadFile();  //下载文件
-
-                } else {
-                    // 权限被拒绝
-
-                    ToastUtils.show(MainActivity.this, "拒绝可能导致拍照扫描功能无法使用");
-                }
-            }
-        });
-
-
-    }
-
-
     //Session失效，需要重新登录
     @Override
     public void setFailedError(String str) {
@@ -308,7 +279,7 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bleManagerWrapper.recycle();
+
         mChatClient.cancelConnectTimer();
         mChatClient.cancelPingTimer();
         mChatClient = null; //释放对象

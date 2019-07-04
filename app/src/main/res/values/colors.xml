@@ -21,10 +21,10 @@
     <!--覆盖颜色-->
     <color name="bgColor_overlay">#60000000</color>
     <color name="translucent_white">#61FFFFFF</color>
-    <color name="hisens_blue">#2ab5d7</color>
+    <color name="hisens_blue">#35d5db</color>
     <color name="white">#FFFFFF</color>
     <color name="hisens_background">#f6f6f6</color>
-    <color name="separator_color">#888888</color>
+    <color name="separator_color">#cecece</color>
     <color name="conversion_name_color">@android:color/black</color>
     <color name="message_time_color">#666666</color>
 

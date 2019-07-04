@@ -1,5 +1,6 @@
 package cc.hisens.hardboiled.patient.ui.activity.login;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,8 +39,8 @@ import io.reactivex.schedulers.Schedulers;
 
 //登录页
 public class LoginActivity extends BaseActivity implements LoginView, PhoneCode.OnInputListener {
-    @BindView(R.id.tv_number)
-    public TextView tvNumber;   //展示手机号信息
+    @BindView(R.id.tv_phone)
+    public TextView tvphone;   //展示手机号信息
     @BindView(R.id.phonecode_view)
     public PhoneCode phoneCode;    //验证码输入控件
     @BindView(R.id.btn_getCode)
@@ -57,7 +58,7 @@ public class LoginActivity extends BaseActivity implements LoginView, PhoneCode.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         phoneNumber = getIntent().getStringExtra("number");
-        tvNumber.setText("验证码已通过短信发送至 " + phoneNumber);
+        tvphone.setText(phoneNumber);
         phoneCode.setOnInputListener(this);
         setTime();
 
@@ -70,9 +71,9 @@ public class LoginActivity extends BaseActivity implements LoginView, PhoneCode.
         switch (view.getId()) {
             case R.id.btn_login:    //登录
                 if (TextUtils.isEmpty(phoneNumber)) {
-                    ToastUtils.show(this, R.string.login_error_hint);
+                    ShowToast(getString( R.string.login_error_hint));
                 } else if (TextUtils.isEmpty(phoneCode.getPhoneCode())) {
-                    ToastUtils.show(this, R.string.input_verification_code_hint);
+                    ShowToast(getString( R.string.input_verification_code_hint));
                 } else {
                     initProgressDialog(getString(R.string.is_landing));
                     loginPresenter.login();   //进行登录
@@ -87,7 +88,6 @@ public class LoginActivity extends BaseActivity implements LoginView, PhoneCode.
                 finish();
                 break;
 
-
         }
 
     }
@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity implements LoginView, PhoneCode.
     protected void resetGetVerificationCodeEditText() {
         btnCode.setText(getString(R.string.get_verification_code));
         btnCode.setEnabled(true);
-        btnCode.setBackgroundResource(R.drawable.btn_getverification_code_input_shape);
+        btnCode.setBackgroundResource(R.drawable.btn_voliatcode_clickable);
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
         }
@@ -105,16 +105,17 @@ public class LoginActivity extends BaseActivity implements LoginView, PhoneCode.
     //获取验证码倒计时
     public void setTime() {
         btnCode.setEnabled(false);
-        btnCode.setBackgroundResource(R.drawable.btn_getverification_code_uninput_shape);
+        btnCode.setBackgroundResource(R.drawable.btn_voliatcode_unclickable);
         mDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
                 .compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
+                    @SuppressLint({"SetTextI18n", "DefaultLocale"})
                     @Override
                     public void accept(@NonNull Long aLong) {
                         int count = (int) (60 - aLong);
-                        btnCode.setText(String.format("%ds", Math.max(0, count)));
+                        btnCode.setText(String.format("%ds", Math.max(0, count))+"后重新获取");
                         if (count < 0) {
                             resetGetVerificationCodeEditText();
                         }
@@ -170,7 +171,7 @@ public class LoginActivity extends BaseActivity implements LoginView, PhoneCode.
 
     @Override
     public void setFailedError(String str) {
-        ToastUtils.show(this, str);
+        ShowToast( str);
         Log.e("错误", str);
         dismissProgressDialog();
         resetGetVerificationCodeEditText(); //重置
@@ -187,7 +188,8 @@ public class LoginActivity extends BaseActivity implements LoginView, PhoneCode.
 
     @Override
     public void onInput() {
-        btLogin.setBackgroundResource(R.drawable.btn_getverification_code_uninput_shape);
         btLogin.setClickable(false);
+        btLogin.setBackgroundResource(R.drawable.btn_getverification_code_uninput_shape);
+
     }
 }

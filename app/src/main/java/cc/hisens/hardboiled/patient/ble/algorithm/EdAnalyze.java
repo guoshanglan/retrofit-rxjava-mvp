@@ -41,8 +41,11 @@ public class EdAnalyze {
     public static final int ED_ORGANIC = 1;
     public static final int ED_PSYCHIC = 2;
 
-    public static final String NPT_INTERVAL = "20:00-08:00";
-    public static final int NORMAL_NPT_SLEEP_DURATION = 5 * 3600 * 1000;
+    public static final String NPT_INTERVAL = "21:00-08:00";  //正常夜间的NPT时间
+
+    public static final String NPT_START = "21:00";  //正常夜间的NPT开始时间
+    public static final String NPT_END = "08:00";  //正常夜间的NPT结束时间
+    public static final int NORMAL_NPT_SLEEP_DURATION = 6* 3600 * 1000;  //是否大于等于6H
 
     public static final int ONE_MINUTE = 60 * 1000;
 
@@ -59,14 +62,64 @@ public class EdAnalyze {
      * @return
      */
     public static boolean isNormalNPT(long startTime, long endTime) {
-        return isMoreThan5h(startTime, endTime) && isNightEd(startTime);
+
+
+        return isMoreThan6h(startTime, endTime) && isNightEd(startTime);
     }
+
+
+    /**
+     * 判断开始时间不在范围内到结束时间在正常时间范围内 这个区间在正常区间内是否超过6个小时
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+
+    public static boolean isStartMore6h(long startTime, long endTime) {
+
+
+
+        return isMoreThan6h(startTime, endTime) && isNightEd(startTime);
+    }
+
+
+    /**
+     判断开始时间在范围内到结束时间不在正常时间范围内 这个区间在正常区间内是否超过6个小时
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+
+    public static boolean isEndMore6h(long startTime, long endTime) {
+
+
+        return isMoreThan6h(startTime, endTime) && isNightEd(startTime);
+    }
+
+    /**
+     判断开始时间不在范围内到结束时间不在正常时间范围内
+     *
+     * @param startTime
+     * @param startTime
+     * @return
+     */
+
+    public static boolean isNotNormalNpt(long startTime) {
+
+
+        return isNightEd(startTime);
+    }
+
+
+
 
     public static boolean isNightEd(long startTime) {
         return TimeUtils.isInTime(NPT_INTERVAL, startTime);
     }
 
-    public static boolean isMoreThan5h(long startTime, long endTime) {
+    public static boolean isMoreThan6h(long startTime, long endTime) {
         return (startTime > 0 && endTime > 0) && (endTime - startTime >= NORMAL_NPT_SLEEP_DURATION);
     }
 

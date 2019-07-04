@@ -102,8 +102,28 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout" />
+        <activity
+            android:name=".ui.activity.iief_5.IIEF_5Activity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenLayout" />
+        <activity
+            android:name=".ui.activity.ehsassess.EHSAssessActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenLayout" />
 
+        <activity
+            android:name=".ui.activity.score.ScoreActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenLayout" />
 
+        <activity
+            android:name=".ui.activity.aboutus.AboutUsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenLayout" />
     </application>
 
 </manifest>

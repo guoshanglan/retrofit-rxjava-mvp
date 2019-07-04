@@ -21,16 +21,7 @@ import cc.hisens.hardboiled.patient.ui.activity.main.MainActivity;
 public class JsEngine {
 public Context context;
 
-    /** Java执行js的方法 */
-    public String JAVA_CALL_JS_FUNCTION ;
 
- public JsEngine() {
-     try {
-         JAVA_CALL_JS_FUNCTION=ReadFileUtil.fileRead("ed_file.js");  //js代码从我们下载的文件中获取
-     } catch (Exception e) {
-         e.printStackTrace();
-     }
- }
 
     /**
      * 执行JS

@@ -30,7 +30,7 @@ public class AppUpdateUtils {
     //单例模式获取这个对象
     public static AppUpdateUtils getGetInstence() {
         if (getInstence == null) {
-            synchronized (RetrofitUtils.class) {
+            synchronized (AppUpdateUtils.class) {
                 if (getInstence == null) {
                     getInstence = new AppUpdateUtils();
                 }

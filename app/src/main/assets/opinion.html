@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>意见反馈</title>
+    <script src="./dist/js/rem.js"></script>
+    <style>
+        html {
+            height: 100%;
+        }
+        
+        body {
+            background-color: #f6f6f6;
+            height: 100%;
+        }
+        
+        textarea {
+            box-shadow: 0 0 0 0 #fff;
+            width: 100%;
+            height: 20vh;
+            border: none;
+            padding: 5px 15px;
+            box-sizing: border-box;
+            font-size: 0.38rem;
+        }
+        
+        .title {
+            line-height: 7vh;
+            font-weight: 600;
+            font-size: 0.38rem;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+        
+        #number {
+            text-align: right;
+            padding: 0 15px;
+            background-color: #fff;
+            line-height: 5vh;
+            position: relative;
+            top: -5px;
+        }
+        
+        .phone {
+            background-color: #fff;
+            line-height: 7vh;
+            padding-left: 15px;
+            font-weight: 600;
+            font-size: 0.38rem;
+        }
+        
+        .phone>input {
+            height: 30px;
+            width: 60%;
+            box-shadow: 0 0 0 0 #fff;
+            border: none;
+            padding-left: 10px;
+        }
+        
+        button {
+            width: 96%;
+            height: 45px;
+            background-color: #2ab4d8;
+            border: none;
+            margin: 5vh auto;
+            margin-left: 2%;
+            border-radius: 2px;
+            color: #fff;
+            font-size: 0.38rem;
+        }
+        
+        button:active {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="opinion_.html" method="GET" onsubmit="return checkBeforeSubmit()">
+        <div>
+            <p class="title">问题和意见</p>
+            <textarea name="text" id="text_" placeholder="*请输入您的问题描述，以便我们提供更好的帮助" oninput="input_()" maxlength="200" minlength="10"></textarea>
+            <p id="number">0 / 200</p>
+            <div class="phone">
+                <span>联系电话</span>
+                <input name="phone" type="phone" placeholder="以便以您取的联系" maxlength="11">
+            </div>
+        </div>
+        <button type="submit"> 提交 </button>
+    </form>
+</body>
+<script>
+    // 输入触发
+    function input_() {
+        let len = document.getElementById('text_').value.length;
+        document.getElementById('number').innerText = `${len} / 200`;
+    }
+    // 提交触发
+    function checkBeforeSubmit() {
+        let text_ = document.getElementById('text_').value;
+        if (text_.length < 10) {
+            document.getElementById('text_').placeholder = '*请至少输入10个字符以描述问题和意见'
+            return false
+        }
+    }
+</script>
+
+</html>

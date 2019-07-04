@@ -1,0 +1,128 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="48px"
+    android:layout_marginRight="48px"
+    app:cardBackgroundColor="#2ab5d7"
+    app:cardCornerRadius="20dp"
+    app:contentPadding="1dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_assess_title"
+                android:layout_width="match_parent"
+                android:layout_height="113px"
+                android:background="#2ab5d7"
+                android:gravity="center_vertical"
+                android:paddingBottom="2px"
+                android:paddingLeft="20px"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <RadioGroup
+                android:id="@+id/rgrp_assess"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rbtn_assess_option0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/sl_assess_button"
+                    android:drawablePadding="18dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="26dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/rbtn_assess_option1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/sl_assess_button"
+                    android:drawablePadding="18dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="26dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/rbtn_assess_option2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/sl_assess_button"
+                    android:drawablePadding="18dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="26dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/rbtn_assess_option3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/sl_assess_button"
+                    android:drawablePadding="18dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="26dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/rbtn_assess_option4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/sl_assess_button"
+                    android:drawablePadding="18dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="26dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/rbtn_assess_option5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/sl_assess_button"
+                    android:drawablePadding="18dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="26dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>

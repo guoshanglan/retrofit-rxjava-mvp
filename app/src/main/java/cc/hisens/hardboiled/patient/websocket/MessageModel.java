@@ -9,9 +9,10 @@ public class MessageModel {
 
     public long from;   //用户id
     public long to;   //给谁发送信息的对象id
-    public byte type;   //
-    public byte event;
-    public byte accessory;
+
+    public byte type;   //消息類型:0.文本消息1.图片消息2.音频消息3.视频消息4.好友通知消息5.分享消息6.用户注册消息[提交用户的user id]
+    public byte event;  //0.点对点消息1.群组消息2.群发所有人的消息
+    public byte accessory;  //好友消息: 0. 好友请求，1.直接添加好友，2.删除好友，3.同意好友添加，4.拒绝好友添加'
     public long time;    //时间
     public Content content;
 
@@ -113,13 +114,12 @@ public class MessageModel {
 
     public static class Content {
 
-        public String text;     //文字
-        public String title;     //标题
-        public String intro;     //介绍
-        public String url;      //链接
+        public String text;     //文本消息
+        public String title;     //标题 ，预留字段
+        public String intro;     //介绍 ，预留字段
+        public String url;      //链接,包含图片和语音
         public String thumbUrl;   //缩略图
-        private String voicePath; //语音消息，语音消息url
-        private double voiceTime;   //语音时长
+
 
         public JSONObject  content = new JSONObject();
 
@@ -135,10 +135,7 @@ public class MessageModel {
                 content.put("url",url);
                 if(!TextUtils.isEmpty(thumbUrl))
                 content.put("thumb_url",thumbUrl);
-                if(!TextUtils.isEmpty(voicePath))
-                 content.put("voicePath",voicePath);
-                if(!TextUtils.isEmpty(voiceTime+""))
-                    content.put("voicePath",voicePath);
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

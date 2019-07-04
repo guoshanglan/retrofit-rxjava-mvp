@@ -1,6 +1,7 @@
 package cc.hisens.hardboiled.patient.ui.activity.login.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -217,11 +218,6 @@ public class User implements RealmModel {
 
         params.put("phone", number);
         params.put("code", VerificationCode);
-//        List<HashMap<String,String>>listParams=new ArrayList<>();
-//        listParams.add(params);
-//        HashMap<String, List<HashMap<String,String>>> map=new HashMap<>();
-//          map.put("datas",listParams);
-
 
         RequestUtils.post(context, Url.paientLogin, params, new HashMap<>(), new MyObserver<BaseResponse>(context) {
             @Override
@@ -255,14 +251,12 @@ public class User implements RealmModel {
         HashMap<String, String> params = new HashMap<>();
 
         params.put("phone", number);
-        RequestUtils.post(context, Url.getVerificationCode,params , new HashMap<>(), new MyObserver<BaseResponse>(context) {
+        RequestUtils.post(context, Url.getVerificationCode,params, new HashMap<>(), new MyObserver<BaseResponse>(context) {
             @Override
             public void onSuccess(BaseResponse result) {
                 if (result != null) {
 
                     if (result.result == 0) {
-
-                        ToastUtils.show(context, "发送成功");
                         listener.getSuccess("发送成功");
                     } else {
 
@@ -273,7 +267,8 @@ public class User implements RealmModel {
 
             @Override
             public void onFailure(Throwable e, String errorMsg) {
-                String msg="网络异常";
+                Log.e("11111",errorMsg);
+                String msg="无法连接网络，请检查网络是否打开！";
                 listener.getFailed(msg);
             }
         });
@@ -305,7 +300,7 @@ public class User implements RealmModel {
 
             @Override
             public void onFailure(Throwable e, String errorMsg) {
-                String msg="网络异常";
+                String msg="无法连接网络，请检查网络是否打开！";
                 listener.loginFailed(msg);
             }
         });

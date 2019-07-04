@@ -68,9 +68,9 @@ public class ChatClient implements WebSocketClientListener {
 
         Log.e("连接成功","sosososososo");
         MessageModel message = new MessageModel();
-        message.setFrom(832654859);   //由登录用户发起长连接
+        message.setFrom(Long.parseLong(UserConfig.UserInfo.getUid()));   //由登录用户发起长连接
         message.setType((byte) 6);
-        message.setTime(System.currentTimeMillis() / 1000);
+//        message.setTime(System.currentTimeMillis() / 1000);
 
         sendMessage(message);   //向服务器发送一条消息
 
@@ -91,6 +91,7 @@ public class ChatClient implements WebSocketClientListener {
 
     @Override
     public void onMessage(MessageModel message) {
+
 
     }
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    android:orientation="vertical">
+
+   <include layout="@layout/title_head_back"/>
+
+    <include layout="@layout/include_separator" />
+
+    <TextView
+        android:id="@+id/tv_input_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x24"
+        android:layout_marginRight="@dimen/x24"
+        android:layout_marginTop="@dimen/x23"
+        android:textColor="#666666"
+        android:text="@string/m_ehs_warning"
+        android:textSize="@dimen/x12" />
+
+    <cc.hisens.hardboiled.patient.wideview.ViewPagerCompat
+        android:id="@+id/viewpager_assess"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="42px" />
+
+
+      <Button
+          android:layout_width="@dimen/x150"
+          android:layout_height="@dimen/x40"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="@dimen/x40"
+          android:textColor="@color/white"
+          android:textSize="@dimen/x16"
+          android:id="@+id/btn_sumbit"
+          android:text="提交"
+          android:visibility="gone"
+          android:background="@drawable/btn_getverification_code_input_shape"/>
+
+</LinearLayout>

@@ -79,39 +79,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/x25"
+                android:layout_marginRight="@dimen/x35"
                 android:background="@drawable/red_dot"
                 android:gravity="center"
                 android:textColor="@color/white"
                 tools:text="8"
                 tools:visibility="visible" />
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <RadioButton
-                android:id="@+id/rbtn_helper"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:button="@null"
-                android:drawableTop="@drawable/sl_helper"
-                android:gravity="center"
-                android:text="@string/label_helper"
-                android:textColor="@drawable/sl_main_button_text_color"
-                android:textSize="@dimen/bottom_bar_textsize" />
-            <TextView
-                android:id="@+id/tv_helper_message_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/x25"
-                android:background="@drawable/red_dot"
-                android:gravity="center"
-                tools:text="4"
-                android:textColor="@color/white"
-                tools:visibility="visible"/>
-        </RelativeLayout>
+
 
 
         <RadioButton

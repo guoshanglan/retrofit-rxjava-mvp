@@ -21,9 +21,16 @@ public class Url {
 
     //检查APP版本是否有更新
     public static String getAppInfo="/api/v1/device/version";
-    //获取ed文件
 
-    public static String getEdFile="/api/v1/inspection/ed_file";
+    //获取ed文件
+    public static String getEdFile="/api/v1/inspection/ed_algo_file";
+
+    //上传ehs评分记录
+    public static String uploadEhsScore="/api/v1/inspection/ehs";
+
+    //上传IIEF_5评分记录
+    public static String uploadIIEFScore="/api/v1/inspection/iief5";
+
 
 
 

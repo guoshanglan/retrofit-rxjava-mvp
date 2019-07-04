@@ -20,7 +20,7 @@ public class TimeUtils {
      * Constant that contains the amount of milliseconds in a second
      */
     private static final long ONE_SECOND = 1000L;
-
+    public static final int NORMAL_NPT_SLEEP_DURATION = 6* 60 ;  //是否大于等于6H
 
     /**
      * 判断某一时间是否在一个区间内
@@ -57,6 +57,86 @@ public class TimeUtils {
             throw new IllegalArgumentException("Illegal Argument arg:" + sourceTime);
         }
     }
+
+    /**
+     * 判断某一时间段在指定时间段时间是否超过6个小h
+     *
+     * @param sourceTime 时间区间,半闭合,如[10:00-20:00)
+     * @param startTime       需要判断的开始时间
+     * @return endTime  需要判断的结束时间
+     * @throws IllegalArgumentException
+     */
+
+    public static boolean isMore6h(String sourceTime,long startTime,long endTime){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String curTime = sdf.format(new Date(startTime));
+        String EndTime= sdf.format(new Date(endTime));
+
+        if (sourceTime == null || !sourceTime.contains("-") || !sourceTime.contains(":")) {
+            throw new IllegalArgumentException("Illegal Argument arg:" + sourceTime);
+        }
+        if (curTime == null || !curTime.contains(":")) {
+            throw new IllegalArgumentException("Illegal Argument arg:" + curTime);
+        }
+        if (EndTime == null || !EndTime.contains(":")) {
+            throw new IllegalArgumentException("Illegal Argument arg:" + curTime);
+        }
+        String[] inputstart=curTime.split(":");
+        String[]inputend=EndTime.split(":");
+        String[] args = sourceTime.split("-");
+        String[] mstart=args[0].split(":"); //规定开始时间字符串分割数组
+        String[]mend=args[1].split(":"); //规定结束时间
+        try {
+            long inputStart = Integer.valueOf(inputstart[0])*60+ Integer.valueOf(inputstart[1]);  //监测开始时间,改为分钟
+            long inputEnd=Integer.valueOf(inputend[0])*60+ Integer.valueOf(inputend[1]);  //监测结束时间，改为分钟
+            long start = Integer.valueOf(mstart[0])*60+ Integer.valueOf(mstart[1]);
+            long end = Integer.valueOf(mend[0])*60+ Integer.valueOf(mend[1]);
+
+            if (inputStart<end){  //如果监测开始时间小于我们规定的结束时间，就在原有的基础上加一天，
+                inputStart=inputStart+24*60;
+                inputEnd=inputEnd+24* 60;
+            }
+            if (inputEnd<inputStart){  //如果监测结束时间小于我们规定的开始时间，也在原有的基础上加一天
+                inputEnd=inputEnd+24* 60;
+            }
+             end=end+24*60;
+
+            if (inputStart-start>=0&&inputStart-end<=0){  //开始时间大于规定开始时间小于规定结束时间
+                if (inputEnd<end){
+                    return  inputEnd-inputStart>=NORMAL_NPT_SLEEP_DURATION;
+                }else{
+
+                    return  end-inputStart>=NORMAL_NPT_SLEEP_DURATION;
+                }
+
+            }else if (inputStart-start<0){   //开始时间小于规定的开始时间
+
+                if (inputEnd<=start){  //这个就不算正常范围，
+
+                    return false;
+                }else if (inputEnd>start&&inputEnd<=end){
+
+                    return  inputEnd-start>=NORMAL_NPT_SLEEP_DURATION;
+                }else{  //否则的话肯定超过了6H
+
+                    return true;
+                }
+
+            }
+
+            return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Illegal Argument arg:" + sourceTime);
+        }
+
+    }
+
+
+
+
+
 
     public static int millisToMin(long millis) {
         return ((int) (millis / 60000));

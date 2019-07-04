@@ -69,6 +69,7 @@ public class BLEManagerWrapper {
         public void onServiceConnected(ComponentName name, IBinder binder) {
             KLog.i("onServiceConnected connected");
             mBleService = ((BleService.MyBinder) binder).getService();
+
         }
 
         @Override
@@ -274,7 +275,8 @@ public class BLEManagerWrapper {
     }
 
     public void addSyncDataCallback(ISyncDataCallback callback) {
-        if (mBleService != null && callback != null && !mISyncDataCallbackList.contains(callback)) {
+        if (callback != null && !mISyncDataCallbackList.contains(callback)) {
+            mISyncDataCallbackList.clear();
             mISyncDataCallbackList.add(callback);
         }
     }
@@ -425,16 +427,14 @@ public class BLEManagerWrapper {
 
     //蓝牙连接，有多个设备时用这个方法进行连接,传进来的position来确认是需要连接哪个设备，在列表界面进行交互的
 
-    private  void  ConnectDevices(int position){
-
-        if(deviceList!=null&&deviceList.size()!=0) {
+    public  void  ConnectDevices(BleDevice device){
 
             //判断当前是否已经连接上了蓝牙设备，所以需要先断开之前的连接在进行重连
             if (isConnected()){
                 this.disconnect();
             }
 
-            mBleService.connectDevice(deviceList.get(position), new BleGattCallback() {
+            mBleService.connectDevice(device, new BleGattCallback() {
                 @Override
                 public void onStartConnect() {
                     mConnectionCount = 0;
@@ -481,9 +481,7 @@ public class BLEManagerWrapper {
                     }
                 }
             });
-        }else{
-            ToastUtils.show(mContext,"当前没有可以连接的蓝牙设备~");
-        }
+
 
     }
 
@@ -491,10 +489,11 @@ public class BLEManagerWrapper {
      *
       扫描设备，没有进行连接,可能有多个设备需要展示
      */
-    private  void  ScanDevice(){
+    public  void  ScanDevice(){
         mBleService.scanDevice(new BleScanCallback() {
             @Override
             public void onScanFinished(List<BleDevice> scanResultList) {
+                KLog.i("onScanFinished " + scanResultList);
                 if(scanResultList==null||scanResultList.size()==0){
                     for (ISyncDataCallback callback : mISyncDataCallbackList) {
                         callback.onNotFoundDevice();

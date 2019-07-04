@@ -4,7 +4,8 @@
 
 
 
-    <string name="login_appname">登录到硬汉邦</string>
+    <string name="login_appname">WELCOME!
+     登录</string>
 
     <!-- 测量-->
     <string name="current_measurement">我的监测</string>
@@ -195,6 +196,7 @@
     <string name="intelligent_assistant">客服助手</string>
     <string name="recommentions">热门推荐</string>
     <string name="current_consultation">当前问诊</string>
+    <string name="the_man_circle">男人圈</string>
 
 
     <!--设置-->
@@ -451,12 +453,13 @@
     <string name="login">登录</string>
     <string name="skip">跳过</string>
     <string name="login_error_hint">您输入的手机有误，请重新输入！</string>
+    <string name="login_number_empty">手机号不能为空！</string>
     <string name="input_phone_num_hint">请输入11位手机号</string>
     <string name="input_verification_code_hint">输入验证码</string>
     <string name="get_verification_code">获取验证码</string>
     <string name="agree_protocol_hint">点击登录即表示您同意</string>
     <string name="terms_and_agreement_doctor">《硬汉邦 D版服务条款及协议》</string>
-    <string name="terms_and_agreement">《Yhanbon硬汉邦服务条款及协议》</string>
+    <string name="terms_and_agreement">服务条款与隐私协议</string>
 
 
 

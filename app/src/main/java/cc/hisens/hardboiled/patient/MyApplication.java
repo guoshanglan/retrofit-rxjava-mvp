@@ -21,6 +21,7 @@ public class MyApplication extends MultiDexApplication {
     private static MyApplication instance;
     private static Context mContext;
     private RefWatcher refWatcher;
+    private BLEManagerWrapper bleManagerWrapper;
     public static BLEManagerWrapper getBLEManagerWrapper() {
         return BLEManagerWrapper.getInstance();
     }
@@ -57,8 +58,9 @@ public class MyApplication extends MultiDexApplication {
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
 
-        CrashReport.initCrashReport(getApplicationContext(), "a4af3eeb50", true);
-
+        CrashReport.initCrashReport(getApplicationContext(), "a4af3eeb50", true);  //tencent bugly的初始化
+        bleManagerWrapper = BLEManagerWrapper.getInstance();
+        bleManagerWrapper.initialize(this);
 
     }
 
@@ -68,7 +70,7 @@ public class MyApplication extends MultiDexApplication {
         return instance;
     }
 
-    public static Context getmContext() {
+    public static Context getContext() {
         return mContext;
     }
 

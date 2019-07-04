@@ -33,6 +33,8 @@ import static cc.hisens.hardboiled.patient.utils.BytesUtils.bytesToInt;
 
 public class EdUtils {
 
+
+    //非干预状态
     public static Ed getEd(List<EdInfo> edInfoList, long startTimestamp, long endTimestamp) {
         Ed ed = new Ed();
         int maxStrength = 0;
@@ -53,6 +55,28 @@ public class EdUtils {
         return ed;
     }
 
+
+    //干预状态
+    public static Ed getNotNormolEd(List<EdInfo> edInfoList, long startTimestamp, long endTimestamp) {
+        Ed ed = new Ed();
+        int maxStrength = 0;
+        long maxDuration = 0;
+        HashMap<Integer, Long> edMap = new HashMap<>();
+        if (startTimestamp > 0 && endTimestamp > 0) {
+            ed.setStartTimestamp(startTimestamp);
+            ed.setEndTimestamp(endTimestamp);
+        }
+        for (EdInfo info : edInfoList) {
+            edMap.put(info.getErectileStrength(), info.getDuration());
+            maxStrength = Math.max(maxStrength, info.getErectileStrength());
+        }
+        maxDuration = edMap.get(maxStrength);
+        ed.setMaxStrength(maxStrength);
+        ed.setInterferential(true);
+        ed.setMaxDuration(maxDuration);
+        ed.setEdInfos(edInfoList);
+        return ed;
+    }
 
     /**
      * 添加测试数据

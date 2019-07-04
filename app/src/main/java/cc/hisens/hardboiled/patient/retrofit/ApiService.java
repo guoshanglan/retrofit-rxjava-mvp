@@ -72,6 +72,8 @@ public interface ApiService {
     Observable<BaseResponse> uploadImages(@Url String url,@HeaderMap Map<String, String> headers, @Part List<MultipartBody.Part> files);
 
     /**
+     *
+     * 文件下载
      * 来自https://blog.csdn.net/impure/article/details/79658098
      * @Streaming 这个注解必须添加，否则文件全部写入内存，文件过大会造成内存溢出
      */

@@ -1,21 +1,16 @@
 package cc.hisens.hardboiled.patient.eventbus;
 
+import com.clj.fastble.data.BleDevice;
+
 public class onDeviceMessage {
 
-    private String onBattery;   //蓝牙设备电量信息
+    public BleDevice device;
 
-    public onDeviceMessage(String onBattery) {
-        this.onBattery = onBattery;
+    public onDeviceMessage(BleDevice device) {
+        this.device = device;
     }
 
-    public String getMessage() {
-        return onBattery;
-    }
 
-    @Override
-    public String toString() {
-        return onBattery;
-    }
 
 
 }

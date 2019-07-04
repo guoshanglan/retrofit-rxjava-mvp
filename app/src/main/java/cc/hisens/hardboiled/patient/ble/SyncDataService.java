@@ -433,8 +433,8 @@ public class SyncDataService extends Service {
             KLog.i(TAG, "-->> " + edInfo);
         }
 
-        // 分析出现勃起的数据，写入数据库
-        if (edInfos.size() > 0 || (edInfos.size() == 0 && EdAnalyze.isNormalNPT(mStartSleep, mEndSleep))) {
+        // 分析出现勃起的数据，是否在夜间21：00-8:00这个时间段内大于等于6个小时，那么就属于正常的NPT
+        if (edInfos.size() > 0 && EdAnalyze.isNormalNPT(mStartSleep, mEndSleep)) {
 
             KLog.i(TAG, "-->> startTime = " + mStartSleep);
 
@@ -449,7 +449,29 @@ public class SyncDataService extends Service {
                         }
                     });
 
-        } else {
+        } else if(edInfos.size()>0&&EdAnalyze.isStartMore6h(mStartSleep,mEndSleep)){
+
+
+
+
+        }else if(edInfos.size()>0&&EdAnalyze.isEndMore6h(mStartSleep,mEndSleep)){
+
+
+
+        }else if(EdAnalyze.isNotNormalNpt(mStartSleep)&&edInfos.size()>0){  //干预状态
+
+            new EdRepositoryImpl()
+                    .saveEd(EdUtils.getNotNormolEd(edInfos, mStartSleep, mEndSleep))
+                    .subscribe(new Consumer<Ed>() {
+                        @Override
+                        public void accept(@NonNull Ed ed) {
+
+                            syncDataSuccessfully(ed.getStartTimestamp());
+
+                        }
+                    });
+
+        }else {
 
             KLog.i(TAG, "-->> 算法分析出错" + edInfos.size() + " " + EdAnalyze.isNormalNPT(mStartSleep, mEndSleep));
 

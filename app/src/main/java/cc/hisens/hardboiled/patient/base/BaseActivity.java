@@ -2,18 +2,28 @@ package cc.hisens.hardboiled.patient.base;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
 import cc.hisens.hardboiled.patient.MyApplication;
+import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.db.bean.UserConfig;
 import cc.hisens.hardboiled.patient.ui.activity.login.LoginActivity;
 import cc.hisens.hardboiled.patient.utils.ScreenUtil;
+import cc.hisens.hardboiled.patient.utils.ScreenUtils;
 import cc.hisens.hardboiled.patient.utils.SharedUtils;
 
 public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatActivity implements PresenterCallback{
@@ -22,6 +32,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
     protected MyApplication appLication;
     protected SharedUtils sharedUtils;     //共享参数sp的对象
     protected ProgressDialog mProgressDialog;   //加载框
+    protected Toast mToast;
 
 
 
@@ -31,8 +42,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         ActivityCollector.addActivity(this);
        //屏幕适配一定要设置在setcontentView之前
         ScreenUtil.resetDensity(this);  //Android屏幕适配
-         setContentView(getLayoutId());
-         ButterKnife.bind(this);
+        setContentView(getLayoutId());
+        ButterKnife.bind(this);
 
         init();
 
@@ -80,6 +91,29 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         mProgressDialog.show();
     }
 
+    //初始化自定义Toast
+
+    protected  void  ShowToast(String msg){
+        WindowManager wm = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+        View toastView = LayoutInflater.from(this).inflate(R.layout.toast_view, null);
+        TextView tv=toastView.findViewById(R.id.txtToastMessage);
+        tv.setText(msg);
+        if (mToast == null) {
+            mToast = new Toast(this);
+        }
+        LinearLayout relativeLayout = (LinearLayout) toastView.findViewById(R.id.test);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(wm
+                .getDefaultDisplay().getWidth(), (int) ScreenUtils.dp2px(this, 40));
+        relativeLayout.setLayoutParams(layoutParams);
+        mToast.setDuration(Toast.LENGTH_SHORT);
+        mToast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+        mToast.setView(toastView);
+        mToast.getView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);//设置Toast可以布局到系统状态栏的下面
+        mToast.show();
+    }
+
+
+
 
     //进度框消失
     protected void dismissProgressDialog() {
@@ -113,13 +147,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         RefWatcher refWatcher = appLication.getRefWatcher(this);
         refWatcher.watch(this);
 
-
     }
-
-
-
-
-
-
 
 }

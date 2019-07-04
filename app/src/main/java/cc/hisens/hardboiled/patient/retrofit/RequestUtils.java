@@ -80,7 +80,7 @@ public class RequestUtils {
      * @param context
      * @param
      */
-    public static void post(Context context, String url, HashMap<String, ?> params, Map<String, String> headsMap, MyObserver<BaseResponse> observer) {
+    public static void post(Context context, String url, Map<String, ?> params, Map<String, String> headsMap, MyObserver<BaseResponse> observer) {
 
         RetrofitUtils.getApiUrl()
                 .postUser(url, convertMapToBody(params), headsMap).compose(RxHelper.observableIO2Main(context))
@@ -260,7 +260,7 @@ public class RequestUtils {
     }
 
 
-    //下载文件,url  接口地址   path:文件存储路径   observer：回调
+    //下载文件,url  接口地址   filename:文件名称   observer：回调
     public static void DownLoad(String url, final String filename,MyObserver<File>observer) {
         RetrofitUtils.getApiUrl().download(url).subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
@@ -312,27 +312,6 @@ public class RequestUtils {
 
 
 
-//    //保存
-//    public static File save(String filePath, ResponseBody body){
-//
-//        final File[] file = {null};
-//        //判断SDcard是否存在并且可读写
-//        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    file[0] = saveFile(filePath, body);
-//                }
-//            }.start();
-//
-//            return file[0];
-//        }else{
-//            Log.e("内存卡","没有或者不可读写");
-//        }
-//
-//       return null;
-//    }
 
 
     //保存文件
