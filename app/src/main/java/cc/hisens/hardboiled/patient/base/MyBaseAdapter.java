@@ -19,9 +19,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
     private List<T> mList;
     private LayoutInflater mLayoutInflater;
 
-    public MyBaseAdapter() {
 
-    }
 
     public MyBaseAdapter(Context context, List<T> list) {
         mContext = context;

@@ -144,8 +144,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         }
         ActivityCollector.removeActivity(this);
 
-        RefWatcher refWatcher = appLication.getRefWatcher(this);
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = appLication.getRefWatcher(this);
+//        refWatcher.watch(this);
 
     }
 

@@ -238,6 +238,7 @@ public class User implements RealmModel {
 
             @Override
             public void onFailure(Throwable e, String errorMsg) {
+                errorMsg="无法连接网络，请检查网络是否打开！";
                 listener.loginFailed(errorMsg);
             }
         });
@@ -259,7 +260,9 @@ public class User implements RealmModel {
                     if (result.result == 0) {
                         listener.getSuccess("发送成功");
                     } else {
-
+                         if (result.result==1003){
+                             result.message="获取验证码超过次数!";
+                         }
                         listener.getFailed(result.message);
                     }
                 }
@@ -292,7 +295,9 @@ public class User implements RealmModel {
                         ToastUtils.show(context, "发送成功");
 
                     } else {
-
+                        if (result.result==1003){
+                            result.message="获取验证码超过次数!";
+                        }
                         listener.loginFailed(result.message);
                     }
                 }

@@ -59,10 +59,9 @@ public class SplashActivity extends BaseActivity {
         if (sharedUtils.readBoolean(UserConfig.UserInfo.EXTRA_IS_LOGIN, false)) {
            startActivity(new Intent(this, MainActivity.class));
         } else {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
         finish();  //销毁当前界面
-
 
     }
 

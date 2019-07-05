@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal">
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="@dimen/x130"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_notes_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="210px"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tag_bg_top"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginTop="38px"
+                    android:text="@string/sync_completed_with_drawable"
+                    android:textColor="#ffffff"
+                    android:textSize="26px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12px"
+                    android:text="@string/mark_measurement_state"
+                    android:textColor="#ffffff"
+                    android:textSize="36px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="30px"
+                    android:layout_marginTop="8px"
+                    android:text="@string/mark_measurement_state_hint"
+                    android:textColor="#ffffff"
+                    android:textSize="24px" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/rgrp_is_sleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30px"
+                    android:checkedButton="@+id/rbtn_yes"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbtn_yes"
+                        style="@style/RadioButtonTheme"
+                        android:text="@string/l_test_in_sleep" />
+
+                    <RadioButton
+                        android:id="@+id/rbtn_no"
+                        style="@style/RadioButtonTheme"
+                        android:text="@string/l_test_in_sober" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <include layout="@layout/include_separator" />
+
+
+            <cc.hisens.hardboiled.patient.wideview.DefaultTagLayout
+                android:id="@+id/tl_common_marks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    style="@style/CheckBoxTheme"
+                    android:checked="true"
+                    android:text="@string/nothing" />
+
+                <CheckBox
+                    style="@style/CheckBoxTheme"
+                    android:text="@string/sildenafil" />
+
+                <CheckBox
+                        style="@style/CheckBoxTheme"
+                        android:text="@string/tadalafil" />
+
+                <CheckBox
+                    style="@style/CheckBoxTheme"
+                    android:text="@string/vardenafil" />
+
+                <CheckBox
+                    style="@style/CheckBoxTheme"
+                    android:text="@string/phentolamine" />
+
+                <CheckBox
+                    style="@style/CheckBoxTheme"
+                    android:text="@string/av_video" />
+
+                <CheckBox
+                    style="@style/CheckBoxTheme"
+                    android:text="@string/masturbation" />
+
+                <CheckBox
+                    style="@style/CheckBoxTheme"
+                    android:text="@string/sexual_stimulus" />
+            </cc.hisens.hardboiled.patient.wideview.DefaultTagLayout>>
+
+
+            <EditText
+                android:id="@+id/et_others"
+                android:layout_width="match_parent"
+                android:layout_height="136px"
+                android:layout_marginBottom="20px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:layout_marginTop="30px"
+                android:background="#f6f6f6"
+                android:gravity="top"
+                android:hint="@string/others_hint"
+                android:padding="20px"
+                android:textColor="#666666"
+                android:textColorHint="#cccccc"
+                android:textSize="26px" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/iv_add_notes_completed"
+        android:layout_width="110px"
+        android:layout_height="110px"
+        android:layout_below="@id/cv_notes_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30px"
+        android:background="@drawable/syncdata_success_shape"
+        android:scaleType="center"
+        android:src="@drawable/tag_btn_ok02" />
+</RelativeLayout>

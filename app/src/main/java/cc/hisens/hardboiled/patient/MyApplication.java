@@ -40,13 +40,13 @@ public class MyApplication extends MultiDexApplication {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void init() {
 
-        //检查内存泄漏
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        refWatcher = LeakCanary.install(this);
+////        //检查内存泄漏
+////        if (LeakCanary.isInAnalyzerProcess(this)) {
+////            // This process is dedicated to LeakCanary for heap analysis.
+////            // You should not init your app in this process.
+////            return;
+////        }
+//        refWatcher = LeakCanary.install(this);
 
         Realm.init(this);   //数据库初始化
         UserConfig.init(this);
@@ -75,10 +75,10 @@ public class MyApplication extends MultiDexApplication {
     }
 
 
-// 内存泄漏的监控
-    public static RefWatcher getRefWatcher(Context context) {
-        return  getInstance().refWatcher;
-    }
+//// 内存泄漏的监控
+//    public static RefWatcher getRefWatcher(Context context) {
+//        return  getInstance().refWatcher;
+//    }
 
 
 

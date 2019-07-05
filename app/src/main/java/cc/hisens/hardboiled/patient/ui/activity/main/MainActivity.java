@@ -116,7 +116,6 @@ public class MainActivity extends BaseActivity implements AppcheckInfoView {
 
     //初始化控件和界面
     private void initView() {
-
         firstFragment = new MonitorFragment();
         secondFragment = new DoctorFragment();
         meFragment = new MeFragment();

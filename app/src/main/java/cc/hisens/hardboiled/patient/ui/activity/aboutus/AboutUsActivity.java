@@ -13,6 +13,8 @@ import cc.hisens.hardboiled.patient.R;
 import cc.hisens.hardboiled.patient.base.BaseActivity;
 import cc.hisens.hardboiled.patient.base.BasePresenter;
 
+
+//关于我们
 public class AboutUsActivity extends BaseActivity {
 
     @BindView(R.id.tv_back)

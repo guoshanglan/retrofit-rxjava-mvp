@@ -1,11 +1,13 @@
 package cc.hisens.hardboiled.patient.ui.fragment.monitor;
 
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.bluetooth.BluetoothGatt;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,12 +33,19 @@ import cc.hisens.hardboiled.patient.ble.UUIDConstants;
 import cc.hisens.hardboiled.patient.ble.callbacks.ISyncDataCallback;
 import cc.hisens.hardboiled.patient.eventbus.onDeviceMessage;
 import cc.hisens.hardboiled.patient.ui.activity.main.MainActivity;
+import cc.hisens.hardboiled.patient.utils.SyncDatadialog;
+
+/**
+   数据监测页面
+*/
 
 public class MonitorFragment extends BaseFragment{
 
 
     private BLEManagerWrapper mBleManagerWrapper;  //蓝牙操作管理者
     private ISyncDataCallback mISyncDataCallback = new ISyncDataCallbackImpl();   //同步数据的回调callback如查询·蓝牙设备的电量，设备号等
+    private SyncDatadialog datadialog;
+
 
 
 
@@ -52,6 +61,7 @@ public class MonitorFragment extends BaseFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+
     }
 
 
@@ -67,15 +77,19 @@ public class MonitorFragment extends BaseFragment{
     private void initView() {
         mBleManagerWrapper = BLEManagerWrapper.getInstance();
         mBleManagerWrapper.addSyncDataCallback(mISyncDataCallback);  //添加接口数据回调
+        datadialog=new SyncDatadialog(getActivity());
 
     }
+
+
 
 
     @OnClick(R.id.btn_tongbu)
     public void OnClick(View view){
         switch (view.getId()){
             case R.id.btn_tongbu:
-                BlueIsOpen();
+             /*   BlueIsOpen();*/
+                datadialog.inintDialog();
                 break;
 
         }

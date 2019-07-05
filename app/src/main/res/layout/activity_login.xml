@@ -13,6 +13,7 @@
         android:layout_marginTop="@dimen/x99"
         android:text="WELCOME!"
         android:textColor="#181818"
+        android:textFontWeight="5"
         android:layout_marginLeft="@dimen/x28"
         android:textSize="@dimen/x36"
         android:textStyle="bold" />
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="输入验证码"
         android:id="@+id/tv_login"
+        android:textFontWeight="5"
         android:layout_below="@id/tv_appname"
         android:layout_marginLeft="@dimen/x28"
         android:textColor="#181818"
